@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 

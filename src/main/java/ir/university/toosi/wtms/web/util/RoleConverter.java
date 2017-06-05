@@ -1,17 +1,12 @@
 package ir.university.toosi.wtms.web.util;
 
 import ir.university.toosi.tms.model.entity.Role;
-import ir.university.toosi.tms.model.entity.WorkGroup;
-import ir.university.toosi.tms.model.entity.personnel.Card;
-import ir.university.toosi.wtms.web.action.person.HandleCardAction;
 import ir.university.toosi.wtms.web.action.role.HandleRoleAction;
-import ir.university.toosi.wtms.web.action.workgroup.HandleWorkGroupAction;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import javax.inject.Named;
 

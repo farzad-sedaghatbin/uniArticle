@@ -1,28 +1,15 @@
 package ir.university.toosi.wtms.web.action.person;
 
-import ir.university.toosi.parking.action.HandleCarAction;
-import ir.university.toosi.parking.entity.Car;
-import ir.university.toosi.parking.service.CarServiceImpl;
 import ir.university.toosi.tms.model.entity.BLookup;
 import ir.university.toosi.tms.model.entity.Lookup;
 import ir.university.toosi.tms.model.entity.PersonSearch;
-import ir.university.toosi.tms.model.entity.calendar.Calendar;
-import ir.university.toosi.tms.model.entity.calendar.DayType;
-import ir.university.toosi.tms.model.entity.personnel.Card;
 import ir.university.toosi.tms.model.entity.personnel.Job;
 import ir.university.toosi.tms.model.entity.personnel.Organ;
 import ir.university.toosi.tms.model.entity.personnel.Person;
-import ir.university.toosi.tms.model.entity.rule.Rule;
-import ir.university.toosi.tms.model.entity.rule.RulePackage;
 import ir.university.toosi.tms.model.service.BLookupServiceImpl;
-import ir.university.toosi.tms.model.service.calendar.CalendarServiceImpl;
-import ir.university.toosi.tms.model.service.calendar.DayTypeServiceImpl;
-import ir.university.toosi.tms.model.service.personnel.CardServiceImpl;
 import ir.university.toosi.tms.model.service.personnel.JobServiceImpl;
 import ir.university.toosi.tms.model.service.personnel.OrganServiceImpl;
 import ir.university.toosi.tms.model.service.personnel.PersonServiceImpl;
-import ir.university.toosi.tms.model.service.rule.RulePackageServiceImpl;
-import ir.university.toosi.tms.model.service.rule.RuleServiceImpl;
 import ir.university.toosi.tms.util.Configuration;
 import ir.university.toosi.tms.util.LangUtil;
 import ir.university.toosi.wtms.web.action.AccessControlAction;
@@ -31,12 +18,6 @@ import ir.university.toosi.wtms.web.action.organ.HandleOrganAction;
 import ir.university.toosi.wtms.web.helper.GeneralHelper;
 import ir.university.toosi.wtms.web.util.CalendarUtil;
 import ir.university.toosi.wtms.web.util.ImageUtils;
-import ir.university.toosi.wtms.web.util.ReportUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.StreamedContent;
@@ -47,14 +28,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -62,7 +40,7 @@ import java.net.URISyntaxException;
 import java.util.*;
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 
@@ -78,29 +56,15 @@ public class HandlePersonAction implements Serializable {
     private AccessControlAction accessControlAction;
     @Inject
     private HandleOrganAction handleOrganAction;
-    @Inject
-    private CalendarServiceImpl calendarService;
-    @Inject
-    private HandleCarAction handleCarAction;
     @EJB
     private PersonServiceImpl personService;
 
     @EJB
     private OrganServiceImpl organService;
     @EJB
-    private RulePackageServiceImpl rulePackageService;
-    @EJB
-    private RuleServiceImpl ruleService;
-    @EJB
     private JobServiceImpl jobService;
     @EJB
-    private DayTypeServiceImpl dayTypeService;
-    @EJB
     private BLookupServiceImpl bLookupService;
-    @EJB
-    private CardServiceImpl cardService;
-    @EJB
-    private CarServiceImpl carService;
 
 
     private List<Long> personListID = new ArrayList<>();
@@ -123,14 +87,11 @@ public class HandlePersonAction implements Serializable {
     private Organ selectedOrgan;
     private String selectedOrganName, rulePackageName, organId, calendarName;
     private boolean antiPassBack, allowExit, allowExitGadget;
-    private List<RulePackage> rulePackageList = null;
-    private RulePackage selectedRulePackage;
     private byte[] picture;
     private String name;
     private List<String> pageCount = new ArrayList<>();
     private int pageFrom = 1;
     private int pageTo = 5;
-    private List<Rule> ruleArrayList = new ArrayList<>();
     private boolean ruleAniPassBack = false;
     private boolean ruleAllowExit = false;
     private boolean ruleAllowExitGadget = false;
@@ -138,20 +99,15 @@ public class HandlePersonAction implements Serializable {
     private boolean havePicture = false;
     private boolean firstPage = false;
     private boolean lastPage = false;
-    private DataModel<Rule> ruleListTemp = null;
     private Calendar selectedCalendar;
-    private DayType ruleDayType;
     private String selectedCalendarIdTemp, dayTypeIdTemp, ruleStartTime, ruleEndTime, startHour, startMinute, startSecond;
     private String endHour, endMinute, endSecond, ruleEntranceCount, ruleExitCount, finger;
     private Boolean ruleDeny;
-    private List<Card> cards = new ArrayList<>();
     private Job job;
     private String editableRule = "false";
     private boolean addNewRuleFlag = false;
-    private Rule currentRule;
     private SelectItem[] dayTypeItems;
     private List<Calendar> calendarItems = new ArrayList();
-    private Hashtable<String, DayType> dayTypeHashtable = new Hashtable<>();
     private String employNo;
     private BLookup employeeType;
     private List<BLookup> employeeTypes = new ArrayList<>();
@@ -212,7 +168,6 @@ public class HandlePersonAction implements Serializable {
         page = 1;
         picture = new byte[0];
         calendarItems = new ArrayList();
-        fillDayTypeCombo();
         setCurrentPerson(null);
         setSelectRow(false);
         employNo = "";
@@ -348,19 +303,6 @@ public class HandlePersonAction implements Serializable {
     }
 
 
-    private void fillDayTypeCombo() {
-
-        List<DayType> dayTypes = null;
-        dayTypes = dayTypeService.getAllDayType();
-
-        dayTypeItems = new SelectItem[dayTypes.size()];
-        int i = 0;
-        for (DayType dayType : dayTypes) {
-            dayTypeHashtable.put(String.valueOf(dayType.getId()), dayType);
-            dayTypeItems[i] = new SelectItem(dayType.getId(), dayType.getTitle());
-            i++;
-        }
-    }
 
     private void refresh() {
         init();
@@ -448,67 +390,6 @@ public class HandlePersonAction implements Serializable {
         lastPageIndex = String.valueOf(pageIndex);
     }
 
-    public String exportExcel() {
-        List<String> titles = new ArrayList<>();
-        titles.add("name");
-        titles.add("lastname");
-        titles.add("personnelCode");
-        titles.add("nationalCode");
-        Workbook currentWorkbook = new HSSFWorkbook();
-        Sheet sheet = currentWorkbook.createSheet("persons");
-        sheet.autoSizeColumn(0);
-
-        int rowCounter = 0;
-        Row row = sheet.createRow(rowCounter);
-        int cellCounter = 0;
-        int rowSize = titles.size();
-        Cell cell = row.createCell(cellCounter);
-
-        for (String title : titles) {
-            cell = row.createCell(cellCounter);
-            cellCounter++;
-            cell.setCellValue(title);
-        }
-
-        for (Long report : innerPersonList) {
-
-            Person reportEntity = returnPerson(report);
-            rowCounter++;
-            row = sheet.createRow(rowCounter);
-            cellCounter = 0;
-            cell = row.createCell(cellCounter);
-            String s1 = reportEntity.getName();
-            cell.setCellValue(s1);
-            cellCounter++;
-            cell = row.createCell(cellCounter);
-            s1 = reportEntity.getLastName();
-            cell.setCellValue(s1);
-            cellCounter++;
-            cell = row.createCell(cellCounter);
-            s1 = reportEntity.getPersonnelNo();
-            cell.setCellValue(s1);
-            cellCounter++;
-            cell = row.createCell(cellCounter);
-            s1 = reportEntity.getNationalCode();
-            cell.setCellValue(s1);
-        }
-        for (int i = 0; i < titles.size(); i++) {
-            sheet.autoSizeColumn(i);
-        }
-
-        for (int i = titles.size(); i < (rowSize + titles.size()); i++) {
-            sheet.autoSizeColumn(i);
-        }
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
-            currentWorkbook.write(byteArrayOutputStream);
-
-            new ReportUtils<>().readyForDownload(byteArrayOutputStream.toByteArray(), "vnd.ms-excel", LangUtil.getEnglishNumber(CalendarUtil.getDateWithoutSlash(new Date(), new Locale("fa"), "yyyyMMdd")) + ".xls");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 
     public void addCondition() {
 
@@ -704,7 +585,6 @@ public class HandlePersonAction implements Serializable {
         page = 1;
         picture = new byte[0];
         calendarItems = new ArrayList();
-        fillDayTypeCombo();
         setCurrentPerson(null);
         setSelectRow(false);
         employNo = "";
@@ -863,7 +743,6 @@ public class HandlePersonAction implements Serializable {
 
     public void detail() {
         setEditable("true");
-        cards = cardService.findByPersonId(currentPerson.getId());
 
         if (currentPerson.getFinger() == null) {
             finger = "false";
@@ -939,186 +818,6 @@ public class HandlePersonAction implements Serializable {
         }
     }
 
-    public void assignRule(String personId) {
-        currentPerson = personService.findById(Long.parseLong(personId));
-        selectedRulePackage = currentPerson.getRulePackage();
-        if (selectedRulePackage != null) {
-            rulePackageName = selectedRulePackage.getName();
-            if (selectedRulePackage.getCalendar() != null)
-                calendarName = selectedRulePackage.getCalendar().getName();
-            else
-                calendarName = "";
-            antiPassBack = selectedRulePackage.isAniPassBack();
-            allowExit = selectedRulePackage.isAllowExit();
-            allowExitGadget = selectedRulePackage.isAllowExitGadget();
-        } else {
-            rulePackageName = "";
-            calendarName = "";
-            antiPassBack = false;
-            allowExit = false;
-            allowExitGadget = false;
-        }
-
-        List rulePackages = rulePackageService.getAllRulePackage();
-        rulePackageList = rulePackages;
-    }
-
-    public void doAssignCar() {
-        Car car = handleCarAction.getCurrentCar();
-        car.setPerson(currentPerson);
-        carService.editCar(car);
-    }
-
-    public void editRule(String personId) {
-        currentPerson = personService.findById(Long.parseLong(personId));
-        if (currentPerson.getRulePackage() == null) {
-            refresh();
-            me.addErrorMessage("has.not.rulePackage");
-            me.redirect("/person/persons.xhtml");
-            return;
-        }
-
-        editPersonRule(currentPerson.getRulePackage());
-    }
-
-
-    public void editPersonRule(RulePackage rulePackage) {
-        ruleArrayList = new ArrayList<>();
-        ruleArrayList = ruleService.getByRulePackageId(rulePackage.getId());
-        ruleListTemp = new ListDataModel<>(ruleArrayList);
-        name = rulePackage.getName();
-        ruleAllowExitGadget = rulePackage.isAllowExitGadget();
-        ruleAniPassBack = rulePackage.isAniPassBack();
-        ruleAllowExit = rulePackage.isAllowExit();
-        calendarItems = calendarService.getAllCalendar();
-        selectedCalendar = rulePackage.getCalendar();
-        if (selectedCalendar != null)
-            selectedCalendarIdTemp = String.valueOf(selectedCalendar.getId());
-        editable = "true";
-    }
-
-    public void remove() {
-        currentRule = ruleListTemp.getRowData();
-        ruleArrayList.remove(currentRule);
-        ruleListTemp = new ListDataModel<>(ruleArrayList);
-    }
-
-    public void addNewRule() {
-        ruleDayType = null;
-        ruleStartTime = "";
-        ruleEndTime = "";
-        ruleEntranceCount = "";
-        ruleExitCount = "";
-        ruleDeny = false;
-        addNewRuleFlag = true;
-    }
-
-    public void doAddNewRule() {
-        ruleStartTime = startHour + ":" + startMinute + ":" + startSecond;
-        ruleEndTime = endHour + ":" + endMinute + ":" + endSecond;
-        Rule rule = new Rule();
-        rule.setDayType(dayTypeHashtable.get(dayTypeIdTemp));
-        rule.setStartTime(ruleStartTime);
-        rule.setEndTime(ruleEndTime);
-        rule.setEntranceCount(ruleEntranceCount);
-        rule.setExitCount(ruleExitCount);
-        rule.setDeny(ruleDeny);
-        if (feasible(rule)) {
-            ruleArrayList.add(rule);
-            ruleListTemp = new ListDataModel<>(ruleArrayList);
-            addNewRuleFlag = false;
-        } else me.addInfoMessage("conflict");
-    }
-
-    public boolean feasible(Rule rule) {
-
-        if (rule.isDeny())
-            return true;
-        long startTime = time2long(rule.getStartTime());
-        long endTime = time2long(rule.getEndTime());
-        boolean flag = true;
-
-        if (endTime < startTime)
-            return false;
-
-        for (Rule rule1 : ruleArrayList) {
-            if (rule1.getDayType().getId() != rule.getDayType().getId())
-                continue;
-            if (startTime >= time2long(rule1.getStartTime()) && endTime <= time2long(rule1.getStartTime()))
-                flag = true;
-            else if (startTime > time2long(rule1.getEndTime()) && endTime > time2long(rule1.getEndTime()))
-                flag = true;
-            else {
-                flag = false;
-                break;
-            }
-        }
-
-        return flag;
-    }
-
-    public long time2long(String time) {
-        String[] d = time.split(":");
-        String s = (d[0].length() == 2 ? d[0] : '0' + d[0]) + (d[1].length() == 2 ? d[1] : '0' + d[1]) + (d[2].length() == 2 ? d[2] : '0' + d[2]);
-        return Long.valueOf(s);
-    }
-
-    public void doEditPersonRule() {
-        RulePackage newRulePackage = new RulePackage();
-        newRulePackage.setStatus("c");
-        newRulePackage.setDeleted("0");
-        newRulePackage.setEffectorUser(me.getUsername());
-        newRulePackage.setName(name + "_" + currentPerson.getPersonnelNo());
-        newRulePackage.setAllowExit(ruleAllowExit);
-        newRulePackage.setAniPassBack(ruleAniPassBack);
-        newRulePackage.setAllowExitGadget(ruleAllowExitGadget);
-        newRulePackage.setCalendar(calendarService.findById(selectedCalendarIdTemp));
-
-        RulePackage addedRulePackage = null;
-        addedRulePackage = rulePackageService.createRulePackage(newRulePackage);
-        if (addedRulePackage != null) {
-            for (Rule rule : ruleArrayList) {
-                rule.setRulePackage(addedRulePackage);
-                ruleService.createRule(rule);
-            }
-
-            currentPerson.setRulePackage(addedRulePackage);
-            boolean condition = personService.editPerson(currentPerson);
-            if (condition) {
-                refresh();
-                me.addInfoMessage("operation.occurred");
-                me.redirect("/person/persons.xhtml");
-            } else {
-                me.addInfoMessage("operation.not.occurred");
-                return;
-            }
-        } else {
-            me.addInfoMessage("operation.not.occurred");
-            return;
-        }
-    }
-
-
-    public void doAssignRule() {
-        String currentDate = LangUtil.getEnglishNumber(CalendarUtil.getDateWithoutSlash(new Date(), new Locale("fa"), "yyyyMMdd"));
-        String currentTime = CalendarUtil.getTime(new Date(), new Locale("fa"));
-        currentPerson.setCreateDate(currentDate);
-        currentPerson.setCreateTime(currentTime);
-        currentPerson.setStatus("c");
-        currentPerson.setCreateBy(me.getUsername());
-        currentPerson.setDeleted("0");
-        currentPerson.setEffectorUser(me.getUsername());
-        currentPerson.setRulePackage(selectedRulePackage);
-        boolean condition = personService.editPerson(currentPerson);
-//        if (condition) {
-//            refresh();
-//            me.addInfoMessage("operation.occurred");
-//            me.redirect("/person/persons.xhtml");
-//        } else {
-//            me.addInfoMessage("operation.not.occurred");
-//            return;
-//        }
-    }
 
     public void personDetail() {
 //        workGroupRoleList = new DataModel<>(new ArrayList<>(currentPerson.getWorkGroups().getRoles()));
@@ -1129,17 +828,6 @@ public class HandlePersonAction implements Serializable {
 
     }
 
-    public void selectNewRuleForPerson(String id) {
-        selectedRulePackage = rulePackageService.findById(id);
-        rulePackageName = selectedRulePackage.getName();
-        if (selectedRulePackage.getCalendar() != null)
-            calendarName = selectedRulePackage.getCalendar().getName();
-        else
-            calendarName = "";
-        antiPassBack = selectedRulePackage.isAniPassBack();
-        allowExit = selectedRulePackage.isAllowExit();
-        allowExitGadget = selectedRulePackage.isAllowExitGadget();
-    }
 
     public void selectOrgan() {
         selectedOrganName = selectedOrgan.getName();
@@ -1465,14 +1153,6 @@ public class HandlePersonAction implements Serializable {
         this.organItem = organItem;
     }
 
-    public RulePackage getSelectedRulePackage() {
-        return selectedRulePackage;
-    }
-
-    public void setSelectedRulePackage(RulePackage selectedRulePackage) {
-        this.selectedRulePackage = selectedRulePackage;
-    }
-
     public Person getSelectedPerson() {
         return selectedPerson;
     }
@@ -1575,14 +1255,6 @@ public class HandlePersonAction implements Serializable {
 
     public void setAllowExitGadget(boolean allowExitGadget) {
         this.allowExitGadget = allowExitGadget;
-    }
-
-    public List<RulePackage> getRulePackageList() {
-        return rulePackageList;
-    }
-
-    public void setRulePackageList(List<RulePackage> rulePackageList) {
-        this.rulePackageList = rulePackageList;
     }
 
     public byte[] getPicture() {
@@ -1723,14 +1395,6 @@ public class HandlePersonAction implements Serializable {
         this.ruleAllowExitGadget = ruleAllowExitGadget;
     }
 
-    public DataModel<Rule> getRuleListTemp() {
-        return ruleListTemp;
-    }
-
-    public void setRuleListTemp(DataModel<Rule> ruleListTemp) {
-        this.ruleListTemp = ruleListTemp;
-    }
-
     public Calendar getSelectedCalendar() {
         return selectedCalendar;
     }
@@ -1739,13 +1403,6 @@ public class HandlePersonAction implements Serializable {
         this.selectedCalendar = selectedCalendar;
     }
 
-    public DayType getRuleDayType() {
-        return ruleDayType;
-    }
-
-    public void setRuleDayType(DayType ruleDayType) {
-        this.ruleDayType = ruleDayType;
-    }
 
     public String getSelectedCalendarIdTemp() {
         return selectedCalendarIdTemp;
@@ -1867,14 +1524,6 @@ public class HandlePersonAction implements Serializable {
         this.addNewRuleFlag = addNewRuleFlag;
     }
 
-    public Rule getCurrentRule() {
-        return currentRule;
-    }
-
-    public void setCurrentRule(Rule currentRule) {
-        this.currentRule = currentRule;
-    }
-
     public SelectItem[] getDayTypeItems() {
         return dayTypeItems;
     }
@@ -1891,13 +1540,6 @@ public class HandlePersonAction implements Serializable {
         this.calendarItems = calendarItems;
     }
 
-    public Hashtable<String, DayType> getDayTypeHashtable() {
-        return dayTypeHashtable;
-    }
-
-    public void setDayTypeHashtable(Hashtable<String, DayType> dayTypeHashtable) {
-        this.dayTypeHashtable = dayTypeHashtable;
-    }
 
     public int getPageInPopup() {
         return pageInPopup;
@@ -2046,13 +1688,6 @@ public class HandlePersonAction implements Serializable {
         this.currentJob = currentJob;
     }
 
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
 
     public String getSelectedOrganName() {
         return selectedOrganName;
@@ -2316,14 +1951,6 @@ public class HandlePersonAction implements Serializable {
 
     public void setPersonSearches(List<PersonSearch> personSearches) {
         this.personSearches = personSearches;
-    }
-
-    public List<Rule> getRuleArrayList() {
-        return ruleArrayList;
-    }
-
-    public void setRuleArrayList(List<Rule> ruleArrayList) {
-        this.ruleArrayList = ruleArrayList;
     }
 
 

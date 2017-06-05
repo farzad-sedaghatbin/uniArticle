@@ -43,7 +43,7 @@ import java.util.GregorianCalendar;
 
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 public class SimplePersianCalendar extends GregorianCalendar {

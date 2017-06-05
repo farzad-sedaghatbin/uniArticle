@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * @author : Hamed Hatami , Javad Sarhadi , Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 1.0
  */
 public abstract class ImageLoaderServlet extends HttpServlet {

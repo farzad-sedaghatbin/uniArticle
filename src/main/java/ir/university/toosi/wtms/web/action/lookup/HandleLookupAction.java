@@ -1,31 +1,20 @@
 package ir.university.toosi.wtms.web.action.lookup;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import ir.university.toosi.tms.model.service.LookupServiceImpl;
-import ir.university.toosi.wtms.web.action.UserManagementAction;
 import ir.university.toosi.tms.model.entity.Lookup;
-import ir.university.toosi.tms.model.entity.MenuType;
-import ir.university.toosi.tms.model.entity.WebServiceInfo;
-import ir.university.toosi.wtms.web.util.RESTfulClientUtil;
+import ir.university.toosi.wtms.web.action.UserManagementAction;
 import org.primefaces.model.SortOrder;
 
-
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 
@@ -38,8 +27,6 @@ public class HandleLookupAction implements Serializable {
     @Inject
     private HandleBLookupAction handleBLookupAction;
 
-    @EJB
-    private LookupServiceImpl lookupService;
     private List<Lookup> lookupList = null;
     private String editable = "false";
     private String lookupTitle;
@@ -67,11 +54,6 @@ public class HandleLookupAction implements Serializable {
     }
     private void refresh() {
         init();
-     lookupList = lookupService.getAllLookup();
-            for (Lookup lookup : lookupList) {
-//                lookup.setTitleText(me.getValue(lookup.getTitle()));
-                lookup.setTitleText(lookup.getTitle());
-            }
     }
 
     public void add() {

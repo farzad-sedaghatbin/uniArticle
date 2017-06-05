@@ -1,7 +1,8 @@
 package ir.university.toosi.tms.model.service;
 
 import ir.university.toosi.tms.model.dao.OperationDAOImpl;
-import ir.university.toosi.tms.model.entity.*;
+import ir.university.toosi.tms.model.entity.EventLogType;
+import ir.university.toosi.tms.model.entity.Operation;
 import ir.university.toosi.tms.util.Configuration;
 import ir.university.toosi.tms.util.EventLogManager;
 
@@ -12,9 +13,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
@@ -31,10 +30,7 @@ public class OperationServiceImpl<T extends Operation> {
 
     @EJB
     private EventLogServiceImpl eventLogService;
-    @EJB
-    private LanguageManagementServiceImpl languageManagementService;
-    @EJB
-    private LanguageKeyManagementServiceImpl languageKeyManagementService;
+
 
 
     public void test(String param) {
@@ -99,18 +95,9 @@ public class OperationServiceImpl<T extends Operation> {
     public T createOperation(T entity) {
         try {
             entity = (T) operationDAO.create(entity);
-            LanguageManagement languageManagement = new LanguageManagement();
-            languageManagement.setTitle(entity.getDescription() == null ? "" : entity.getDescription());
-            languageManagementService.createLanguageManagement(languageManagement);
 
-            Set list = new HashSet();
-            list.add(languageManagement);
 
-            LanguageKeyManagement languageKeyManagement = new LanguageKeyManagement();
-            languageKeyManagement.setDescriptionKey(entity.getId() + Role.class.getSimpleName());
-            languageKeyManagement.setLanguageManagements(list);
             entity.setDescription(entity.getId() + Operation.class.getSimpleName());
-            languageKeyManagementService.createLanguageKeyManagement(languageKeyManagement);
 
             EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), Operation.class.getSimpleName(), EventLogType.ADD, entity.getEffectorUser());
             return entity;

@@ -29,10 +29,7 @@ public class RoleServiceImpl<T extends Role> {
     private EventLogServiceImpl eventLogService;
     @EJB
     private WorkGroupServiceImpl workGroupService;
-    @EJB
-    private LanguageManagementServiceImpl languageManagementService;
-    @EJB
-    private LanguageKeyManagementServiceImpl languageKeyManagementService;
+
 
 
     public T findById(String id) {

@@ -20,7 +20,6 @@ public class NationalCodeValidator implements Validator {
             if (!isValidNationalCode(value)) {
                 FacesMessage message = new FacesMessage();
                 message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                message.setSummary(me.getValue("national.code.exception"));
                 throw new ValidatorException(message);
             }
         }

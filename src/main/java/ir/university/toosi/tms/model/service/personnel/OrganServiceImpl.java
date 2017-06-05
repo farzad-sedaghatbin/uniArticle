@@ -7,7 +7,6 @@ import ir.university.toosi.tms.model.entity.Permission;
 import ir.university.toosi.tms.model.entity.PermissionType;
 import ir.university.toosi.tms.model.entity.personnel.Organ;
 import ir.university.toosi.tms.model.entity.personnel.Person;
-import ir.university.toosi.tms.model.entity.rule.RulePackage;
 import ir.university.toosi.tms.model.service.EventLogServiceImpl;
 import ir.university.toosi.tms.model.service.PermissionServiceImpl;
 import ir.university.toosi.tms.util.EventLogManager;
@@ -15,9 +14,7 @@ import ir.university.toosi.tms.util.EventLogManager;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
@@ -47,13 +44,7 @@ public class OrganServiceImpl<T extends Organ> {
         }
     }
 
-    public List<T> findByRulePackageId(Long id) {
-        try {
-            return (List<T>) organDAO.findByRulePackageId(id);
-        } catch (Exception e) {
-            return null;
-        }
-    }
+
 
 
     public List<T> getAllOrgan() {
@@ -119,44 +110,9 @@ public class OrganServiceImpl<T extends Organ> {
     public boolean editOrgan(T entity) {
         try {
             Organ oldOrgan = findById(entity.getId());
-            if (entity.isInheritance()) {
-                if (entity.getRulePackage() != null) {
-                    List<Person> persons = personService.findByOrgan(oldOrgan.getId());
-                    for (Person person : persons) {
-                        person.setRulePackage(entity.getRulePackage());
-                        personService.editPerson(person);
-                    }
-                    List<Organ> childOrgans = findChildOrgans(oldOrgan, oldOrgan.getRulePackage());
-                    if (childOrgans != null && childOrgans.size() != 0) {
-                        for (Organ childOrgan : childOrgans) {
-
-                            childOrgan.setRulePackage(entity.getRulePackage());
-                            organDAO.update(childOrgan);
-                             persons = personService.findByOrgan(childOrgan.getId());
-                            for (Person person : persons) {
-                                person.setRulePackage(entity.getRulePackage());
-                                personService.editPerson(person);
-                            }
-                            if (childOrgan.getChildOrgans() != null && childOrgan.getChildOrgans().size() != 0) {
-                                for (Organ organ : childOrgan.getChildOrgans()) {
-                                    organ.setRulePackage(entity.getRulePackage());
-                                    organDAO.update(organ);
-                                    persons = personService.findByOrgan(organ.getId());
-                                    for (Person person : persons) {
-                                        person.setRulePackage(entity.getRulePackage());
-                                        personService.editPerson(person);
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                      persons = personService.findByOrgan(oldOrgan.getId());
-                        for (Person person : persons) {
-                            person.setRulePackage(entity.getRulePackage());
+            List<Person> personsss = personService.findByOrgan(oldOrgan.getId());
+                        for (Person person : personsss) {
                             personService.editPerson(person);
-                        }
-                    }
-                }
             }
 
             Organ newOrgan = new Organ();
@@ -166,7 +122,6 @@ public class OrganServiceImpl<T extends Organ> {
             newOrgan.setInheritance(oldOrgan.isInheritance());
             newOrgan.setOrganType(oldOrgan.getOrganType());
             newOrgan.setParentOrgan(oldOrgan.getParentOrgan());
-            newOrgan.setRulePackage(oldOrgan.getRulePackage());
             newOrgan.setStatus("o," + entity.getEffectorUser());
             organDAO.createOld(newOrgan);
 
@@ -180,30 +135,4 @@ public class OrganServiceImpl<T extends Organ> {
         }
     }
 
-    private List<Organ> findChildOrgans(Organ organ, RulePackage rulePackage) {
-
-        Stack<Organ> organStack = new Stack<>();
-        List<Organ> addedList = new ArrayList<>();
-        List<Organ> organList = (List<Organ>) getAllActiveOrganByParent(organ.getId());
-        for (Organ organ1 : organList) {
-            if ((rulePackage == null && organ1.getRulePackage() == null) || (rulePackage != null && organ1.getRulePackage() != null && organ1.getRulePackage().getId() == rulePackage.getId())) {
-                organStack.push(organ1);
-            }
-        }
-
-        while (!organStack.isEmpty()) {
-            Organ removeOrgan = organStack.pop();
-            addedList.add(removeOrgan);
-            if (!removeOrgan.isInheritance())
-                continue;
-            organList = (List<Organ>) getAllActiveOrganByParent(removeOrgan.getId());
-            for (Organ organ1 : organList) {
-                if ((rulePackage == null && organ1.getRulePackage() == null) || (organ1.getRulePackage() != null && organ1.getRulePackage().getId() == rulePackage.getId())) {
-                    organStack.push(organ1);
-                }
-            }
-        }
-
-        return addedList;
-    }
 }

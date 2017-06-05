@@ -4,7 +4,6 @@ package ir.university.toosi.wtms.web.action.lookup;
 import ir.university.toosi.tms.model.entity.BLookup;
 import ir.university.toosi.tms.model.entity.Lookup;
 import ir.university.toosi.tms.model.service.BLookupServiceImpl;
-import ir.university.toosi.tms.model.service.LookupServiceImpl;
 import ir.university.toosi.wtms.web.action.UserManagementAction;
 import org.primefaces.model.SortOrder;
 
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 
@@ -31,8 +30,6 @@ public class HandleBLookupAction implements Serializable {
     private UserManagementAction me;
     @Inject
     private HandleLookupAction handleLookupAction;
-    @EJB
-    private LookupServiceImpl lookupService;
     @EJB
     private BLookupServiceImpl bLookupService;
     private List<BLookup> bLookupList = null;

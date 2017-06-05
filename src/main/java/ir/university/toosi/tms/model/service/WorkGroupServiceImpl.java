@@ -1,17 +1,16 @@
 package ir.university.toosi.tms.model.service;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.university.toosi.tms.model.dao.WorkGroupDAOImpl;
-import ir.university.toosi.tms.model.entity.*;
+import ir.university.toosi.tms.model.entity.EventLogType;
+import ir.university.toosi.tms.model.entity.User;
+import ir.university.toosi.tms.model.entity.WorkGroup;
 import ir.university.toosi.tms.util.EventLogManager;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
@@ -31,12 +30,6 @@ public class WorkGroupServiceImpl<T extends WorkGroup> {
 
     @EJB
     private EventLogServiceImpl eventLogService;
-
-    @EJB
-    private LanguageManagementServiceImpl languageManagementService;
-
-    @EJB
-    private LanguageKeyManagementServiceImpl languageKeyManagementService;
 
     public T findById(long id) {
         try {

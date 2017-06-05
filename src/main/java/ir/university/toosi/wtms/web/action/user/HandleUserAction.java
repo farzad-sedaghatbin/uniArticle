@@ -1,8 +1,7 @@
 package ir.university.toosi.wtms.web.action.user;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.university.toosi.tms.model.entity.*;
+import ir.university.toosi.tms.model.entity.personnel.Person;
 import ir.university.toosi.tms.model.service.PCServiceImpl;
 import ir.university.toosi.tms.model.service.UserServiceImpl;
 import ir.university.toosi.tms.model.service.WorkGroupServiceImpl;
@@ -14,11 +13,8 @@ import ir.university.toosi.wtms.web.action.person.HandlePersonAction;
 import ir.university.toosi.wtms.web.action.role.HandleRoleAction;
 import ir.university.toosi.wtms.web.action.workgroup.HandleWorkGroupAction;
 import ir.university.toosi.wtms.web.helper.GeneralHelper;
-import ir.university.toosi.tms.model.entity.personnel.Person;
 import ir.university.toosi.wtms.web.util.CalendarUtil;
 import ir.university.toosi.wtms.web.util.ImageUtils;
-import ir.university.toosi.wtms.web.util.RESTfulClientUtil;
-//import org.apache.commons.lang.StringUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -26,23 +22,22 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.UploadedFile;
 
-
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-//import javax.validation.constraints.AssertTrue;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
+//import org.apache.commons.lang.StringUtils;
+//import javax.validation.constraints.AssertTrue;
+
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 

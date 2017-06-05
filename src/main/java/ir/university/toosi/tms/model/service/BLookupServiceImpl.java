@@ -1,19 +1,14 @@
 package ir.university.toosi.tms.model.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.university.toosi.tms.model.dao.BLookupDAOImpl;
 import ir.university.toosi.tms.model.entity.BLookup;
 import ir.university.toosi.tms.model.entity.EventLogType;
-import ir.university.toosi.tms.model.entity.LanguageKeyManagement;
-import ir.university.toosi.tms.model.entity.LanguageManagement;
 import ir.university.toosi.tms.util.EventLogManager;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
@@ -29,10 +24,7 @@ public class BLookupServiceImpl<T extends BLookup> {
     private BLookupDAOImpl bLookupDAO;
     @EJB
     private EventLogServiceImpl eventLogService;
-    @EJB
-    private LanguageManagementServiceImpl languageManagementService;
-    @EJB
-    private LanguageKeyManagementServiceImpl languageKeyManagementService;
+
 
     public T findById(String id) {
         try {

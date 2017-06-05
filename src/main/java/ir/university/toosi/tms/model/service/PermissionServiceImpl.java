@@ -26,10 +26,7 @@ public class PermissionServiceImpl<T extends Permission> {
 
     @EJB
     private EventLogServiceImpl eventLogService;
-    @EJB
-    private LanguageManagementServiceImpl languageManagementService;
-    @EJB
-    private LanguageKeyManagementServiceImpl languageKeyManagementService;
+
 
     public boolean exist(T entity) {
         try {

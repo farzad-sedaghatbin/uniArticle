@@ -1,11 +1,9 @@
 package ir.university.toosi.tms.model.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.university.toosi.tms.model.dao.SystemConfigurationDAOImpl;
 import ir.university.toosi.tms.model.entity.EventLogType;
 import ir.university.toosi.tms.model.entity.SystemConfiguration;
 import ir.university.toosi.tms.model.entity.SystemParameterType;
-import ir.university.toosi.tms.model.entity.TrafficLog;
 import ir.university.toosi.tms.util.EventLogManager;
 
 import javax.ejb.EJB;
@@ -67,7 +65,7 @@ public class SystemConfigurationServiceImpl<T extends SystemConfiguration> {
 
     public String deleteConfiguration(T entity) {
         try {
-            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), TrafficLog.class.getSimpleName(), EventLogType.DELETE, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), SystemConfigurationServiceImpl.class.getSimpleName(), EventLogType.DELETE, entity.getEffectorUser());
             systemConfigurationDAO.delete(entity);
             return "operation.occurred";
         } catch (Exception e) {
@@ -79,7 +77,7 @@ public class SystemConfigurationServiceImpl<T extends SystemConfiguration> {
     public T createConfiguration(T entity) {
         try {
             entity = (T) systemConfigurationDAO.create(entity);
-            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), TrafficLog.class.getSimpleName(), EventLogType.ADD, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), SystemConfigurationServiceImpl.class.getSimpleName(), EventLogType.ADD, entity.getEffectorUser());
             return entity;
         } catch (Exception e) {
             return null;
@@ -90,7 +88,7 @@ public class SystemConfigurationServiceImpl<T extends SystemConfiguration> {
     public boolean editConfiguration(T entity) {
         try {
             systemConfigurationDAO.update(entity);
-            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), TrafficLog.class.getSimpleName(), EventLogType.EDIT, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), SystemConfigurationServiceImpl.class.getSimpleName(), EventLogType.EDIT, entity.getEffectorUser());
             return true;
         } catch (Exception e) {
             return false;

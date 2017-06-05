@@ -21,10 +21,6 @@ import javax.persistence.*;
         @NamedQuery(
                 name = "Comment.findByEffectorUser",
                 query = "select c from Comment c where c.effectorUser=:effectorUser and c.deleted='0'"
-        ),
-        @NamedQuery(
-                name = "Comment.findByTrafficLog",
-                query = "select c from Comment c where c.trafficLog.id=:id and c.deleted='0'and c.authorize=true "
         )
 })
 
@@ -40,9 +36,6 @@ public class Comment extends BaseEntity {
     @JsonProperty
     private String message;
 
-    @JsonProperty
-    @OneToOne
-    private TrafficLog trafficLog;
 
     @JsonProperty
     @Column(name = "authorize")
@@ -72,13 +65,6 @@ public class Comment extends BaseEntity {
         this.message = message;
     }
 
-    public TrafficLog getTrafficLog() {
-        return trafficLog;
-    }
-
-    public void setTrafficLog(TrafficLog trafficLog) {
-        this.trafficLog = trafficLog;
-    }
 
     public boolean isAuthorize() {
         return authorize;

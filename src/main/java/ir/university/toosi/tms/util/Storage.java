@@ -3,7 +3,7 @@ package ir.university.toosi.tms.util;
 import java.util.Hashtable;
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 1.0
  */
 

@@ -1,25 +1,14 @@
 package ir.university.toosi.wtms.web.helper;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import ir.university.toosi.guest.service.GuestServiceImpl;
-import ir.university.toosi.guest.service.LogServiceImpl;
-import ir.university.toosi.tms.model.entity.Languages;
 import ir.university.toosi.tms.model.entity.SystemParameterType;
 import ir.university.toosi.tms.model.entity.WebServiceInfo;
-import ir.university.toosi.tms.model.entity.zone.Zone;
 import ir.university.toosi.tms.model.service.UserServiceImpl;
-import ir.university.toosi.tms.model.service.personnel.CardServiceImpl;
 import ir.university.toosi.wtms.web.action.UserManagementAction;
-import ir.university.toosi.wtms.web.util.RESTfulClientUtil;
-import ir.university.toosi.wtms.web.util.Storage;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.model.SelectItem;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,11 +17,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.List;
 
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 
@@ -45,12 +33,6 @@ public class GeneralHelper implements Serializable {
 
     @EJB
     private UserServiceImpl userService;
-    @EJB
-    private GuestServiceImpl guestService;
-    @EJB
-    private CardServiceImpl cardService;
-    @EJB
-    private LogServiceImpl logService;
     private String userExtraField1;
     private String userExtraField2;
     private String userExtraField3;
@@ -60,12 +42,6 @@ public class GeneralHelper implements Serializable {
     private String personExtraField3;
     private String personExtraField4;
 
-    private SelectItem[] languageItem;
-    private SelectItem[] queryItem;
-    private SelectItem[] zoneItem;
-    private Storage<String, Zone> zoneObject = new Storage<>(new Zone());
-    private String selectedLanguage;
-    private Languages lastLanguages;
     private WebServiceInfo webServiceInfo = new WebServiceInfo();
     private byte[] anonymous;
 
@@ -96,29 +72,8 @@ public class GeneralHelper implements Serializable {
         }
     }
 
-    public void selectLanguage(ValueChangeEvent event) {
-        selectedLanguage = (String) event.getNewValue();
-    }
 
-    private void loadLanguage() {
-        webServiceInfo.setServiceName("/getAllLanguage");
-        try {
-            String in = new RESTfulClientUtil().restFullService(webServiceInfo.getServerUrl(), webServiceInfo.getServiceName());
-            if (in != null) {
-                List<Languages> languagesList = new ObjectMapper().readValue(in, new TypeReference<List<Languages>>() {
-                });
 
-                for (Languages languages : languagesList) {
-                    if (languages.isDefaulted())
-                        lastLanguages = languages;
-
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
     public void initme() {
@@ -228,89 +183,7 @@ public class GeneralHelper implements Serializable {
         this.personExtraField4 = personExtraField4;
     }
 
-    public SelectItem[] getLanguageItem() {
-        webServiceInfo.setServiceName("/getAllLanguage");
-        try {
-            List<Languages> language = new ObjectMapper().readValue(new RESTfulClientUtil().restFullService(webServiceInfo.getServerUrl(), webServiceInfo.getServiceName()), new TypeReference<List<Languages>>() {
-            });
-            languageItem = new SelectItem[language.size()];
-            for (int i = 0; i < language.size(); i++) {
-                languageItem[i] = new SelectItem(language.get(i).getId(), language.get(i).getName());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-
-        return languageItem;
-    }
-
-    public void setLanguageItem(SelectItem[] languageItem) {
-        this.languageItem = languageItem;
-    }
-
-    public String getSelectedLanguage() {
-        return selectedLanguage;
-    }
-
-    public void setSelectedLanguage(String selectedLanguage) {
-        webServiceInfo.setServiceName("/findLanguageById");
-        try {
-            lastLanguages = new ObjectMapper().readValue(new RESTfulClientUtil().restFullServiceString(webServiceInfo.getServerUrl(), webServiceInfo.getServiceName(), selectedLanguage), Languages.class);
-            me.setLanguages(lastLanguages);
-            me.setSelectedLanguage(lastLanguages.getName());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Languages getLastLanguages() {
-        return lastLanguages;
-    }
-
-    public void setLastLanguages(Languages lastLanguages) {
-        this.lastLanguages = lastLanguages;
-    }
-
-    public SelectItem[] getQueryItem() {
-        queryItem = new SelectItem[3];
-        queryItem[0] = new SelectItem("not", "not");
-        queryItem[1] = new SelectItem("and", "and");
-        queryItem[2] = new SelectItem("or", "or");
-        return queryItem;
-    }
-
-    public void setQueryItem(SelectItem[] queryItem) {
-        this.queryItem = queryItem;
-    }
-
-    public SelectItem[] getZoneItem() {
-        webServiceInfo.setServiceName("/getAllZone");
-        try {
-            List<Zone> zones = new ObjectMapper().readValue(new RESTfulClientUtil().restFullService(webServiceInfo.getServerUrl(), webServiceInfo.getServiceName()), new TypeReference<List<Zone>>() {
-            });
-            zoneItem = new SelectItem[zones.size()];
-            for (int i = 0; i < zones.size(); i++) {
-                zoneItem[i] = new SelectItem(zones.get(i).getName(), zones.get(i).getName());
-                zoneObject.put(zones.get(i).getName(), zones.get(i));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return zoneItem;
-    }
-
-    public void setZoneItem(SelectItem[] zoneItem) {
-        this.zoneItem = zoneItem;
-    }
-
-    public Storage<String, Zone> getZoneObject() {
-        return zoneObject;
-    }
-
-    public void setZoneObject(Storage<String, Zone> zoneObject) {
-        this.zoneObject = zoneObject;
-    }
 
     public byte[] getAnonymous() {
         return anonymous;
@@ -328,15 +201,5 @@ public class GeneralHelper implements Serializable {
         this.userService = userService;
     }
 
-    public GuestServiceImpl getGuestService() {
-        return guestService;
-    }
 
-    public CardServiceImpl getCardService() {
-        return cardService;
-    }
-
-    public LogServiceImpl getLogService() {
-        return logService;
-    }
 }

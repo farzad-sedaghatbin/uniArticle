@@ -1,10 +1,8 @@
 package ir.university.toosi.wtms.web.action;
 
-import ir.university.toosi.tms.model.service.CommentServiceImpl;
-import ir.university.toosi.wtms.web.action.monitoring.HandleMonitoringAction;
 import ir.university.toosi.tms.model.entity.Comment;
 import ir.university.toosi.tms.model.entity.MenuType;
-import ir.university.toosi.wtms.web.action.traffic.HandleTrafficAction;
+import ir.university.toosi.tms.model.service.CommentServiceImpl;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -14,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 
@@ -24,10 +22,8 @@ public class HandleCommentAction implements Serializable {
 
     @Inject
     private UserManagementAction me;
-    @Inject
-    private HandleTrafficAction handleTrafficAction;
-    @Inject
-    private HandleMonitoringAction handleMonitoringAction;
+
+
 
     @EJB
     private CommentServiceImpl commentService;
@@ -52,7 +48,6 @@ public class HandleCommentAction implements Serializable {
     public void submit() {
         Comment comment
                 = new Comment();
-        comment.setTrafficLog(handleMonitoringAction.getCurrentTrafficLog());
         comment.setMessage(message);
         comment.setAuthorize(false);
         comment.setEffectorUser(me.getUsername());

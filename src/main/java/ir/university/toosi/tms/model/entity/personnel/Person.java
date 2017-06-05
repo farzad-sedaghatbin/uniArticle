@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ir.university.toosi.tms.model.entity.BLookup;
 import ir.university.toosi.tms.model.entity.BaseEntity;
-import ir.university.toosi.tms.model.entity.rule.RulePackage;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -123,9 +122,6 @@ public class Person extends BaseEntity {
     @JsonProperty
     @Column(name = "pin")
     private String pin;
-    @JsonProperty
-    @ManyToOne(fetch = FetchType.EAGER)
-    private RulePackage rulePackage;
     @JsonProperty
     @Column(name = "extraField1")
     private String extraField1;
@@ -358,13 +354,6 @@ public class Person extends BaseEntity {
         this.workStation = workStation;
     }
 
-    public RulePackage getRulePackage() {
-        return rulePackage;
-    }
-
-    public void setRulePackage(RulePackage rulePackage) {
-        this.rulePackage = rulePackage;
-    }
 
     public String getPassword() {
         return password;

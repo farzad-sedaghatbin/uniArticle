@@ -154,16 +154,11 @@
             <artifactId>primefaces</artifactId>
             <version>5.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>theme</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.customjar</groupId>
-            <artifactId>jni4net</artifactId>
-            <version>0.8.8</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.primefaces</groupId>-->
+            <!--<artifactId>theme</artifactId>-->
+            <!--<version>1.0.1</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.faces</artifactId>

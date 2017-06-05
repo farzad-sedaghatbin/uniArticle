@@ -1,7 +1,6 @@
 package ir.university.toosi.wtms.web.util;
 
 import ir.university.toosi.tms.util.LangUtil;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -9,7 +8,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 /**
- * @author : Hamed Hatami , Javad Sarhadi , Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 
@@ -17,7 +16,7 @@ import javax.faces.convert.FacesConverter;
 public class TimeConverter implements Converter {
 
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
-        if (value != null && !value.isEmpty() && value.contains("/") && !value.equalsIgnoreCase("null") && !value.contains("*")) {
+        if (value != null && value.contains("/") && !value.equalsIgnoreCase("null") && !value.contains("*")) {
             value = value.replace("/", "");
         }
         value = LangUtil.getEnglishNumber(value);

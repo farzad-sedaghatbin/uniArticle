@@ -1,6 +1,5 @@
 package ir.university.toosi.wtms.web.action;
 
-import ir.university.toosi.wtms.web.action.zone.HandleGatewayAction;
 import ir.university.toosi.tms.util.Configuration;
 
 import javax.enterprise.context.SessionScoped;
@@ -20,8 +19,6 @@ import java.util.regex.Pattern;
 public class HandleValidationAction implements Serializable {
     @Inject
     private UserManagementAction me;
-    @Inject
-    private HandleGatewayAction handleGatewayAction;
 
 
     public void validateIpFormat(FacesContext context, UIComponent component, Object value) {

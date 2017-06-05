@@ -1,26 +1,17 @@
 package ir.university.toosi.wtms.web.action.report;
 
-import ir.university.toosi.wtms.web.action.UserManagementAction;
-import ir.university.toosi.tms.model.entity.personnel.Card;
 import ir.university.toosi.tms.model.entity.Role;
-import ir.university.toosi.wtms.web.server.CardReport;
+import ir.university.toosi.wtms.web.action.UserManagementAction;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.model.SortOrder;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -82,30 +73,6 @@ public class HandleEventReportAction implements Serializable{
             return "list-card-report";
         }
 
-    public void creatReport() throws JRException, IOException{
-
-
-        Card card=new Card();
-        List<Card> cards=new ArrayList<>();
-
-        for (int i=0;i<3;i++){
-            card.setName("a"+1);
-            card.setId(i);
-            cards.add(card);
-        }
-//        vector.addAll(cards)  ;
-        CardReport  cardReport=new CardReport();
-        jasperPrint= cardReport.report(cards,null);
-
-        HttpServletResponse httpServletResponse=(HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.pdf");
-        ServletOutputStream servletOutputStream=httpServletResponse.getOutputStream();
-        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-        FacesContext.getCurrentInstance().responseComplete();
-        System.err.println(type);
-        System.err.println(kind);
-
-    }
 
     public String getType() {
         return type;

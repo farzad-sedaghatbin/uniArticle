@@ -3,19 +3,15 @@ package ir.university.toosi.tms.model.service.personnel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.university.toosi.tms.model.dao.personnel.PersonDAOImpl;
 import ir.university.toosi.tms.model.entity.EventLogType;
-import ir.university.toosi.tms.model.entity.GatewayPerson;
 import ir.university.toosi.tms.model.entity.User;
 import ir.university.toosi.tms.model.entity.personnel.Job;
 import ir.university.toosi.tms.model.entity.personnel.Person;
-import ir.university.toosi.tms.model.entity.rule.RulePackage;
 import ir.university.toosi.tms.model.service.EventLogServiceImpl;
-import ir.university.toosi.tms.model.service.GatewayPersonServiceImpl;
 import ir.university.toosi.tms.model.service.UserServiceImpl;
 import ir.university.toosi.tms.util.EventLogManager;
 
 import javax.ejb.*;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,10 +32,6 @@ public class PersonServiceImpl<T extends Person> {
     private UserServiceImpl userService;
     @EJB
     private JobServiceImpl jobService;
-    @EJB
-    private CardServiceImpl cardService;
-    @EJB
-    private GatewayPersonServiceImpl gatewayPersonService;
 
     public T findById(long id) {
         try {
@@ -117,35 +109,6 @@ public class PersonServiceImpl<T extends Person> {
         }
     }
 
-    public List<T> findByOrganAndRulePackage(String organId, String rulePackageId) {
-        try {
-            return (List<T>) personDAO.findByOrganAndRulePackage(organId, rulePackageId);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public List<T> findByRulePackage(Long rulePackageId) {
-        try {
-            return (List<T>) personDAO.findByRulePackage(rulePackageId);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public List<T> findWithRulePackage() {
-        try {
-            List<T> persons = new ArrayList<>();
-            for (T person : getAllPerson()) {
-                if (person.getRulePackage() != null || (person.getOrganRef() != null) && person.getOrganRef().getRulePackage() != null) {
-                    persons.add(person);
-                }
-            }
-            return persons;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public List<T> findByOrgan(Long organId) {
         try {
@@ -180,9 +143,6 @@ public class PersonServiceImpl<T extends Person> {
     private Person getPerson(Object[] obj) {
         Person person = new Person();
         person.setId(((BigInteger)obj[0]).longValue());
-        RulePackage rulePackage = new RulePackage();
-        rulePackage.setId(((BigInteger)obj[1]).longValue());
-        person.setRulePackage(rulePackage);
         return person;
     }
 
@@ -196,10 +156,6 @@ public class PersonServiceImpl<T extends Person> {
             Job job = jobService.findByPersonId(entity.getId());
             jobService.deleteJob(job);
 
-            List<GatewayPerson> gatewayPersons = gatewayPersonService.findByPersonId(entity.getId());
-            for (GatewayPerson gatewayPerson : gatewayPersons) {
-                gatewayPersonService.deleteGatewayPerson(gatewayPerson);
-            }
             EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), Person.class.getSimpleName(), EventLogType.DELETE, entity.getEffectorUser());
             personDAO.delete(findById(entity.getId()));
             return "operation.occurred";
@@ -226,7 +182,6 @@ public class PersonServiceImpl<T extends Person> {
             Person old = findById(entity.getId());
             Person newPerson = new Person();
             newPerson.setFinger(old.getFinger());
-            newPerson.setRulePackage(old.getRulePackage());
             newPerson.setName(old.getName());
             newPerson.setAddress(old.getAddress());
             newPerson.setEmail(old.getEmail());

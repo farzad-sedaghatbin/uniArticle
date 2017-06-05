@@ -3,15 +3,12 @@ package ir.university.toosi.tms.model.entity.personnel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.Iterators;
 import ir.university.toosi.tms.model.entity.BLookup;
 import ir.university.toosi.tms.model.entity.BaseEntity;
-import ir.university.toosi.tms.model.entity.rule.RulePackage;
 import org.primefaces.model.TreeNode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
 
@@ -42,11 +39,8 @@ import java.util.Set;
         @NamedQuery(
                 name = "Organ.findById",
                 query = "select o from Organ o where o.id=:id"
-        ),
-        @NamedQuery(
-                name = "Organ.findByRulePackageId",
-                query = "select o from Organ o where o.rulePackage.id=:id and o.deleted <> '1'"
         )
+
 })
 public class Organ extends BaseEntity implements TreeNode {
 
@@ -76,9 +70,6 @@ public class Organ extends BaseEntity implements TreeNode {
     @JsonProperty
     @Column(name = "inheritance")
     private boolean inheritance;
-    @JsonProperty
-    @ManyToOne
-    private RulePackage rulePackage;
     @JsonIgnore
     @Transient
     private List<TreeNode> children = new ArrayList<>();
@@ -147,14 +138,6 @@ public class Organ extends BaseEntity implements TreeNode {
 
     public void setChildOrgans(Set<Organ> childOrgans) {
         this.childOrgans = childOrgans;
-    }
-
-    public RulePackage getRulePackage() {
-        return rulePackage;
-    }
-
-    public void setRulePackage(RulePackage rulePackage) {
-        this.rulePackage = rulePackage;
     }
 
 

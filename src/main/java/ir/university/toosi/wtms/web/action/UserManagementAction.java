@@ -1,20 +1,12 @@
 package ir.university.toosi.wtms.web.action;
 
 
-import ir.ReaderWrapperService;
 import ir.university.toosi.tms.model.entity.*;
-import ir.university.toosi.tms.model.entity.calendar.Calendar;
-import ir.university.toosi.tms.model.entity.personnel.Card;
-import ir.university.toosi.tms.model.entity.zone.Zone;
 import ir.university.toosi.tms.model.service.OperationServiceImpl;
 import ir.university.toosi.tms.model.service.SystemConfigurationServiceImpl;
 import ir.university.toosi.tms.model.service.UserServiceImpl;
-import ir.university.toosi.tms.model.service.calendar.CalendarServiceImpl;
 import ir.university.toosi.tms.model.service.personnel.PersonServiceImpl;
-import ir.university.toosi.tms.model.service.zone.GatewayServiceImpl;
-import ir.university.toosi.tms.model.service.zone.PDPServiceImpl;
 import ir.university.toosi.tms.util.LangUtil;
-import ir.university.toosi.wtms.web.action.monitoring.HandleMonitoringAction;
 import ir.university.toosi.wtms.web.action.user.HandleUserAction;
 import ir.university.toosi.wtms.web.helper.GeneralHelper;
 import ir.university.toosi.wtms.web.util.CalendarUtil;
@@ -37,7 +29,7 @@ import java.util.*;
 //import org.richfaces.component.Positioning;
 
 /**
- * @author : Hamed Hatami , Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author : Farzad Sedaghatbin
  * @version : 0.8
  */
 
@@ -52,25 +44,13 @@ public class UserManagementAction implements Serializable {
     private AccessControlAction accessControlAction;
     @Inject
     private HandleUserAction handleUserAction;
-    @Inject
-    private HandleMonitoringAction monitoringAction;
 
     @EJB
     private UserServiceImpl userService;
     @EJB
     private SystemConfigurationServiceImpl configurationService;
     @EJB
-    private CalendarServiceImpl calendarService;
-    @EJB
     private OperationServiceImpl operationService;
-    @EJB
-    private ReaderWrapperService readerWrapperService;
-
-    @EJB
-    GatewayServiceImpl gatewayService;
-
-    @EJB
-    PDPServiceImpl pdpService;
     @EJB
     PersonServiceImpl personService;
 
@@ -92,7 +72,6 @@ public class UserManagementAction implements Serializable {
     private String password = "";
     private String rePassword = "";
     private String oldPassword = "";
-    private Languages languages;
     private String selectedLanguage = "fa";
     private User user = null;
     private String actorId;
@@ -105,13 +84,11 @@ public class UserManagementAction implements Serializable {
     private String value;
     public static MenuType menuType = MenuType.CALENDAR;
     private MenuType activeMenu;
-    private Hashtable<String, LanguageManagement> language;
     private Hashtable<SystemParameterType, String> systemParameter = new Hashtable<>();
     private int page = 1;
     public static Hashtable<String, Boolean> permissionHash = new Hashtable<>();
     public static List<Calendar> calendars = new ArrayList<>();
     public static SelectItem[] calendarItem;
-    public static Hashtable<String, Calendar> calendarHashtable = new Hashtable<>();
 
 
     public void redirect(String pageName) {
@@ -342,18 +319,6 @@ public class UserManagementAction implements Serializable {
         return "home";
     }
 
-    public void fillCalendar() {
-        /************/
-        calendars = calendarService.getAllCalendar();
-
-        calendarItem = new SelectItem[calendars.size()];
-        int i = 0;
-        for (Calendar calendar : calendars) {
-            calendarHashtable.put(String.valueOf(calendar.getId()), calendar);
-            calendarItem[i++] = new SelectItem(calendar.getId(), calendar.getName());
-        }
-        /*************/
-    }
 
     public String resetPassword() {
         return "password-reset";
@@ -380,24 +345,6 @@ public class UserManagementAction implements Serializable {
 
     }
 
-
-    public Languages getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(Languages languages) {
-        this.languages = languages;
-    }
-
-    public String getValue(String key) {
-        if (language == null) {
-            getGeneralHelper().initme();
-        }
-//        if (language.containsKey(key))
-//            return language.get(key).getTitle();
-        return key;
-
-    }
 
 //    public Mode getComponentMode() {
 //        return componentMode;
@@ -593,11 +540,6 @@ public class UserManagementAction implements Serializable {
         this.page = page;
     }
 
-    public Hashtable<String, LanguageManagement> getLanguage() {
-        return language;
-    }
-
-
     public String getDirection() {
         return direction;
     }
@@ -674,10 +616,6 @@ public class UserManagementAction implements Serializable {
         return usernameInSession;
     }
 
-    public void setLanguage(Hashtable<String, LanguageManagement> language) {
-        this.language = language;
-    }
-
     public AccessControlAction getAccessControlAction() {
         return accessControlAction;
     }
@@ -694,21 +632,6 @@ public class UserManagementAction implements Serializable {
         UserManagementAction.permissionHash = permissionHash;
     }
 
-    public static List<Calendar> getCalendars() {
-        return calendars;
-    }
-
-    public static void setCalendars(List<Calendar> calendars) {
-        UserManagementAction.calendars = calendars;
-    }
-
-    public static Hashtable<String, Calendar> getCalendarHashtable() {
-        return calendarHashtable;
-    }
-
-    public static void setCalendarHashtable(Hashtable<String, Calendar> calendarHashtable) {
-        UserManagementAction.calendarHashtable = calendarHashtable;
-    }
 
     public boolean wasExpanded(MenuType menu) {
         if (menuType.equals(menu)) {
@@ -734,27 +657,8 @@ public class UserManagementAction implements Serializable {
         this.activeMenu = activeMenu;
     }
 
-    public void test() {
-        TrafficLog trafficLog = new TrafficLog();
-        trafficLog.setId(1);
-        trafficLog.setTime(String.valueOf(new Date().getTime()));
-        trafficLog.setDate(new Date().toString());
-        trafficLog.setExit(true);
-        trafficLog.setValid(true);
-        trafficLog.setGateway(gatewayService.findById(7));
-        trafficLog.setPdp(pdpService.findById(8));
-        trafficLog.setPerson(personService.findById(5));
-        trafficLog.setCard(new Card());
-        trafficLog.setFinger(true);
-        trafficLog.setLast(true);
-        trafficLog.setOffline(false);
-        trafficLog.setPictures("");
-        trafficLog.setDeleted("0");
-        trafficLog.setStatus("c");
-        trafficLog.setEffectorUser("admin");
-        trafficLog.setZone(new Zone());
-        trafficLog.setVideo("");
-        monitoringAction.sendMessage(trafficLog);
+    public String getValue(String description) {
 
+        return description;
     }
 }
