@@ -1,0 +1,61 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.system_information}" url="#" />
+            <p:menuitem value="#{bundle.event}" url="#" />
+        </p:breadCrumb>
+        <h:form id="eventList">
+
+
+            <p:dataTable id="eventTable" value="#{handleEventAction.eventLogList}"
+                         widgetVar="thisTable"
+                         var="event"
+                         rowKey="#{event.id}"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" lazy="true"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+لیست                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="eventTable" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="#{bundle.operation}" sortBy="#{event.operation}" filterBy="#{event.operation}">
+                    <h:outputText value="#{event.operation}"/>
+                </p:column>
+                <p:column headerText="#{bundle.object_id}" sortBy="#{event.objectId}" filterBy="#{event.objectId}">
+                    <h:outputText value="#{event.objectId}"/>
+                </p:column>
+                <p:column headerText="#{bundle.table_name}" sortBy="#{event.tableName}" filterBy="#{event.tableName}">
+                    <h:outputText value="#{event.tableName}"/>
+                </p:column>
+                <p:column headerText="#{bundle.username}" sortBy="#{event.username}" filterBy="#{event.username}">
+                    <h:outputText value="#{event.username}"/>
+                </p:column>
+                <p:column headerText="#{bundle.date}" sortBy="#{event.date}" filterBy="#{event.date}">
+                    <f:facet name="filter">
+                        <p:inputText styleClass="datepicker" onchange="PF('thisTable').filter()" converter="dateConverter" style="width: 100px"/>
+                    </f:facet>
+                    <h:outputText value="#{event.date}" converter="dateConverter"/>
+                </p:column>
+                <p:column headerText="#{bundle.time}" sortBy="#{event.time}" filterBy="#{event.time}">
+                    <h:outputText value="#{event.time}"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:dataScroller limitRender="true" execute="@this" update="eventTable"
+                                    page="#{handleEventAction.page}"/>
+                </f:facet>
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

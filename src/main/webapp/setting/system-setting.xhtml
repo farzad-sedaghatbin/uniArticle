@@ -1,0 +1,49 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+
+        <h:form>
+            <p:dataTable id="settingTable"
+                         value="#{handleSettingAction.systemConfigurationDataModel}"
+                         var="setting"
+                         rowKey="#{setting.id}"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" lazy="true"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+لیست                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="settingTable" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="#{bundle.description}" sortBy="#{setting.parameter.description}" filterBy="#{setting.parameter.description}">
+                    <h:outputText value="#{setting.parameter.description}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.value}"/>
+                    </f:facet>
+                    <p:inplace rendered="#{setting.type eq 'String'}"
+                                    disabled="#{not me.hasPermission('EDIT_SETTING')}"
+                                    value="#{setting.value}"/>
+                    <h:selectBooleanCheckbox rendered="#{setting.type eq 'Boolean'}"
+                                             value="#{setting.value}"
+                                             disabled="#{not me.hasPermission('EDIT_SETTING')}"
+                                             valueChangeListener="#{handleSettingAction.changeSetting}">
+                        <p:ajax execute="@this" limitRender="true"/>
+                    </h:selectBooleanCheckbox>
+                </p:column>
+                <f:facet name="footer">
+                    <p:dataScroller limitRender="true" execute="@this" update="settingTable"
+                                    page="#{handleSettingAction.page}"/>
+                </f:facet>
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

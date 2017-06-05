@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Derby - kernel@localhost" uuid="a8aeeba1-a16c-45fb-bd20-7b9d6fe6a69b">
+      <secret-storage>master_key</secret-storage>
+      <user-name>kernel</user-name>
+      <schema-pattern>*.APP *.KERNEL</schema-pattern>
+      <default-schemas>*.APP *.KERNEL</default-schemas>
+    </data-source>
+  </component>
+</project>

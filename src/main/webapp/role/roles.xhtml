@@ -1,0 +1,169 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.management}" url="#" />
+            <p:menuitem value="#{bundle.role}" url="#" />
+        </p:breadCrumb>
+
+        <h:form id="form">
+            <p:contextMenu for="roles" rendered="#{me.hasPermission('ROLEMANAGEMENT')}">
+                <p:menuitem value="#{bundle.view}" update="roleDetail" icon="ui-icon-info" oncomplete="PF('roleDialog').show()"
+                            actionListener="#{handleRoleAction.view}"/>
+                <p:menuitem value="#{bundle.edit}" update="roleDetail" icon="ui-icon-scissors" oncomplete="PF('roleDialog').show()"
+                            actionListener="#{handleRoleAction.edit}"/>       
+                <p:menuitem value="#{bundle.permissions}" update="permissionDetail" icon="ui-icon-suitcase" oncomplete="PF('permissionDialog').show()"
+                            actionListener="#{handleRoleAction.assignPermission}"/>
+                <p:menuitem value="#{bundle.delete}" update="roles" icon="ui-icon-trash"
+                            actionListener="#{handleRoleAction.doDelete}">
+                    <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="#{bundle.add}" id="add" rendered="#{me.hasPermission('ROLEMANAGEMENT')}" update="roleDetail" actionListener="#{handleRoleAction.add}"
+                             styleClass="ui-priority-primary" onclick="PF('roleDialog').show()"/>
+
+            <p:dataTable id="roles" var="role" value="#{handleRoleAction.roleList}" rowKey="#{role.id}"
+                         selection="#{handleRoleAction.currentRole}" selectionMode="single"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" lazy="true"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.role_list}"/>
+                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="roles" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="#{bundle.name}" sortBy="#{role.name}" filterBy="#{role.name}">
+                    <h:outputText value="#{role.name}"/>
+                </p:column>
+                <p:column headerText="#{bundle.enable}">
+                    <p:graphicImage value="#{role.enabled ? '/images/s_true.png' : '/images/s_false.png'}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="#{bundle.role_info}" widgetVar="roleDialog" modal="true" showEffect="fade" hideEffect="fade"
+                      resizable="false">
+                <p:outputPanel id="roleDetail" style="text-align:center;">
+                    <f:facet name="header">
+                        <!--<p:graphicImage name="demo/images/car/#{dtContextMenuView.selectedCar.brand}-big.gif"/>-->
+                    </f:facet>
+                    <table border="0" cellpadding="3" cellspacing="3" width="50%">
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.name}"/>
+                            </td>
+                            <td>
+                                <p:inputText readonly="#{handleRoleAction.disableFields}"
+                                             value="#{handleRoleAction.name}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.description}"/>
+                            </td>
+                            <td>
+                                <p:inputTextarea readonly="#{handleRoleAction.disableFields}"
+                                                 value="#{handleRoleAction.descText}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.enable}"/>
+                            </td>
+                            <td>
+                                <p:selectBooleanCheckbox readonly="#{handleRoleAction.disableFields}"
+                                                         value="#{handleRoleAction.roleEnabled}"
+                                                         valueChangeListener="#{handleRoleAction.changeRoles}"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table border="0" cellpadding="3" cellspacing="3" width="50%">
+                        <tr>
+                            <td>
+                                <p:pickList id="operationPickList" value="#{handleOperationAction.operations}"
+                                            var="operation"
+                                            effect="bounce"
+                                            itemValue="#{operation}" itemLabel="#{operation.description}"
+                                            showSourceControls="true"
+                                            showTargetControls="true" showCheckbox="true" responsive="true"
+                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                                            converter="#{operationConverter}"
+                                            disabled="#{handleRoleAction.disableFields}">
+                                    <f:facet name="sourceCaption"><h:outputText value="#{bundle.source}"/></f:facet>
+                                    <f:facet name="targetCaption"><h:outputText value="#{bundle.target}"/></f:facet>
+
+                                    <p:ajax event="transfer" listener="#{handleOperationAction.onTransfer}"/>
+
+                                    <p:column style="width:90%;">
+                                        <h:outputText value="#{operation.description}"/>
+                                    </p:column>
+                                </p:pickList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p:commandButton value="#{bundle.submit}" id="edit" update="roles,messageInfo"
+                                                 actionListener="#{handleRoleAction.saveOrUpdate}" styleClass="ui-priority-primary"
+                                                 rendered="#{not handleRoleAction.disableFields}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:outputPanel>
+            </p:dialog>
+            <p:dialog header="#{bundle.permission_info}" widgetVar="permissionDialog" modal="true" showEffect="fade" hideEffect="fade"
+                      resizable="false">
+
+                <p:outputPanel id="PermissionPanelId" ajaxRendered="true">
+                    <p:dataTable id="permissionDetail"
+
+                                    value="#{handleRoleAction.roleList}"
+                                    rowKeyVar="rowIndex"
+                                    emptyMessage="#{bundle.empty_message}"
+                                    sortMode="single"
+                                    var="role"
+                                    rows="10"
+                                    style="BORDER-COLLAPSE: collapse;text-align: center; width:100%;"
+                                    rowClasses="ROW1,ROW2">
+
+                        <p:column>
+                            <h:selectBooleanCheckbox value="#{role.selected}"
+                                                     valueChangeListener="#{handleRoleAction.selectPdp}">
+                                <p:ajax execute="@this" limitRender="true"/>
+                            </h:selectBooleanCheckbox>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText escape="true" value="#{bundle.name}"/>
+                            </f:facet>
+                            <h:outputText escape="true" value="#{role.name}"
+                                    />
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:dataScroller limitRender="true" execute="@this" update="roleTable"
+                                               page="#{handleRoleAction.page}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:outputPanel>
+
+                <div align="center">
+                    <p:commandButton id="saveWorkGroupId" execute="@form" limitRender="true" action="#{handleRoleAction.doAssignPermission}" value="#{bundle.save}"/>
+                </div>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

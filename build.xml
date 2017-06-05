@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="WTMS" default="deploy" basedir=".">
+
+    <description>WTMS</description>
+
+    <property environment="env"/>
+    <property name="display.name" value="WTMS"/>
+    <property name="name" value="WTMS"/>
+    <property name="app.name" value="WTMS"/>
+
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+
+    <property name="webapp.dir" value="${basedir}/src/main/webapp"/>
+    <property name="main.dir" value="${basedir}/src/main/java"/>
+    <property name="resources.dir" value="${webapp.dir}/resources"/>
+
+    <property name="src.dir" value="src/main/java"/>
+
+    <property name="doc.dir" value="doc"/>
+    <property name="doc.api.dir" value="${doc.dir}/api"/>
+    <property name="doc.ref.dir" value="${doc.dir}/reference"/>
+    <property name="javadoc.link" value="http://java.sun.com/j2se/7.0/docs/api"/>
+
+    <property name="classes.prefix" value="ir/isc/Aria"/>
+    <property name="src.classes.prefix" value="${classes.prefix}/WTMS"/>
+    <property name="deploy.dir" value="E:/jboss-eap-6.3/standalone/deployments"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="javac.debug" value="true"/>
+    <property name="javac.deprecation" value="false"/>
+    <property name="javac.version" value="1.7"/>
+
+    <path id="classpath">
+        <pathelement path="."/>
+    </path>
+
+
+    <path id="build.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="compile.classpath">
+        <path refid="build.classpath"/>
+        <pathelement location="${classes.dir}"/>
+    </path>
+
+    <patternset id="src.files">
+        <include name="**/*.java"/>
+    </patternset>
+
+    <target name="clean" description="Cleans up the build directory">
+        <delete dir="${build.dir}/classes/${src.classes.prefix}"/>
+        <delete>
+            <fileset dir="${build.dir}">
+                <include name="WTMS.*"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="init" description="Initialize the build">
+        <echo message="Build ${display.name}"/>
+        <tstamp/>
+        <mkdir dir="${classes.dir}"/>
+    </target>
+
+    <target name="compile" depends="init, clean" description="Compile the Java source code">
+        <javac destdir="${classes.dir}"
+               classpathref="compile.classpath"
+               debug="${javac.debug}"
+               deprecation="${javac.deprecation}"
+               encoding="UTF-8"
+               source="1.7"
+               verbose="true"
+               fork="true"
+               optimize="true"
+               failonerror="true"
+               srcdir="${src.dir}"
+               nowarn="on"/>
+
+    </target>
+
+    <target name="native2ascii">
+        <!--<native2ascii src="${resources.dir}/messages" dest="${resource.classes.dir}"-->
+        <!--includes="Messages*.properties"-->
+        <!--encoding="UTF-8"/>-->
+    </target>
+
+    <!-- ############################ Main Tragets #############################-->
+
+    <target name="war" depends="compile, native2ascii">
+        <delete dir="${build.dir}/${name}.war" verbose="yes"/>
+
+        <copy todir="${classes.dir}/WEB-INF" overwrite="yes" verbose="yes">
+
+            <fileset dir="${webapp.dir}/WEB-INF">
+                <include name="*.xml"/>
+            </fileset>
+
+            <filterset>
+                <filter token="app.name" value="${app.name}"/>
+            </filterset>
+        </copy>
+
+        <jar destfile="${build.dir}/${name}.war">
+
+            <zipfileset id="war.docroot" dir="${webapp.dir}">
+                <include name="**/*"/>
+                <exclude name="**/css/**"/>
+                <exclude name="**/js/**"/>
+            </zipfileset>
+
+            <zipfileset dir="${classes.dir}/WEB-INF" prefix="WEB-INF">
+                <include name="*.xml"/>
+            </zipfileset>
+
+            <zipfileset id="war.classes" dir="${classes.dir}" prefix="WEB-INF/classes">
+                <include name="**/java/**/*.class"/>
+                <include name="**/model/**/*.class"/>
+                <include name="**/resources/*.properties"/>
+            </zipfileset>
+
+            <zipfileset id="war.lib" prefix="WEB-INF/lib" dir="${lib.dir}">
+                <include name="jboss-jsf-api_2.1_spec-2.1.28.Final-redhat-1.jar"/>
+                <include name="jsf-impl-2.1.28.redhat-3.jar"/>
+                <include name="modena-theme-1.0.1.jar"/>
+                <include name="primefaces-5.2.jar"/>
+                <include name="resin-javaee.jar"/>
+            </zipfileset>
+
+            <zipfileset id="applet" prefix="app" dir="${lib.dir}">
+                <include name="SignatureModule.jar"/>
+                <include name="sunpkcs11.jar"/>
+                <include name="commons-codec.jar"/>
+            </zipfileset>
+
+            <zipfileset dir="${resources.dir}" prefix="resources">
+                <include name="**/*"/>
+            </zipfileset>
+
+
+            <zipfileset id="war.bundle" prefix="WEB-INF/classes" dir="${classes.dir}">
+                <include name="*.properties"/>
+                <include name="*.xml"/>
+            </zipfileset>
+
+            <manifest>
+                <attribute name="Dependencies" value="org.infinispan, org.hibernate, org.apache.cxf.impl"/>
+            </manifest>
+
+        </jar>
+
+    </target>
+
+    <target name="deploy" depends="war">
+        <copy file="${build.dir}/${name}.war" todir="${deploy.dir}" overwrite="yes" verbose="yes"/>
+    </target>
+
+</project>

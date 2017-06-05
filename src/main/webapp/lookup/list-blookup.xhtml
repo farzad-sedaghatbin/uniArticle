@@ -1,0 +1,92 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+
+
+        <h:form>
+
+            <p:contextMenu for="blookups">
+                <p:menuitem value="#{bundle.edit}" update="blookupPanelId" icon="ui-icon-scissors" oncomplete="PF('blookupDialog').show()" actionListener="#{handleBLookupAction.edit}"/>
+                <p:menuitem value="#{bundle.delete}" update="blookups" icon="ui-icon-trash" actionListener="#{handleBLookupAction.doDelete}">
+                    <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="#{bundle.add}" id="add" update="blookupPanelId" actionListener="#{handleBLookupAction.add}" styleClass="ui-priority-primary" onclick="PF('blookupDialog').show()"/>
+
+            <p:dataTable id="blookups"
+                            keepSaved="true"
+                            value="#{handleBLookupAction.bLookupList}"
+                         var="blookup"
+                         rowKey="#{blookup.id}"
+                         selection="#{handleBLookupAction.currentBLookup}"
+                         selectionMode="single"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" lazy="true"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+لیست                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="blookups" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="#{bundle.title}" sortBy="#{blookup.title}" filterBy="#{blookup.title}">
+                    <f:facet name="header">
+                        <h:outputText escape="true" value="#{bundle.title}"/>
+                    </f:facet>
+                    <h:outputText escape="true" value="#{blookup.code}"/>
+                </p:column>
+                <f:facet name="footer">
+                    <p:dataScroller limitRender="true" execute="@this" update="blookups"
+                                       page="#{handleBLookupAction.page}"/>
+                </f:facet>
+            </p:dataTable>
+            <p:dialog header="#{bundle.blookup}" widgetVar="blookupDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="blookupPanelId" ajaxRendered="true">
+                            <h:outputText escape="true" value="#{bundle.add}"
+                                          rendered="#{handlePCAction.editable eq 'false'}"/>
+                            <h:outputText escape="true" value="#{bundle.edit}"
+                                          rendered="#{handlePCAction.editable eq 'true'}"/>
+                        <table border="0" cellpadding="3" cellspacing="3" width="50%"
+                               dir="#{me.direction}">
+                            <tr valign="top">
+                                <td nowrap="nowrap" align="#{me.align}">
+                                    <h:outputText escape="true" value="title:" styleClass="textColor"/>
+                                </td>
+                                <td nowrap="nowrap" align="#{me.align}">
+                                    <h:inputText id="textBoxblookupTitle"
+                                                 styleClass="inputRequiredField"
+                                                 dir="#{me.direction}"
+                                                 required="true"
+                                                 value="#{handleBLookupAction.bLookupTitle}"/>
+                                    <p:message ajaxRendered="true" for="textBoxblookupTitle" showSummary="true"
+                                                  showDetail="false" errorClass="errorMsg"/>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td nowrap="nowrap" align="center" colspan="2">
+                                    <p:commandButton id="saveblookupId"
+                                                       update="blookupPanelId,blookups"
+                                                       execute="@form"
+                                                       value="#{bundle.save}"
+                                                       action="#{handleBLookupAction.saveOrUpdate}"/>
+                                </td>
+                            </tr>
+                        </table>
+                </p:outputPanel>
+                    </p:dialog>
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,219 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <p:breadCrumb>
+
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.device}" url="#" />
+            <p:menuitem value="#{bundle.card}" url="#" />
+        </p:breadCrumb>
+        <h:form id="form">
+            <p:contextMenu for="cards">
+                <p:menuitem value="#{bundle.view}" update="cardDetail" icon="ui-icon-info" oncomplete="PF('cardDialog').show()"
+                            actionListener="#{handleCardAction.view}"/>
+                <p:menuitem value="#{bundle.edit}" update="cardDetail" icon="ui-icon-scissors" oncomplete="PF('cardDialog').show()"
+                            actionListener="#{handleCardAction.edit}"/>
+                <p:menuitem value="#{bundle.delete}" update="cards" icon="ui-icon-trash"
+                            actionListener="#{handleCardAction.doDelete}">
+                    <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="#{bundle.add}" id="add" update="cardDetail" actionListener="#{handleCardAction.add}"
+                             styleClass="ui-priority-primary" onclick="PF('cardDialog').show()"/>
+
+            <p:dataTable id="cards" var="currentCard" widgetVar="thisTable" value="#{handleCardAction.cardList}" rowKey="#{currentCard.id}"
+                         selection="#{handleCardAction.currentCard}" selectionMode="single"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" lazy="true"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+لیست                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="cards" trigger="toggler" />
+                </f:facet>
+                <p:column headerText="#{bundle.name}" sortBy="#{currentCard.name}" filterBy="#{currentCard.name}">
+                    <h:outputText value="#{currentCard.name}"/>
+                </p:column>
+                <p:column headerText="#{bundle.card_code}" sortBy="#{currentCard.code}" filterBy="#{currentCard.code}">
+                    <h:outputText value="#{currentCard.code}"/>
+                </p:column>
+                <p:column headerText="#{bundle.card_type}">
+                    <h:outputText value="#{currentCard.cardType.code}"/>
+                </p:column>
+                <p:column headerText="#{bundle.card_status}">
+                    <h:outputText value="#{currentCard.cardStatus.code}"/>
+                </p:column>
+                <p:column headerText="#{bundle.start_date}" sortBy="#{currentCard.startDate}" filterBy="#{currentCard.startDate}">
+                    <f:facet name="filter">
+                        <p:inputText styleClass="datepicker" onchange="PF('thisTable').filter()" converter="dateConverter" style="width: 100px"/>
+                    </f:facet>
+                    <h:outputText value="#{currentCard.startDate}" converter="dateConverter"/>
+                </p:column>
+                <p:column headerText="#{bundle.expiration_date}" sortBy="#{currentCard.expirationDate}" filterBy="#{currentCard.expirationDate}">
+                    <f:facet name="filter">
+                        <p:inputText styleClass="datepicker" onchange="PF('thisTable').filter()" converter="dateConverter" style="width: 100px"/>
+                    </f:facet>
+                    <h:outputText value="#{currentCard.expirationDate}" converter="dateConverter"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="#{bundle.card}" widgetVar="cardDialog" modal="true" showEffect="fade" hideEffect="fade"
+                      resizable="false" onShow="initDatePicker()">
+                <p:outputPanel id="cardDetail" style="text-align:center;">
+                    <f:facet name="header">
+                        <!--<p:graphicImage name="demo/images/car/#{dtContextMenuView.selectedCar.brand}-big.gif"/>-->
+                    </f:facet>
+                    <table>
+
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.code}"/>
+                            </td>
+                            <td>
+                                <p:inputText value="#{handleCardAction.card.code}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.card_type}"/>
+                            </td>
+                            <td>
+                                <p:selectOneMenu disabled="#{handleCardAction.disableFields}"
+                                                 value="#{handleCardAction.card.cardType.id}"
+                                                 valueChangeListener="#{handleCardAction.selectCardType}">
+                                    <f:selectItems value="#{handleCardAction.cardTypes}" var="cardType"
+                                                   itemLabel="#{cardType.title}" itemValue="#{cardType.id}"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.card_status}"/>
+                            </td>
+                            <td>
+                                <p:selectOneMenu disabled="#{handleCardAction.disableFields}"
+                                                 value="#{handleCardAction.card.cardStatus.id}"
+                                                 valueChangeListener="#{handleCardAction.selectCardStatus}">
+                                    <f:selectItems value="#{handleCardAction.cardStatuses}" var="cardStatus"
+                                                   itemLabel="#{cardStatus.title}" itemValue="#{cardStatus.id}"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.visible}"/>
+                            </td>
+                            <td>
+                                <p:selectBooleanCheckbox value="#{handleCardAction.card.visible}"
+                                                         disabled="#{handleCardAction.disableFields}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.guest}"/>
+                            </td>
+                            <td>
+                                <p:selectBooleanCheckbox value="#{handleCardAction.card.forGuest}"
+                                                         disabled="#{handleCardAction.disableFields}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.start_date}"/>
+                            </td>
+                            <td>
+                                <p:inputText value="#{handleCardAction.card.startDate}"
+                                            disabled="#{handleCardAction.disableFields}" styleClass="datepicker" converter="dateConverter"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.expiration_date}"/>
+                            </td>
+                            <td>
+                                <p:inputText value="#{handleCardAction.card.expirationDate}"
+                                            disabled="#{handleCardAction.disableFields}" styleClass="datepicker" converter="dateConverter"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p:commandButton value="#{bundle.submit}" id="edit" update="cards"
+                                                 actionListener="#{handleCardAction.saveOrUpdate}"
+                                                 oncomplete="PF('cardDialog').hide()" styleClass="ui-priority-primary"
+                                                 rendered="#{not handleCardAction.disableFields}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:outputPanel>
+            </p:dialog>
+            <p:dialog header="#{bundle.card_specialize}" widgetVar="cardSpecilize" modal="true" showEffect="fade" hideEffect="fade"
+                      resizable="false">
+                <p:outputPanel id="specilize" style="text-align:center;">
+                <f:facet name="header">
+                    <!--<p:graphicImage name="demo/images/car/#{dtContextMenuView.selectedCar.brand}-big.gif"/>-->
+                </f:facet>
+                    <h:form>
+                        <table border="0" cellpadding="3" cellspacing="3" width="90%">
+                            <tr valign="top">
+                                <td align="#{me.align}" nowrap="nowrap">
+                                    <h:inputText valueChangeListener="#{handleCardAction.changeFilter}"  >
+                                        <p:ajax event="change" update="pickListId" />
+                                    </h:inputText>
+
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="#{me.align}" nowrap="nowrap">
+                                    <p:pickList id="pickListId"
+                                                   value="#{handleCardAction.selectedCards}"
+                                                var="card"
+                                                effect="bounce"
+                                                itemValue="#{card}" itemLabel="#{card.name}"
+                                                showSourceControls="true"
+                                                showTargetControls="true" showCheckbox="true" responsive="true"
+                                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                                                converter="CardConverter">
+                                        <f:facet name="sourceCaption"><h:outputText value="#{bundle.source}"/></f:facet>
+                                        <f:facet name="targetCaption"><h:outputText value="#{bundle.target}"/></f:facet>
+
+                                        <p:ajax event="transfer" listener="#{handleCardAction.changedList}"/>
+
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText escape="true" value="#{bundle.card_code}"/>
+                                            </f:facet>
+                                            <h:outputText escape="true" value="#{bundle.code}"/>
+                                        </p:column>
+                                    </p:pickList>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td align="#{me.align}" nowrap="nowrap">
+                                    <p:commandButton id="saveId"
+
+                                                       limitRender="true"
+                                                       execute="@form"
+                                                       value="#{bundle.save}"
+                                                       action="#{handleCardAction.doSpecializeCard}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </h:form>
+                </p:outputPanel>
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

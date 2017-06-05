@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ir/IReaderWrapperService.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ir/university/toosi/tms/readerwrapper/AccesEventHolder.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/ir/university/toosi/tms/util/JasperUtil.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/fonts" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/fonts/BTitrBd.ttf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/fonts/IranNastaliq.ttf" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

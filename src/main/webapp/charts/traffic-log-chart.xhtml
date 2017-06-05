@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.report}" url="#" />
+            <p:menuitem value="#{bundle.chart}" url="#" />
+        </p:breadCrumb>
+        <h:form id="form">
+                <h:outputText value="#{bundle.from_time}"/>
+                <p:spinner value="#{handleTrafficLogChartAction.fromHour}"
+                           step="1" maxValue="23" size="6" minValue="0"/>
+                :
+                <p:spinner value="#{handleTrafficLogChartAction.fromMin}"
+                           step="1" maxValue="59" size="6" minValue="0"/>
+                :
+                <p:spinner value="#{handleTrafficLogChartAction.fromSec}"
+                           step="1" maxValue="59" size="6" minValue="0"/>
+                <br/>
+                <h:outputText value="#{bundle.to_time}"/>
+                <p:spinner value="#{handleTrafficLogChartAction.toHour}"
+                           step="1" maxValue="23" size="6" minValue="0"/>
+                :
+                <p:spinner value="#{handleTrafficLogChartAction.toMin}"
+                           step="1" maxValue="59" size="6" minValue="0"/>
+                :
+                <p:spinner value="#{handleTrafficLogChartAction.toSec}"
+                           step="1" maxValue="59" size="6" minValue="0"/>
+
+                <br/>
+                <h:outputText value="#{bundle.fromDate}"/>
+                <p:inputText value="#{handleTrafficLogChartAction.fromDate}" styleClass="datepicker" converter="dateConverter"/>
+                <br/>
+                <h:outputText value="#{bundle.toDate}"/>
+                <p:inputText value="#{handleTrafficLogChartAction.toDate}" styleClass="datepicker" converter="dateConverter"/>
+                <br/>
+                <p:commandButton value="#{bundle.search}" actionListener="#{handleTrafficLogChartAction.search}"
+                                 update="chartPanel"/>
+            <p:panelGrid id="chartPanel" columns="2" columnClasses="left,right" style="width:100%">
+                <p:chart type="line" model="#{handleTrafficLogChartAction.lineModel}" rendered="true"
+                         style="height:400px;"/>
+                <p:chart type="bar" model="#{handleTrafficLogChartAction.barChartModel}" rendered="true"
+                         style="height:400px;"/>
+            </p:panelGrid>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.management}" url="#" />
+            <p:menuitem value="#{bundle.pc}" url="#" />
+        </p:breadCrumb>
+
+        <h:form id="form">
+            <p:contextMenu for="pcs" rendered="#{me.hasPermission('PCMANAGEMENT')}">
+                <p:menuitem value="#{bundle.view}" update="pcDetail" icon="ui-icon-info" oncomplete="PF('pcDialog').show()" actionListener="#{handlePCAction.view}"/>
+                <p:menuitem value="#{bundle.edit}" update="pcDetail" icon="ui-icon-scissors" oncomplete="PF('pcDialog').show()" actionListener="#{handlePCAction.edit}"/>
+                <p:menuitem value="#{bundle.delete}" update="pcs" icon="ui-icon-trash" actionListener="#{handlePCAction.doDelete}">
+                    <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="#{bundle.add}" id="add" rendered="#{me.hasPermission('PCMANAGEMENT')}" update="pcDetail" actionListener="#{handlePCAction.add}" styleClass="ui-priority-primary" onclick="PF('pcDialog').show()"/>
+
+            <p:dataTable id="pcs" var="currentPC" value="#{handlePCAction.pcList}" rowKey="#{currentPC.id}"
+                         selection="#{handlePCAction.currentPC}" selectionMode="single"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.pc_list}"/>
+                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="pcs" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="#{bundle.name}" sortBy="#{currentPC.name}" filterBy="#{currentPC.name}">
+                    <h:outputText value="#{currentPC.name}" />
+                </p:column>
+                <p:column headerText="#{bundle.ip}" sortBy="#{currentPC.ip}" filterBy="#{currentPC.ip}">
+                    <h:outputText value="#{currentPC.ip}" />
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="#{bundle.pc_inf}" widgetVar="pcDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="pcDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" columnClasses="label,value">
+                        <f:facet name="header">
+                            <!--<p:graphicImage name="demo/images/car/#{dtContextMenuView.selectedCar.brand}-big.gif"/>-->
+                        </f:facet>
+
+                        <h:outputText value="#{bundle.name}" />
+                        <p:inputText readonly="#{handlePCAction.disableFields}" value="#{handlePCAction.pcName}"/>
+
+                        <h:outputText value="#{bundle.ip}" />
+                        <p:inputText readonly="#{handlePCAction.disableFields}" value="#{handlePCAction.pcIP}"/>
+
+                        <p:commandButton value="#{bundle.submit}" id="edit" update="pcs" actionListener="#{handlePCAction.saveOrUpdate}" oncomplete="PF('pcDialog').hide()" styleClass="ui-priority-primary" rendered="#{not handlePCAction.disableFields}"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

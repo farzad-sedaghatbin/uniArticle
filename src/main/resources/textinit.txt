@@ -1,0 +1,148 @@
+<element xmlns="http://www.w3.org/1999/xhtml" operation="Initialize" status="true" error="Load">
+    <collections>
+        <number>
+            <alert>
+                <number viewface="Camera_lock" baseduration="5000" switchduration="2000" translationz="6"
+                        translationy="0" translationx="0" nodez="12" nodex="0" nodeheight="0" num="5" name="popup"
+                        _id="1" animate="" color="#fff" Color="#fff">
+                    <pattern type="Default">
+                        <number nodename="transform" scale="1 1  1" translation="Auto" rotation="Auto" def="foo"
+                                pattern="true"></number>
+                    </pattern>
+                    <node type="Default">
+                        <number def="foo" rotation="0.999977302559263   0 0.00673753414091492 1.5737577306294326"
+                                translation="Auto" scale="1 1 1" nodename="transform">
+                            <number def="float" ispickable="false" nodename="Shape">
+                                <number nodename="Appearance">
+                                    <material specularcolor=".1 .1 .1" diffusecolor="{$alertdiffusecolor}"
+                                              nodename="Material"></material>
+                                </number>
+                                <number size="32 12 0" nodename="Box"></number>
+                            </number>
+                            <number def="foo" rotation="0.9999892642023637 1.5612488335498067 0 0.004633732838142135"
+                                    translation="4.4 3.3 0.24" scale="1 1  1" nodename="transform">
+                                <number ispickable="false" nodename="Shape">
+                                    <number nodename="Appearance">
+                                        <number specularcolor="0.06 0.06 0.06" shininess="0.100"
+                                                diffusecolor="0.06 0.06 0.06" ambientintensity="0.0933"
+                                                nodename="Material"></number>
+                                    </number>
+                                    <number solid="true" string="&quot;{$alertname}&quot;" nodename="Text">
+                                        <number spacing="0" horizontal="false" size="10.5" style="BOLD" family="'Arial'"
+                                                lefttoright="false" text_align="RIGHT"
+                                                justify="&quot;Middle&quot; &quot;RIGHT&quot;"
+                                                nodename="FontStyle"></number>
+                                    </number>
+                                </number>
+                            </number>
+                            <number def="foo" rotation="0.9999892642023637 1.5612488335498067 0 0.004633732838142135"
+                                    translation="-0.6 1.1 0.23" scale="1 1 1" nodename="transform">
+                                <number ispickable="true" nodename="Shape">
+                                    <number nodename="Appearance">
+                                        <number specularcolor="0.06 0.06 0.06" shininess="0.100"
+                                                diffusecolor="0.06 0.06 0.06" ambientintensity="0.0933"
+                                                nodename="Material"></number>
+                                    </number>
+                                    <number solid="true" string="&quot;{$alertlastname}&quot; " nodename="Text">
+                                        <number spacing="0" horizontal="false" size="10.5" style="BOLD" family="'Arial'"
+                                                lefttoright="false" text_align="RIGHT"
+                                                justify="&quot;Middle&quot; &quot;RIGHT&quot;"
+                                                nodename="FontStyle"></number>
+                                    </number>
+                                </number>
+                            </number>
+                            <number def="foo" rotation="1 1.5612488335498067 0 0.004633732838142135"
+                                    translation="-2.2 -1.5 0.28" scale="1 1 1" nodename="transform">
+                                <number ispickable="false" nodename="Shape">
+                                    <number nodename="Appearance">
+                                        <number specularcolor="0.06 0.06 0.06" shininess="0.100"
+                                                diffusecolor="0.06 0.06 0.06" ambientintensity="0.0933"
+                                                nodename="Material"></number>
+                                    </number>
+                                    <number solid="true" string="&quot;{$alertpersonnum}&quot; " nodename="Text">
+                                        <number toptobottom="false" spacing="1" horizontal="true" size="10.5"
+                                                style="BOLD" family="'Arial'" lefttoright="false"
+                                                justify="&quot;END&quot;" nodename="FontStyle"></number>
+                                    </number>
+                                </number>
+                            </number>
+                            <number def="foo" rotation="0.9999892642023637 1.5612488335498067 0 0.004633732838142135"
+                                    translation="-1.2 -4 0.21" scale="1 1 1" nodename="transform">
+                                <number ispickable="true" nodename="Shape">
+                                    <number nodename="Appearance">
+                                        <number specularcolor="0.06 0.06 0.06" shininess="0.100"
+                                                diffusecolor="0.06 0.06 0.06" ambientintensity="0.0933"
+                                                nodename="Material"></number>
+                                    </number>
+                                    <number solid="true" string="&quot;{$alertdatetime}&quot; " nodename="Text">
+                                        <number spacing="0" horizontal="false" size="10.5" style="BOLD" family="'Arial'"
+                                                lefttoright="false" text_align="RIGHT"
+                                                justify="&quot;Middle&quot; &quot;RIGHT&quot;"
+                                                nodename="FontStyle"></number>
+                                    </number>
+                                </number>
+                            </number>
+                            <number def="foo" rotation="0.9999892642023637 0 0.004633732838142135 1.5612488335498067"
+                                    translation="12 0 0.1" scale=".25 .0  .35" nodename="transform">
+                                <number def="float" ispickable="true" nodename="Shape">
+                                    <number nodename="Appearance">
+                                        <number url="{$alertimageurl}" repeatt="false" id="ImageTest1" repeats="false"
+                                                nodename="ImageTexture"></number>
+                                    </number>
+                                    <number size="30 30 30" nodename="Box"></number>
+                                </number>
+                            </number>
+                        </number>
+                    </node>
+                </number>
+            </alert>
+            <shapes>
+                <number color="#ff00ff" name="Cone" type="Default" _id="1" Color="#fff">
+                    <number def="foo" rotation="Auto" translation="Auto" scale=".10 .6  .10" nodename="transform">
+                        <number def="float" ispickable="true" nodename="Shape">
+                            <number nodename="Appearance">
+                                <number specularcolor=".5 .5 .5" diffusecolor="0 1 0" nodename="Material"></number>
+                            </number>
+                            <number size="10 10 10" nodename="Cone"></number>
+                        </number>
+                    </number>
+                </number>
+                <number name="Box" type="Default" _id="2" color="#fff" Color="#fff">
+                    <number def="foo" rotation="Auto" translation="Auto" scale=".10 .10  .10" nodename="transform"
+                            node="true">
+                        <number def="float" ispickable="true" nodename="Shape">
+                            <number nodename="Appearance">
+                                <number specularcolor=".5 .5 .5" diffusecolor="0 1 0" nodename="Material"></number>
+                            </number>
+                            <number size="10 10 10" nodename="Box"></number>
+                        </number>
+                    </number>
+                </number>
+                <number name="Sphere" type="Default" _id="3" color="#fff" Color="#fff">
+                    <number def="foo" rotation="Auto" translation="Auto" scale=".10 .10  .10" nodename="transform"
+                            node="true">
+                        <number def="float" ispickable="true" nodename="Shape">
+                            <number nodename="Appearance">
+                                <number specularcolor=".5 .5 .5" diffusecolor="0 1 0" nodename="Material"></number>
+                            </number>
+                            <number size="10 10 10" nodename="Sphere"></number>
+                        </number>
+                    </number>
+                </number>
+                <number name="Cylinder" type="Default" _id="5" color="#fff" Color="#fff">
+                    <number def="foo" rotation="Auto" translation="Auto" scale=".10 .10  .10" nodename="transform">
+                        <number def="float" ispickable="true" nodename="Shape">
+                            <number nodename="Appearance">
+                                <number specularcolor=".5 .5 .5" diffusecolor="0 1 0" nodename="Material"></number>
+                            </number>
+                            <number side="true" top="false" bottom="false" solid="false" height="10.0" radius="1.0"
+                                    def="cylinder" size="10 10 10" nodename="Cylinder"></number>
+                        </number>
+                    </number>
+                </number>
+            </shapes>
+            <initialize
+                    map="">
+                <innerelement>
+                </innerelement>
+            </initialize>

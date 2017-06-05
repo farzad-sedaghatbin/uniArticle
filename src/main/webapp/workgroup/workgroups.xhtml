@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.management}" url="#" />
+            <p:menuitem value="#{bundle.workgroup}" url="#" />
+        </p:breadCrumb>
+
+        <h:form id="form">
+            <p:contextMenu for="groups" rendered="#{me.hasPermission('WORKGROUPMANAGEMENT')}">
+                <p:menuitem value="#{bundle.edit}" update="groupDetail" icon="ui-icon-scissors" oncomplete="PF('groupDialog').show()"
+                            actionListener="#{handleWorkGroupAction.edit}"/>
+                <p:menuitem value="#{bundle.delete}" update="groups" icon="ui-icon-trash"
+                            actionListener="#{handleWorkGroupAction.doDelete}">
+                    <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="#{bundle.add}" rendered="#{me.hasPermission('WORKGROUPMANAGEMENT')}" id="add" update="groupDetail" actionListener="#{handleWorkGroupAction.add}"
+                             styleClass="ui-priority-primary" onclick="PF('groupDialog').show()"/>
+
+            <p:dataTable id="groups" var="group" value="#{handleWorkGroupAction.workGroupList}" rowKey="#{group.id}"
+                         selection="#{handleWorkGroupAction.currentWorkGroup}" selectionMode="single"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" lazy="true"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    <h:outputLabel value="#{bundle.workgroup_list}"/>
+                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="groups" trigger="toggler" />
+                </f:facet>
+                <p:column headerText="#{bundle.name}">
+                    <h:outputText value="#{group.name}"/>
+                </p:column>
+                <p:column headerText="#{bundle.enable}">
+                    <p:graphicImage value="#{group.enabled ? '/images/s_true.png' : '/images/s_false.png'}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="#{bundle.workgroup_info}" widgetVar="groupDialog" modal="true" showEffect="fade" hideEffect="fade"
+                      resizable="false">
+                <p:outputPanel id="groupDetail" style="text-align:center;">
+                    <f:facet name="header">
+                        <!--<p:graphicImage name="demo/images/car/#{dtContextMenuView.selectedCar.brand}-big.gif"/>-->
+                    </f:facet>
+                    <table border="0" cellpadding="3" cellspacing="3" width="50%">
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.name}:"/>
+                            </td>
+                            <td>
+                                <p:inputText readonly="#{handleWorkGroupAction.disableFields}"
+                                             value="#{handleWorkGroupAction.name}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.description}:"/>
+                            </td>
+                            <td>
+                                <p:inputTextarea readonly="#{handleWorkGroupAction.disableFields}"
+                                                 value="#{handleWorkGroupAction.descText}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.enable}:"/>
+                            </td>
+                            <td>
+                                <p:selectBooleanCheckbox readonly="#{handleWorkGroupAction.disableFields}"
+                                                         value="#{handleWorkGroupAction.workGroupEnabled}"
+                                                         valueChangeListener="#{handleWorkGroupAction.workGroupEnableChange}"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table border="0" cellpadding="3" cellspacing="3" width="50%">
+                        <tr>
+                            <td>
+                                <p:pickList id="operationPickList" value="#{handleRoleAction.roles}"
+                                            var="role"
+                                            effect="bounce"
+                                            itemValue="#{role}" itemLabel="#{role.name}"
+                                            showSourceControls="true"
+                                            showTargetControls="true" showCheckbox="true" responsive="true"
+                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                                            converter="#{roleConverter}"
+                                            disabled="#{handleWorkGroupAction.disableFields}">
+                                    <f:facet name="sourceCaption">
+                                        <h:outputLabel value="#{bundle.source}"/>
+                                    </f:facet>
+                                    <f:facet name="targetCaption">
+                                        <h:outputLabel value="#{bundle.target}"/>
+                                    </f:facet>
+
+                                    <p:ajax event="transfer" listener="#{handleRoleAction.onTransfer}"/>
+
+                                    <p:column style="width:90%;">
+                                        <h:outputText value="#{role.name}"/>
+                                    </p:column>
+                                </p:pickList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p:commandButton value="#{bundle.submit}" id="edit" update="groups"
+                                                 actionListener="#{handleWorkGroupAction.saveOrUpdate}"
+                                                 oncomplete="PF('groupDialog').hide()" styleClass="ui-priority-primary"
+                                                 rendered="#{not handleWorkGroupAction.disableFields}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

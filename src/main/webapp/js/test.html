@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<div >
+<style type="text/css">
+.CalendarSelectable tr td{
+	min-width:20px;
+	min-height:20px;
+	background:#CCC;
+	text-align: center;
+	
+}
+.CalendarSelectable .ui-selecting { background: #FECA40; }
+.CalendarSelectable .ui-selected { background: #F39814; color: white; }
+.CalendarSelectable td{
+	cursor:pointer;
+}
+.Menu{
+	display:inline-block;
+	margin: 5px;
+}
+.Menu li{
+	display:inline-block;
+	float:left;
+	margin-right:10px;
+	
+	
+}
+.selectBox{
+	
+	direction:rtl;
+}
+</style>
+<ul class="Menu">
+    <li><select class="selectBox">
+
+    </select></li>
+    <li><a><img src="images/SelectAllIcon.png" width="20"/></a></li>
+    <li><a class="DeselectAll"><img src="images/DeselectAllIcon.png" width="20"/></a></li>
+    <li><a><img src="images/InvertIcon.png" width="20"/></a></li>
+    <li><select id="CalenderMode">
+    <option value="1">شمسی</option>
+    <option value="2">میلادی</option>
+    </select></li>
+    
+</ul>
+
+
+
+<table class="CalendarSelectable" id="CalendarSelectable">
+</table>
+<input type="button" name="BTN" value="ثبت" class="BTNSubmit"/>
+</div>
+<script language="javascript" src="../jquery/1.10.2/jquery-1.10.2.min.js">
+
+</script>
+
+<script language="javascript" src="jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" language="JavaScript" src="lib/astro.js"></script>
+<script type="text/javascript" language="JavaScript" src="lib/calendar_class.js"></script>
+<script language="javascript" src="lib/jalaliDate.js"></script>
+<script language="javascript" src="lib/index.js"></script>
+<script language="javascript" src="lib/Calendar.js"></script>
+<script language="javascript">
+$.CJalaliMode = true;
+var $CS;
+$(window).bind("load", function (e) {
+  $CS = $('#CalendarSelectable').CalendarSelectable().Ajax("init.php", '2014');
+  $CS.Jalali = $.CJalaliMode;
+  $CS.AfterInit = function ($CalendarSelectable) {
+    $CalendarSelectable.Document.find(".YearChanger .prev").each(function (i, elemant) {
+      $(elemant).click(function (e) {
+        $CalendarSelectable.SubmitData('submit.php');
+        $CalendarSelectable.Jalali = $.CJalaliMode;
+        $CalendarSelectable.Ajax("init.php", $CalendarSelectable.CurrentYear - 1).Initialize().selectable({
+          filter: "td",
+          delay: 400,
+          start: function (event, ui, Methods) {},
+          selecting: function (event, ui, Methods) {},
+          unselecting: function (event, ui, Methods) {},
+          unselected: function (event, ui, Methods) {},
+          selected: function (event, ui, Methods) {},
+          stop: function (event, ui, Methods) {}
+        })
+      });
+    });
+    $CalendarSelectable.Document.find(".YearChanger .Next").each(function (i, elemant) {
+      $(elemant).click(function (e) {
+        $CalendarSelectable.SubmitData('submit.php');
+        $CalendarSelectable.Jalali = $.CJalaliMode;
+        $CalendarSelectable.Ajax("init.php", parseInt($CalendarSelectable.CurrentYear) + 1).Initialize().selectable({
+          filter: "td",
+          delay: 400,
+          start: function (event, ui, Methods) {},
+          selecting: function (event, ui, Methods) {},
+          unselecting: function (event, ui, Methods) {},
+          unselected: function (event, ui, Methods) {},
+          selected: function (event, ui, Methods) {},
+          stop: function (event, ui, Methods) {}
+        })
+      });
+    });
+  }
+  $CS.Initialize().selectable({
+    filter: "td",
+    delay: 400,
+    start: function (event, ui, Methods) {},
+    selecting: function (event, ui, Methods) {},
+    unselecting: function (event, ui, Methods) {},
+    unselected: function (event, ui, Methods) {},
+    selected: function (event, ui, Methods) {},
+    stop: function (event, ui, Methods) {}
+  }).SubmitEvent('.BTNSubmit', 'submit.php');
+  $('.DeselectAll').click(function (e) {
+    $CS.UnSelectAll();
+  });
+  $('#CalenderMode').change(function (e) {
+    if ($('#CalenderMode option:checked').val() == "2") {
+      $.CJalaliMode = false;
+    } else {
+      $.CJalaliMode = true;
+    };
+    console.log($.CJalaliMode);
+    $('#CalendarSelectable').empty();
+      $('.SelectBox').empty();
+      $CS.Jalali = $.CJalaliMode;
+    $CS.Initialize().selectable({
+      filter: "td",
+      delay: 400,
+      start: function (event, ui, Methods) {},
+      selecting: function (event, ui, Methods) {},
+      unselecting: function (event, ui, Methods) {},
+      unselected: function (event, ui, Methods) {},
+      selected: function (event, ui, Methods) {},
+      stop: function (event, ui, Methods) {}
+    }).SubmitEvent('.BTNSubmit', 'submit.php');
+  });
+});
+
+</script>
+</body>
+</html>

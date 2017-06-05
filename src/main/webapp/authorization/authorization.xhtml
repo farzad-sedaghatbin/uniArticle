@@ -1,0 +1,66 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <p:contextMenu for="commentTable">
+                <p:menuitem value="#{bundle.accept}" icon="icon-done" actionListener="#{handleCommentAction.accept}"/>
+                <p:menuitem value="#{bundle.refuse}" icon="icon-delete2" actionListener="#{handleCommentAction.refuse}"/>
+            </p:contextMenu>
+            <p:dataTable id="commentTable"
+                         value="#{handleCommentAction.comments}"
+                         var="comment"
+                         rowKey="#{comment.id}"
+                         selection="#{handleCommentAction.currentComment}" selectionMode="single"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" lazy="true"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    لیست <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right"
+                                          icon="ui-icon-calculator"/>
+                    <p:columnToggler datasource="commentTable" trigger="toggler"/>
+                </f:facet>
+
+                <p:column headerText="#{bundle.effector_user}" sortBy="#{comment.effectorUser}"
+                          filterBy="#{comment.effectorUser}">
+                    <h:outputText value="#{comment.effectorUser}"/>
+                </p:column>
+                <p:column headerText="#{bundle.message}" sortBy="#{comment.message}" filterBy="#{comment.message}">
+                    <h:outputText value="#{comment.message}"/>
+
+                </p:column>
+                <p:column headerText="#{bundle.name}">
+                    <h:outputText value="#{comment.trafficLog.person.name}"/>
+                    &#160;&#160;
+                    <h:outputText value="#{comment.trafficLog.person.lastName}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.time}"/>
+                    </f:facet>
+                    <h:outputText value="#{comment.trafficLog.time}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.operation}"/>
+                    </f:facet>
+                    <h:commandButton value="#{bundle.approved}" action="#{handleCommentAction.accept}"/>
+                    <h:commandButton value="#{bundle.decline}" action="#{handleCommentAction.refuse}"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:dataScroller limitRender="true" execute="@this" update="commentTable"
+                                    page="#{handleCommentAction.page}"/>
+                </f:facet>
+
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

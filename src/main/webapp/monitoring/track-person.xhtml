@@ -1,0 +1,272 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.report}" url="#" />
+            <p:menuitem value="#{bundle.static}" url="#" />
+        </p:breadCrumb>
+
+        <br/>
+        <h:form id="trackFrm">
+            <p:outputPanel id="selectPerson" ajaxRendered="true" rendered="#{handleMonitoringAction.person}">
+                <table border="0" cellpadding="3" cellspacing="3" class="panelLikeTable">
+                    <tr valign="top">
+                        <td nowrap="nowrap">
+                            <p:contextMenu for="personTable">
+                                <p:menuitem value="#{bundle.search}" icon="icon-add"
+                                            actionListener="#{handleMonitoringAction.dotrackByPerson}"/>
+                            </p:contextMenu>
+                            <p:dataTable id="personTable" value="#{handleMonitoringAction.personList}"
+                                         var="person"
+                                         rowKey="#{person.id}"
+                                         selectionMode="single"
+                                         selection="#{handleMonitoringAction.currentPerson}"
+                                         paginator="true" rows="10"
+
+                                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         draggableColumns="true" style="margin-bottom:20px">
+                                <f:facet name="header">
+                                    لیست <p:commandButton id="toggler" type="button" value="#{bundle.columns}"
+                                                          style="float:right" icon="ui-icon-calculator"/>
+                                    <p:columnToggler datasource="personTable" trigger="toggler"/>
+                                </f:facet>
+                                <p:column headerText="#{bundle.name}" sortBy="#{person.name}"
+                                          filterBy="#{person.name}">
+                                    <h:outputText id="selectLink"
+                                                  value="#{person.name}"/>
+                                </p:column>
+
+                                <p:column headerText="#{bundle.lastname}" sortBy="#{person.lastName}"
+                                          filterBy="#{person.lastName}">
+                                    <h:outputText escape="true" value="#{person.lastName}"/>
+                                </p:column>
+
+                                <p:column headerText="#{bundle.personnel_number}" sortBy="#{person.personnelNo}"
+                                          filterBy="#{person.personnelNo}">
+                                    <h:outputText escape="true" value="#{person.personnelNo}"/>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:dataScroller limitRender="true" execute="@this" update="personTable"
+                                                    page="#{handleMonitoringAction.personPage}"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </td>
+                    </tr>
+                </table>
+            </p:outputPanel>
+            <p:outputPanel id="selectPersonbyGate" ajaxRendered="true"
+                           rendered="#{handleMonitoringAction.personAndGate}">
+                <table border="0" cellpadding="3" cellspacing="3" class="panelLikeTable">
+                    <tr valign="top">
+                        <td nowrap="nowrap" width="60">
+                            <h:outputText escape="true" value="#{bundle.gateway}"/>
+                        </td>
+                        <td nowrap="nowrap">
+                            <h:selectOneMenu value="#{handleMonitoringAction.gatewayId}">
+                                <f:selectItems value="#{handleMonitoringAction.gatewayItems}"/>
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <td nowrap="nowrap" align="#{me.align}" colspan="2">
+
+                            <p:contextMenu for="personTable1">
+                                <p:menuitem value="#{bundle.search}" icon="icon-add"
+                                            actionListener="#{handleMonitoringAction.dotrackByPersonAndGate}"/>
+                            </p:contextMenu>
+                            <p:dataTable id="personTable1" value="#{handleMonitoringAction.personList}"
+                                         keepSaved="true"
+                                         emptyMessage="#{bundle.empty_message}"
+                                         sortMode="single"
+                                         selection="#{handleMonitoringAction.currentPerson}"
+                                         selectionMode="single"
+                                         var="person"
+                                         rows="10"
+                                         style="BORDER-COLLAPSE: collapse;text-align: center; width:100%;"
+                                         rowClasses="ROW1,ROW2">
+
+                                <p:column sortBy="#{person.name}"
+                                          sortOrder="#{handlePersonAction.personnameOrder}">
+                                    <f:facet name="header">
+                                        <p:commandLink value="#{bundle.name}" update="personTable1"
+                                                       execute="@this"
+                                                       limitRender="true"
+                                                       action="#{handlePersonAction.sortByPersonname}"/>
+                                        <br/>
+                                        <h:inputText value="#{handlePersonAction.personnameFilter}">
+                                            <p:ajax event="blur" update="personTable1" execute="@this"
+                                                    limitRender="true"/>
+                                        </h:inputText>
+                                    </f:facet>
+                                    <h:outputText
+                                            value="#{person.name}"
+                                            />
+                                </p:column>
+                                <p:column sortBy="#{person.lastName}"
+                                          sortOrder="#{handlePersonAction.personFamilyOrder}">
+                                    <f:facet name="header">
+                                        <p:commandLink value="#{bundle.lastname}" update="personTable1"
+                                                       execute="@this"
+                                                       limitRender="true"
+                                                       action="#{handlePersonAction.sortByPersonFamily}"/>
+                                        <br/>
+                                        <h:inputText value="#{handlePersonAction.personFamilyFilter}">
+                                            <p:ajax event="blur" update="personTable1" execute="@this"
+                                                    limitRender="true"/>
+                                        </h:inputText>
+
+
+                                    </f:facet>
+                                    <h:outputText escape="true" value="#{person.lastName}"/>
+                                </p:column>
+
+                                <p:column sortBy="#{person.personnelNo}"
+                                          sortOrder="#{handlePersonAction.personnelNoOrder}">
+                                    <f:facet name="header">
+                                        <p:commandLink value="#{bundle.personnel_number}" update="personTable1"
+                                                       execute="@this"
+                                                       limitRender="true"
+                                                       action="#{handlePersonAction.sortByPersonnelNo}"/>
+                                        <br/>
+                                        <h:inputText value="#{handlePersonAction.personnelNoFilter}">
+                                            <p:ajax event="blur" update="personTable1" execute="@this"
+                                                    limitRender="true"/>
+                                        </h:inputText>
+                                    </f:facet>
+                                    <h:outputText escape="true" value="#{person.personnelNo}"/>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:dataScroller limitRender="true" execute="@this" update="personTable1"
+                                                    page="#{handleMonitoringAction.personPage}"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </td>
+                    </tr>
+                </table>
+            </p:outputPanel>
+            <p:outputPanel id="selectPersonByTime" ajaxRendered="true"
+                           rendered="#{handleMonitoringAction.personAndTime}">
+                <table border="0" cellpadding="3" cellspacing="3" class="panelLikeTable">
+                    <tr valign="bottom">
+                        <td nowrap="nowrap" width="60">
+                            <h:outputText escape="true" value="#{bundle.start_time}"/>
+                        </td>
+                        <td nowrap="nowrap">
+                            <p:spinner value="#{handleMonitoringAction.startSecond}"
+                                       step="1" maxValue="59" inputSize="1" minValue="0"/>
+                            &nbsp;
+                            <p:spinner value="#{handleMonitoringAction.startMinute}"
+                                       step="1" maxValue="59" inputSize="1" minValue="0"/>
+                            &nbsp;
+                            <p:spinner value="#{handleMonitoringAction.startHour}"
+                                       step="1" maxValue="23" inputSize="1" minValue="0"/>
+                        </td>
+                    </tr>
+
+                    <tr valign="bottom">
+                        <td nowrap="nowrap" width="60">
+                            <h:outputText escape="true" value="#{bundle.end_time}"/>
+                        </td>
+                        <td nowrap="nowrap">
+                            <p:spinner value="#{handleMonitoringAction.endSecond}"
+                                       step="1" maxValue="59" inputSize="1" minValue="0"/>
+                            &nbsp;
+                            <p:spinner value="#{handleMonitoringAction.endMinute}"
+                                       step="1" maxValue="59" inputSize="1" minValue="0"/>
+                            &nbsp;
+                            <p:spinner value="#{handleMonitoringAction.endHour}"
+                                       step="1" maxValue="23" inputSize="1" minValue="0"/>
+
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <td nowrap="nowrap" colspan="2">
+
+                            <p:contextMenu for="personTable2">
+                                <p:menuitem value="#{bundle.search}" icon="icon-add"
+                                            actionListener="#{handleMonitoringAction.dotrackByPersonAndTime}"/>
+                            </p:contextMenu>
+                            <p:dataTable id="personTable2"
+                                         value="#{handleMonitoringAction.personList}"
+                                         keepSaved="true"
+                                         emptyMessage="#{bundle.empty_message}"
+                                         sortMode="single"
+                                         selection="#{handleMonitoringAction.currentPerson}"
+                                         selectionMode="single"
+                                         var="person"
+                                         rows="10"
+                                         style="BORDER-COLLAPSE: collapse;text-align: center; width:100%;"
+                                         rowClasses="ROW1,ROW2">
+                                <p:column sortBy="#{person.name}"
+                                          sortOrder="#{handlePersonAction.personnameOrder}">
+                                    <f:facet name="header">
+                                        <p:commandLink value="#{bundle.name}" update="personTable2"
+                                                       execute="@this"
+                                                       limitRender="true"
+                                                       action="#{handlePersonAction.sortByPersonname}"/>
+                                        <br/>
+                                        <h:inputText value="#{handlePersonAction.personnameFilter}">
+                                            <p:ajax event="blur" update="personTable2" execute="@this"
+                                                    limitRender="true"/>
+                                        </h:inputText>
+                                    </f:facet>
+                                    <h:outputText value="#{person.name}"
+                                            />
+                                </p:column>
+                                <p:column sortBy="#{person.lastName}"
+                                          sortOrder="#{handlePersonAction.personFamilyOrder}">
+                                    <f:facet name="header">
+                                        <p:commandLink value="#{bundle.lastname}" update="personTable2"
+                                                       execute="@this"
+                                                       limitRender="true"
+                                                       action="#{handlePersonAction.sortByPersonFamily}"/>
+                                        <br/>
+                                        <h:inputText value="#{handlePersonAction.personFamilyFilter}">
+                                            <p:ajax event="blur" update="personTable2" execute="@this"
+                                                    limitRender="true"/>
+                                        </h:inputText>
+                                    </f:facet>
+                                    <h:outputText escape="true" value="#{person.lastName}"/>
+                                </p:column>
+
+                                <p:column sortBy="#{person.personnelNo}"
+                                          sortOrder="#{handlePersonAction.personnelNoOrder}">
+                                    <f:facet name="header">
+                                        <p:commandLink value="#{bundle.personnelCode}" update="personTable2"
+                                                       execute="@this"
+                                                       limitRender="true"
+                                                       action="#{handlePersonAction.sortByPersonnelNo}"/>
+                                        <br/>
+                                        <h:inputText value="#{handlePersonAction.personnelNoFilter}">
+                                            <p:ajax event="blur" update="personTable2" execute="@this"
+                                                    limitRender="true"/>
+                                        </h:inputText>
+                                    </f:facet>
+                                    <h:outputText escape="true" value="#{person.personnelNo}"/>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:dataScroller limitRender="true" execute="@this" update="personTable2"
+                                                    page="#{handleMonitoringAction.personPage}"/>
+                                </f:facet>
+                            </p:dataTable>
+
+                        </td>
+                    </tr>
+
+                </table>
+            </p:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

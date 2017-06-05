@@ -1,0 +1,213 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <h:form id="ruleFrm">
+        <p:outputPanel id="handleRulePanel">
+            <table border="0">
+                <tr valign="top">
+                    <td nowrap="nowrap">
+                        <h:outputText value="#{bundle.name}"/>
+                        &#160;&#160;&#160;&#160;&#160;
+                        <p:inputText id="ruleName"
+                                     value="#{handleZoneAction.name}"/>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td nowrap="nowrap">
+                        <h:outputText escape="true"
+                                      value="#{bundle.date}"/>
+                        &#160;&#160;&#160;&#160;&#160;
+                        <p:selectOneMenu value="#{handleZoneAction.selectedCalendarIdTemp}" tabindex="2">
+                            <f:selectItems value="#{handleZoneAction.calendarItems}"/>
+                        </p:selectOneMenu>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td nowrap="nowrap">
+                        <h:outputText escape="true"
+                                      value="#{bundle.antipassback}" styleClass="textColor"/>
+                        &#160;&#160;&#160;
+                        <p:selectBooleanCheckbox value="#{handleZoneAction.ruleAniPassBack}" tabindex="3"/>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td nowrap="nowrap">
+                        <h:outputText escape="true"
+                                      value="#{bundle.allow_exit_gadget}" styleClass="textColor"/>
+                        &#160;&#160;&#160;
+                        <p:selectBooleanCheckbox value="#{handleZoneAction.ruleAllowExitGadget}" tabindex="5"/>
+                    </td>
+                </tr>
+
+                <tr valign="top">
+                    <td nowrap="nowrap" colspan="2">
+                        <p:dataTable id="ruleTempTable"
+                                     value="#{handleZoneAction.ruleListTemp}"
+                                     sortMode="single"
+                                     var="ruleTemp"
+                                     rows="10"
+                                     style="BORDER-COLLAPSE: collapse;text-align: center; width:100%;">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText escape="true" value="#{bundle.daytype}"/>
+                                </f:facet>
+                                <h:outputText escape="true" value="#{ruleTemp.dayType.title}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText escape="true" value="#{bundle.start_time}"/>
+                                </f:facet>
+                                <h:outputText escape="true" value="#{ruleTemp.startTime}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText escape="true" value="#{bundle.end_time}"/>
+                                </f:facet>
+                                <h:outputText escape="true" value="#{ruleTemp.endTime}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText escape="true" value="#{bundle.allow_exit_gadget}"/>
+                                </f:facet>
+                                <h:outputText escape="true" value="#{ruleTemp.entranceCount}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText escape="true" value="#{bundle.exit_count}"/>
+                                </f:facet>
+                                <h:outputText escape="true" value="#{ruleTemp.exitCount}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText escape="true" value="#{'انکار'}"/>
+                                </f:facet>
+                                <h:graphicImage
+                                        value="#{ruleTemp.deny eq 'true' ? '/images/s_true.png':'/images/s_false.png'}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText escape="true" value="#{bundle.delete}"/>
+                                </f:facet>
+                                <p:commandButton image="/images/delete.png"
+                                                 title="delete"
+                                                 update="ruleTempTable"
+                                                 action="#{handleZoneAction.remove(ruleTemp.id)}"
+                                        />
+                            </p:column>
+                        </p:dataTable>
+                    </td>
+                </tr>
+
+                <tr valign="top">
+                    <td nowrap="nowrap">
+                        <p:outputPanel id="newRuleDetailPanel">
+                            <table>
+                                <tr valign="middle">
+                                    <td nowrap="nowrap">
+                                        <h:outputText escape="true" value="#{bundle.daytype}"/>
+                                    </td>
+                                    <td nowrap="nowrap">
+                                        <p:selectOneMenu value="#{handleZoneAction.dayTypeIdTemp}">
+                                            <f:selectItems value="#{handleZoneAction.dayTypeItems}"/>
+                                        </p:selectOneMenu>
+                                    </td>
+                                </tr>
+                                <tr valign="bottom">
+                                    <td nowrap="nowrap">
+                                        <h:outputText escape="true" value="#{bundle.start_time}"/>
+                                    </td>
+                                    <td nowrap="nowrap">
+                                        <p:spinner value="#{handleZoneAction.startSecond}"
+                                                   stepFactor="1" max="59" min="0" size="8"/>
+                                        &#160;
+                                        <p:spinner value="#{handleZoneAction.startMinute}"
+                                                   stepFactor="1" max="59" min="0" size="8"/>
+
+                                        &#160;
+                                        <p:spinner value="#{handleZoneAction.startHour}"
+                                                   stepFactor="1" max="23" min="0" size="8"/>
+                                    </td>
+                                </tr>
+
+                                <tr valign="bottom">
+                                    <td nowrap="nowrap">
+                                        <h:outputText escape="true" value="#{bundle.end_time}"/>
+                                    </td>
+                                    <td nowrap="nowrap">
+                                        <p:spinner value="#{handleZoneAction.endSecond}"
+                                                   stepFactor="1" max="59" size="8" min="0"/>
+                                        &#160;
+                                        <p:spinner value="#{handleZoneAction.endMinute}"
+                                                   stepFactor="1" max="59" size="8" min="0"/>
+                                        &#160;
+                                        <p:spinner value="#{handleZoneAction.endHour}"
+                                                   stepFactor="1" max="59" size="8" min="0"/>
+                                    </td>
+                                </tr>
+                                <tr valign="bottom">
+                                    <td nowrap="nowrap">
+                                        <h:outputText escape="true" value="#{bundle.entrance_count}"/>
+                                    </td>
+                                    <td nowrap="nowrap">
+                                        <p:spinner
+                                                value="#{handleZoneAction.ruleEntranceCount}"
+                                                stepFactor="1" max="99" size="8" min="0"/>
+
+                                    </td>
+                                </tr>
+                                <tr valign="bottom">
+                                    <td nowrap="nowrap">
+                                        <h:outputText escape="true" value="#{bundle.exit_count}"/>
+                                    </td>
+                                    <td nowrap="nowrap">
+                                        <p:spinner
+                                                value="#{handleZoneAction.ruleExitCount}"
+                                                stepFactor="1" max="99" size="8" min="0"/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td nowrap="nowrap">
+                                        <h:outputText escape="true" value="#{bundle.deny}" styleClass="textColor"/>
+                                    </td>
+                                    <td nowrap="nowrap">
+                                        <p:selectBooleanCheckbox value="#{handleZoneAction.ruleDeny}"/>
+                                    </td>
+                                </tr>
+                                <tr valign="top">
+                                    <td nowrap="nowrap">
+                                        <p:commandButton action="#{handleZoneAction.doAddNewRule}"
+                                                         value="#{bundle.add}"
+                                                         title="افزودن قانون"
+                                                         tabindex="6"
+                                                         update="form:ruleFrm:handleRulePanel"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p:outputPanel>
+                    </td>
+                </tr>
+
+
+                <tr valign="top">
+                    <td nowrap="nowrap" colspan="2">
+                        <p:commandButton id="saveRuleId"
+                                         value="#{bundle.save}"
+                                         action="#{handleZoneAction.doEditZoneRule}"/>
+                        <p:commandButton id="resetRuleId"
+                                         action="#{handleZoneAction.init}"
+                                         value="#{bundle.revert}"/>
+                    </td>
+                </tr>
+            </table>
+        </p:outputPanel>
+    </h:form>
+</ui:composition>

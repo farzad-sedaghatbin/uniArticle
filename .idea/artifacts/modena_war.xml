@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="modena:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="modena-1.0.1.war">
+      <element id="artifact" artifact-name="modena:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,61 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.monitoring}" url="#"/>
+            <p:menuitem value="#{bundle.device_monitoring}" url="#"/>
+        </p:breadCrumb>
+
+        <h:form>
+
+
+            <p:dataTable id="deviceTable"
+                         value="#{handleDeviceAction.listModel}"
+                         var="device"
+                         rowKey="#{device.ip}"
+                         selectionMode="single"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    لیست <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right"
+                                          icon="ui-icon-calculator"/>
+                    <p:columnToggler datasource="deviceTable" trigger="toggler"/>
+                </f:facet>
+
+                <p:column headerText="#{bundle.name}" sortBy="#{device.name}" filterBy="#{device.name}">
+                    <h:outputText id="editLink" value="#{device.name}"/>
+                </p:column>
+
+                <p:column headerText="#{bundle.description}" sortBy="#{device.description}"
+                          filterBy="#{device.description}">
+                    <h:outputText value="#{device.description}"/>
+                </p:column>
+                <p:column headerText="#{bundle.ip}" sortBy="#{device.ip}" filterBy="#{device.ip}">
+                    <h:outputText value="#{device.ip}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.status}"/>
+                    </f:facet>
+                    <h:outputLabel rendered="#{device.enabled eq 'true'}" styleClass="icon-done"/>
+                    <h:outputLabel rendered="#{device.enabled eq 'false'}" styleClass="icon-delete2"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:dataScroller limitRender="true" execute="@this" update="deviceTable"
+                                    page="#{handleDeviceAction.page}"/>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

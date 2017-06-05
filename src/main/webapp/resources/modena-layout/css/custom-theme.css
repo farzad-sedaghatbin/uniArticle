@@ -1,0 +1,199 @@
+GrayModena.Geometry {
+    direction: rtl;
+}
+
+#mobile-menu-button {
+    float: right;
+}
+
+#top-menu {
+    float: left;
+}
+
+.layout-menu > li > a > i {
+    float: right;
+}
+
+.ui-paginator .ui-paginator-prev .ui-icon {
+    background-image: url("/modena-1.0.1/javax.faces.resource/images/right-one-arrow-for-data.svg.xhtml?ln=primefaces-modena");
+}
+
+.ui-paginator .ui-paginator-next .ui-icon {
+    background-image: url("/modena-1.0.1/javax.faces.resource/images/left-one-arrow-for-data.svg.xhtml?ln=primefaces-modena");
+}
+
+.ui-paginator .ui-paginator-last .ui-icon {
+    background-image: url("/modena-1.0.1/javax.faces.resource/images/left-double-arrow-for-data.svg.xhtml?ln=primefaces-modena");
+}
+
+.ui-paginator .ui-paginator-first .ui-icon {
+    background-image: url("/modena-1.0.1/javax.faces.resource/images/right-double-arrow-for-data.svg.xhtml?ln=primefaces-modena");
+}
+
+.ui-treetable .ui-icon-triangle-1-e {
+    background-image: url("/modena-1.0.1/javax.faces.resource/images/leftarrow-navy.svg.xhtml?ln=primefaces-modena");
+}
+
+#containertable tr {
+    vertical-align: top;
+}
+
+#top-menu li ul.active-menu {
+    left: 150px;
+}
+
+.icon-menu {
+    padding-left: 10px;
+}
+
+#layout-menu-cover:not(.showmenu) {
+    margin-right: -320px;
+}
+
+#layout-menu-cover {
+    right: 0;
+    min-width: 220px;
+    width: auto;
+}
+
+.layout-menu li ul li a {
+    text-align: right;
+    direction: rtl
+}
+
+.ui-paginator-current {
+    direction: ltr;
+}
+
+.layout-menu > li > a {
+    text-align: right;
+}
+
+.ui-menu {
+    min-width: 110px;
+    width: auto;
+    border-right: 3px solid #0277bd;
+    border-bottom: 1px solid #0277bd;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.ui-menu .ui-menuitem .ui-menuitem-link .ui-menuitem-icon {
+    margin-right: 14px;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon {
+    float: right;
+}
+
+.ui-menu .ui-menuitem-text {
+    float: right;
+}
+
+.ui-menu .ui-menu-list .ui-menuitem .ui-state-hover, .ui-menu .ui-menu-list .ui-state-hover {
+    background-color: #0277bd;
+    border-radius: 0;
+    border-right: 1px dotted white;
+    color: white;
+}
+
+.ui-menu .ui-menuitem .ui-menuitem-link .ui-menuitem-icon {
+    margin-right: 14px;
+}
+
+.layout-menu li ul li a > i {
+    margin-left: 4px;
+}
+
+.has-car {
+    color: #45ab3b;
+    font-weight: bold;
+}
+
+.menulink {
+    direction: rtl;
+}
+
+.layout-menu li ul li a > i {
+    margin-left: 4px;
+}
+
+#color-menu {
+    float: left;
+    margin: 4px 0 0 -35px;
+}
+
+.color-rect-gray::before, .color-rect-blue::before, .color-rect-red::before, .color-rect-cyan::before, .color-rect-indigo::before {
+    content: "----";
+}
+
+.color-rect-gray, .color-rect-blue, .color-rect-red, .color-rect-cyan, .color-rect-indigo {
+    border-radius: 11px;
+    margin-left: 2px;
+}
+
+.color-rect-gray {
+    background-color: #37474f;
+    color: #37474f;
+}
+
+.color-rect-red {
+    background-color: #cc2e45;
+    color: #cc2e45;
+}
+
+.color-rect-blue {
+    background-color: #0277bd;
+    color: #0277bd;
+}
+
+.color-rect-cyan {
+    background-color: #00838f;
+    color: #00838f;
+}
+
+.color-rect-indigo {
+    background-color: #283593;
+    color: #283593;
+}
+
+#color-menu > li > a {
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 26px;
+}
+
+#theme-colors {
+    background-color: #ffffff;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px 0 rgba(43, 59, 93, 0.6);
+    left: 59px;
+    margin: 10px 0 0;
+    overflow: hidden;
+    padding: 10px;
+    position: absolute;
+    transform: perspective(500px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    transition: all 0.5s ease 0s;
+    width: 135px;
+    height: 0;
+    display: none;
+}
+
+#theme-colors.show {
+    height: auto;
+    display: block;
+}
+
+.color-rect-cyan::after {
+    content: "-";
+    font-size: 1px;
+}
+
+#top-menu li ul.active-menu {
+    margin: 9px 0 0 -150px;
+}
+
+
+.ui-paginator .ui-paginator-next .ui-icon, .ui-paginator .ui-paginator-prev .ui-icon, .ui-paginator .ui-paginator-first .ui-icon, .ui-paginator .ui-paginator-last .ui-icon {
+    overflow: hidden;
+}

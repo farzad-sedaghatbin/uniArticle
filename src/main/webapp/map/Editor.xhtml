@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title><h:outputText value="#{bundle.map}"/></title>
+    <!-- BEGIN:X3DOM -->
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/js/libs/x3dom-master/src/x3dom.css"/>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/tests.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/jquery/1.10.2/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/jquery/migrate/1.2.1/jquery-migrate-1.2.1.min.js"></script>
+    <!--<script type="text/javascript" src="#{request.contextPath}/js/libs/jquery-ui/1.10.3/ui/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/jquery-ui/1.10.3/ui/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/jquery-ui/1.10.3/ui/jquery.ui.mouse.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/jquery-ui/1.10.3/ui/jquery.ui.dialog.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/jquery-ui/1.10.3/ui/jquery.ui.autocomplete.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/jquery-ui/1.10.3/ui/jquery.ui.selectable.js"></script>-->
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/xml2json.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/base64/base64.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/Gate_Map.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/ajax/ajaxutility.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/cookie/jquery.cookie.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/Notification/jquery.desknoty.js"></script>
+    <!-- <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/x3dom.js"></script>-->
+    <!--<link rel="stylesheet" type="text/css" href="#{request.contextPath}/js/libs/x3dom-master/src/x3dom.css" />-->
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/lang/Array.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/Internals.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/debug.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/util/AdaptiveRenderControl.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/util/DownloadManager.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/util/RefinementJobManager.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/util/RefinementJobWorker.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/util/Properties.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/util/DoublyLinkedList.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/util/EarClipping.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/util/Utils.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/util/States.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/util/StateManager.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/util/BinaryContainerSetup.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/util/DrawableCollection.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/util/BVH.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/X3DCanvas.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/Runtime.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/Main.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/Cache.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/Texture.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/shader/Shader.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderParts.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderDynamic.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderDynamicMobile.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderComposed.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderNormal.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderPicking.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderPicking24.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderPickingId.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderPickingColor.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderPickingTexcoord.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderFrontgroundTexture.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderBackgroundTexture.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderBackgroundSkyTexture.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderBackgroundCubeTexture.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderShadow.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderShadowRendering.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/shader/ShaderBlur.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/gfx_webgl.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/gfx_flash.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/X3DDocument.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/MatrixMixer.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/Viewarea.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/Mesh.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/fields.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/NodeNameSpace.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Core.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Grouping.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Bindable.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Rendering.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Shape.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Lighting.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Followers.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Interpolation.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Time.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Networking.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/EnvironmentalEffects.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Navigation.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Text.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Sound.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Texturing.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Shaders.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Geomsetry3D.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Texturing3D.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Geospatial.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Geometry2D.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/VolumeRendering.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/CADGeometry.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/BVHRefiner.js"></script>
+    <script type="text/javascript"
+            src="#{request.contextPath}/js/libs/x3dom-master/src/nodes/Geometry3DExt.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/util/Moveable.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/x3dom-master/src/Docs.js"></script>
+    <!-- END:X3DOM -->
+</head>
+<h:body styleClass="#{me.direction == 'rtl' ? 'persianMode' : 'englishMode'}">
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" dir="RTL" class="header-repeat header-details">
+        <tr valign="top">
+            <td nowrap="nowrap"
+                class="#{me.direction == 'rtl' ? 'persian-header-right' : 'english-header-right'}">
+                <div class="#{me.direction == 'rtl' ? 'persian-header-right' : 'english-header-right'}"></div>
+            </td>
+            <td>&nbsp;</td>
+            <td nowrap="nowrap" align="#{me.appositeAlign}"
+                class="#{me.direction == 'rtl' ? 'persian-header-left' : 'english-header-left'}">
+                <div class="#{me.direction == 'rtl' ? 'persian-header-left' : 'english-header-left'}"></div>
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        <fieldset>
+            <legend>
+                <h:outputText escape="true" value="ویرایش نقشه"/>
+            </legend>
+            <div class="panelLikeTable">
+                <h:outputLabel value="نقشه"/> <input type="file" name="ImageMap" id="ImageMap"
+                                                     accept="image/jpeg, image/gif, image/png"
+                                                     class="mp3 text" dir="rtl" block="block"
+                                                     passdata="IsUpload=IsUpload;"/>
+                <br/>
+                <br/>
+                <h:outputLabel value="گذرگاه"></h:outputLabel> <select id="VTMNodes">
+
+            </select>
+
+                <div>
+                نوع اطلاع رسانی
+                <select id="VTMAlert">
+
+                </select>
+
+                مدل <select id="VTMShape">
+
+            </select>
+                </div>
+                <h:form id="frm">
+                    <h:commandButton id="saveMap" action="#{handleMapAction.saveOrUpdate}"
+                                     value="ذخیره"/>
+                    <h:inputHidden value="#{handleMapAction.content}" id="calendarData"/>
+
+                    &nbsp;
+                    <input type="button" value="ثبت دوربین" onclick="setMode();"/>
+                    &nbsp;
+                    <input type="button" id="removeElement" value="حذف"/>
+                </h:form>
+                <br/>
+
+                <p style="border:#999 1px solid; display:inline-block; text-align:left; float:left">
+                    <span><h:outputLabel value="نوع"/> </span>
+                    <span id="ShowShapeName"></span><br/>
+                    <span><h:outputLabel value="گذرگاه"/> </span>
+                    <span id="ShowNodeName"></span>
+                </p>
+
+
+            </div>
+
+            <div class="VTM3DMap">
+
+            </div>
+        </fieldset>
+    </p>
+      <span id="rubberBand"
+            style="background-color:blue; color:yellow; position:absolute; border:yellow solid 1px; z-index:10; visibility:hidden; opacity:0.3; pointer-events: none;"> &nbsp; </span>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/init.js"></script>
+    <script type="text/javascript" src="#{request.contextPath}/js/libs/editor.js"></script>
+    <script type="text/javascript">
+
+        document.getElementById("frm:saveMap").onclick = function () {
+            document.getElementById("frm:calendarData").value = Res.VTM3DMap.getDate()
+        }
+
+    </script>
+
+</h:body>
+</html>

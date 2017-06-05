@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="author" content="Hamed Hatami, Arsham Sedaghatbin, Farzad Sedaghatbin, Atefeh Ahmadi "/>
+        <title>caaTitle</title>
+    </h:head>
+
+    <h:body>
+
+
+        <h:form id="trafficLogList">
+            <h:inputHidden id="logs" value="#{handleMonitoringAction.trafficLogsbygate}"/>
+            <p:socket onMessage="handleMessage" channel="/notify"  />
+
+            <script type="text/javascript">
+                function handleMessage(trafficlog) {
+                    document.getElementById('trafficLogList:logs').value=trafficlog;
+                }
+            </script>
+            <p:outputPanel ajaxRendered="true" id="messages">
+
+                <table border="0" cellpadding="3" cellspacing="3" width="100%" dir="#{me.direction}" id="container">
+
+                    <tr valign="top">
+                        <ui:repeat value="#{handleMonitoringAction.trafficLogsbygate}" var="item">
+                            <td align="#{me.align}">
+
+
+                                    <p:dataTable value="#{item}"
+                                                    keepSaved="true"
+                                                    emptyMessage="#{bundle.empty_message}"
+                                                    sortMode="single"
+                                                    var="trafficLog"
+                                                    rows="#{handleMonitoringAction.sentryCount}"
+                                                    onrowdblclick="#{p:component('CommentPanel.show();"
+                                                    style="BORDER-COLLAPSE: collapse;text-align: center; width:100%;"
+                                                    rowClasses="ROW1,ROW2">
+
+
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText escape="true" value="#{bundle.person}"/>
+                                            </f:facet>
+
+                                            <h:outputText escape="true" value="#{trafficLog.name}"/>
+
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText escape="true" value="#{bundle.pdp}"/>
+                                            </f:facet>
+                                            <h:outputText escape="true" value="#{trafficLog.pdpName}"/>
+
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText escape="true" value="#{bundle.time}"/>
+                                            </f:facet>
+                                            <h:outputText escape="true" value="#{trafficLog.time}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText escape="true" value="#{bundle.status}"/>
+                                            </f:facet>
+                                            <h:graphicImage
+                                                    value="#{trafficLog.valid eq 'true' ? '/images/s_true.png':'/images/s_false.png'}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText escape="true" value="type"/>
+                                            </f:facet>
+                                            <h:graphicImage
+                                                    value="#{trafficLog.exit eq 'true' ? '/images/s_default.png':'/images/s_go.png'}"/>
+                                        </p:column>
+                                    </p:dataTable>
+
+                            </td>
+                        </ui:repeat>
+                    </tr>
+                </table>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

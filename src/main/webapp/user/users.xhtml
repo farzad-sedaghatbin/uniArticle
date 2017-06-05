@@ -1,0 +1,253 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.management}" url="#" />
+            <p:menuitem value="#{bundle.user_management}" url="#" />
+        </p:breadCrumb>
+
+        <h:form id="form">
+            <p:contextMenu for="users">
+                <p:menuitem value="#{bundle.view}" update="userDetail" icon="ui-icon-info" oncomplete="PF('userDialog').show()"
+                            actionListener="#{handleUserAction.viewMode}"/>
+                <p:menuitem value="#{bundle.edit}" update="userDetail" icon="ui-icon-scissors" oncomplete="PF('userDialog').show()"
+                            actionListener="#{handleUserAction.edit}"/>
+                <p:menuitem value="#{bundle.assign_pc}" update="assignPCDetail" icon="ui-icon-calculator"
+                            oncomplete="PF('assignPCDialog').show()"
+                            actionListener="#{handleUserAction.assignPC}"/>
+                <p:menuitem value="#{bundle.assign_person}" update="assignPersonDetail" icon="ui-icon-person"
+                            oncomplete="PF('assignPersonDialog').show()"
+                            actionListener="#{handleUserAction.assignPerson}"/>
+                <p:menuitem value="#{bundle.delete}" update="users" icon="ui-icon-trash"
+                            actionListener="#{handleUserAction.doDelete}">
+                    <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
+                            </p:menuitem>
+                <p:menuitem value="#{bundle.resetPass}" update="users" icon="ui-icon-close" actionListener="#{handleUserAction.resetPass}">
+                    <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="#{bundle.add}" id="add" update="userDetail" actionListener="#{handleUserAction.add}"
+                             styleClass="ui-priority-primary" onclick="PF('userDialog').show()"/>
+
+            <p:dataTable id="users" var="user" value="#{handleUserAction.userList}" rowKey="#{user.id}"
+                         selection="#{handleUserAction.currentUser}" selectionMode="single"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15" lazy="true"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    <h:outputLabel value="#{bundle.user_list}"/>
+                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="users" trigger="toggler" />
+                </f:facet>
+                <p:column headerText="#{bundle.username}" sortBy="#{user.username}" filterBy="#{user.username}">
+                    <h:outputText value="#{user.username}"/>
+                </p:column>
+                <p:column headerText="#{bundle.firstname}" sortBy="#{user.firstname}" filterBy="#{user.firstname}">
+                    <h:outputText value="#{user.firstname}"/>
+                </p:column>
+                <p:column headerText="#{bundle.lastname}" sortBy="#{user.lastname}" filterBy="#{user.lastname}">
+                    <h:outputText value="#{user.lastname}"/>
+                </p:column>
+                <p:column headerText="#{bundle.enable}">
+                    <p:graphicImage value="#{user.enable ? '/images/s_true.png' : '/images/s_false.png'}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="#{bundle.user_info}" widgetVar="userDialog" modal="true" showEffect="fade"
+                      hideEffect="fade" resizable="true" maximizable="true" closeOnEscape="true" draggable="true"
+                      minimizable="true" height="500">
+                <p:outputPanel id="userDetail" style="text-align:center;">
+                    <f:facet name="header">
+                        <!--<p:graphicImage name="demo/images/car/#{dtContextMenuView.selectedCar.brand}-big.gif"/>-->
+                    </f:facet>
+                    <table border="0" cellpadding="3" cellspacing="3" width="50%" >
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.firstname}:"/>
+                            </td>
+                            <td>
+                                <p:inputText readonly="#{handleUserAction.disableFields}"
+                                             value="#{handleUserAction.firstname}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.lastname}:"/>
+                            </td>
+                            <td>
+                                <p:inputText readonly="#{handleUserAction.disableFields}"
+                                             value="#{handleUserAction.lastname}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.username}:"/>
+                            </td>
+                            <td>
+                                <p:inputText readonly="#{handleUserAction.disableFields}"
+                                             value="#{handleUserAction.username}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.password}:"/>
+                            </td>
+                            <td>
+                                <p:password readonly="#{handleUserAction.disableFields}"
+                                            value="#{handleUserAction.password}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.re_password}:"/>
+                            </td>
+                            <td>
+                                <p:password readonly="#{handleUserAction.disableFields}"
+                                            value="#{handleUserAction.rePassword}"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.enable}:"/>
+                            </td>
+                            <td>
+                                <p:selectBooleanCheckbox readonly="#{handleUserAction.disableFields}"
+                                                         value="#{handleUserAction.enabled}"
+                                                         valueChangeListener="#{handleUserAction.userEnableChange}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputText value="#{bundle.sign}:"/>
+                            </td>
+                            <td>
+                                <p:fileUpload fileUploadListener="#{handleUserAction.listener}" />
+</td>
+
+                        </tr>
+                    </table>
+                    <table border="0" cellpadding="3" cellspacing="3" width="50%">
+                        <tr>
+                            <td>
+                                <p:pickList id="workgroupPickList" value="#{handleWorkGroupAction.workgroups}"
+                                            var="workgroup"
+                                            effect="bounce"
+                                            itemValue="#{workgroup}" itemLabel="#{workgroup.description}"
+                                            showSourceControls="true"
+                                            converter="#{workgroupConverter}"
+                                            showTargetControls="true" showCheckbox="true" responsive="true"
+                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                                            disabled="#{handleUserAction.disableFields}">
+                                    <f:facet name="sourceCaption"><h:outputText value="#{bundle.source}"/></f:facet>
+                                    <f:facet name="targetCaption"><h:outputText value="#{bundle.target}"/></f:facet>
+
+                                    <p:ajax event="transfer" listener="#{handleWorkGroupAction.onTransfer}"/>
+
+                                    <p:column style="width:90%;">
+                                        <h:outputText value="#{workgroup.description}"/>
+                                    </p:column>
+                                </p:pickList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p:commandButton value="#{bundle.submit}" id="edit" update="users,messageInfo"
+                                                 actionListener="#{handleUserAction.saveOrUpdate}" styleClass="ui-priority-primary"
+                                                 rendered="#{not handleUserAction.disableFields}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:outputPanel>
+            </p:dialog>
+
+            <p:dialog header="#{bundle.assign_pc}" widgetVar="assignPCDialog" modal="true" showEffect="fade" hideEffect="fade"
+                      resizable="false">
+                <p:outputPanel id="assignPCDetail" style="text-align:center;">
+                    <f:facet name="header">
+                        <!--<p:graphicImage name="demo/images/car/#{dtContextMenuView.selectedCar.brand}-big.gif"/>-->
+                    </f:facet>
+                    <table border="0" cellpadding="3" cellspacing="3" width="50%">
+                        <tr>
+                            <td>
+                                <p:pickList id="assignPCPickList" value="#{handleUserAction.pcList}"
+                                            var="pc"
+                                            effect="bounce"
+                                            itemValue="#{pc}" itemLabel="#{pc.name}"
+                                            showSourceControls="true"
+                                            converter="#{pcConverter}"
+                                            showTargetControls="true" showCheckbox="true" responsive="true"
+                                            showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                                            disabled="#{handleUserAction.disableFields}">
+                                    <f:facet name="sourceCaption"><h:outputText value="#{bundle.source}"/></f:facet>
+                                    <f:facet name="targetCaption"><h:outputText value="#{bundle.target}"/></f:facet>
+
+                                    <p:ajax event="transfer" listener="#{handleUserAction.onTransfer}"/>
+
+                                    <p:column style="width:90%;">
+                                        <h:outputText value="#{pc.name}"/>
+                                    </p:column>
+                                    <p:column style="width:90%;">
+                                        <h:outputText value="#{pc.ip}"/>
+                                    </p:column>
+                                    <p:column style="width:90%;">
+                                        <h:outputText value="#{pc.location.code}"/>
+                                    </p:column>
+                                </p:pickList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p:commandButton value="#{bundle.submit}" id="assignPC" update="users"
+                                                 actionListener="#{handleUserAction.associatePCs}"
+                                                 oncomplete="PF('assignPCDialog').hide()"
+                                                 styleClass="ui-priority-primary"
+                                                 rendered="#{not handleUserAction.disableFields}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:outputPanel>
+            </p:dialog>
+
+            <p:dialog header="#{bundle.assign_person}" widgetVar="assignPersonDialog" modal="true"  showEffect="fade" hideEffect="fade"
+                      resizable="false">
+                <p:outputPanel id="assignPersonDetail" style="text-align:center;">
+                <p:dataTable id="assignPerson" var="person" value="#{handleUserAction.personList}"
+                             selectionMode="single" selection="#{handleUserAction.selectedPerson}"
+                             rowKey="#{person.id}"
+                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15" style="margin-bottom:20px;width: 100%;height: 500px">
+                    <f:facet name="header">
+                        <h:outputText value="#{person.select_events}"/>
+                    </f:facet>
+                    <p:ajax event="rowSelect" listener="#{handleUserAction.associatePerson}"
+                            oncomplete="PF('assignPersonDialog').hide()"
+                            update=":form:users"/>
+                    <p:column headerText="#{bundle.name}" sortBy="#{person.name}" filterBy="#{person.name}">
+                        <h:outputText value="#{person.name}"/>
+                    </p:column>
+                    <p:column headerText="#{bundle.lastname}" sortBy="#{person.lastName}" filterBy="#{person.lastName}">
+                        <h:outputText value="#{person.lastName}"/>
+                    </p:column>
+                </p:dataTable>
+                </p:outputPanel>
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

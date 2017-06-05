@@ -1,0 +1,89 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+<ui:define name="content">
+    <p:breadCrumb>
+        <p:menuitem value="category" url="#"/>
+        <p:menuitem value="#{bundle.guest}" url="#" />
+        <p:menuitem value="#{bundle.guestReport}" url="#" />
+    </p:breadCrumb>
+<h:form id="trafficLogForm">
+
+
+<table border="0" cellpadding="3" cellspacing="3" class="panelLikeTable">
+  
+    <tr valign="middle">
+        <td nowrap="nowrap" align="#{me.appositeAlign}">
+            <h:outputText escape="true" value="#{bundle.fromDate}:"/>
+        </td>
+        <td nowrap="nowrap">
+            <p:inputText  id="fromDate"
+                          value="#{addGuest.fromDate}" styleClass="datepicker" converter="dateConverter"/>
+        </td>
+        <td nowrap="nowrap" align="#{me.appositeAlign}">
+            <h:outputText escape="true" value="#{bundle.toDate}:"/>
+        </td>
+        <td nowrap="nowrap">
+            <p:inputText  id="todate"
+                          value="#{addGuest.toDate}" styleClass="datepicker" converter="dateConverter"/>
+        </td>
+        <td nowrap="nowrap">
+            <p:commandButton value="#{bundle.search}" update="trafficLogTable" action="#{addGuest.search}"
+                               render="trafficLogTable"/>
+
+        </td>
+
+    </tr>
+</table>
+<br/>
+
+
+
+
+        <p:dataTable id="trafficLogTable" value="#{addGuest.guestList}"
+                        sortMode="single"
+                        var="Guest"
+                        rows="10"
+                        style="BORDER-COLLAPSE: collapse;text-align: center; width:100%;">
+            <f:facet name="header">
+                لیست                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                <p:columnToggler datasource="trafficLogTable" trigger="toggler" />
+            </f:facet>
+            <p:column  headerText="#{bundle.name}" sortBy="#{Guest.name}" filterBy="#{Guest.name}">
+                <h:outputText escape="true" value="#{Guest.firstname}"/>
+            </p:column>
+
+            <p:column  headerText="#{bundle.lastname}" sortBy="#{Guest.lastname}" filterBy="#{Guest.lastname}">
+                <h:outputText escape="true" value="#{Guest.lastname}"/>
+            </p:column>
+            <p:column  headerText="#{bundle.time}" sortBy="#{Guest.time}" filterBy="#{Guest.time}">
+                <h:outputText escape="true" value="#{Guest.time}" converter="persianConverter"/>
+            </p:column>
+            <p:column  headerText="#{bundle.exit}" sortBy="#{Guest.exitTime}" filterBy="#{Guest.exitTime}">
+                <h:outputText escape="true" value="#{Guest.exitTime}" converter="timeConverter"/>
+            </p:column>
+
+            <p:column  headerText="#{bundle.follow}" sortBy="#{Guest.guestSize}" filterBy="#{Guest.guestSize}">
+
+                <h:outputText escape="true" value="#{Guest.guestSize}" converter="persianConverter"/>
+            </p:column>
+            <p:column  headerText="#{bundle.picture}" >
+
+                <p:graphicImage id="pic" value="#{addGuest.pic}" width="150" height="100">
+                    <f:param name="pic" value="#{Guest.id}" />
+                </p:graphicImage>
+            </p:column>
+            <f:facet name="footer">
+                <p:dataScroller limitRender="true" execute="@this" render="trafficLogTable"
+                                   page="#{addGuest.page}"/>
+            </f:facet>
+        </p:dataTable>
+
+</h:form>
+</ui:define>
+</ui:composition>

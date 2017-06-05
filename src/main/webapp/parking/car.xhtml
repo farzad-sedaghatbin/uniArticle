@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.management}" url="#" />
+            <p:menuitem value="#{bundle.car}" url="#" />
+        </p:breadCrumb>
+
+        <h:form id="form">
+            <p:contextMenu for="cars">
+                <p:menuitem value="#{bundle.view}" update="carDetail" icon="ui-icon-info" oncomplete="PF('carDialog').show()" actionListener="#{handleCarAction.view}"/>
+                <p:menuitem value="#{bundle.edit}" update="carDetail" icon="ui-icon-scissors" oncomplete="PF('carDialog').show()" actionListener="#{handleCarAction.edit}"/>
+                <p:menuitem value="#{bundle.delete}" update="cars" icon="ui-icon-trash" actionListener="#{handleCarAction.doDelete}">
+                    <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
+                </p:menuitem>
+            </p:contextMenu>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="#{bundle.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="#{bundle.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="#{bundle.add}" id="add" update="carDetail" actionListener="#{handleCarAction.add}" styleClass="ui-priority-primary" onclick="PF('carDialog').show()"/>
+
+            <p:dataTable id="cars" var="currentCar" value="#{handleCarAction.carList}" rowKey="#{currentCar.id}"
+                         selection="#{handleCarAction.currentCar}" selectionMode="single"
+                         paginator="true" rows="10"
+                         paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="5,10,15"
+                         draggableColumns="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.car_list}"/>
+                    <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                    <p:columnToggler datasource="cars" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="#{bundle.number}" sortBy="#{currentCar.number}" filterBy="#{currentCar.number}">
+                    <h:outputText value="#{currentCar.number}" />
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="#{bundle.car_inf}" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="carDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" columnClasses="label,value">
+                        <f:facet name="header">
+                            <!--<p:graphicImage name="demo/images/car/#{dtContextMenuView.selectedCar.brand}-big.gif"/>-->
+                        </f:facet>
+
+                        <h:outputText value="#{bundle.number}" />
+                        <p:inputText readonly="#{handleCarAction.disableFields}" value="#{handleCarAction.carNumber}"/>
+
+                        <p:commandButton value="#{bundle.submit}" id="edit" update="cars" actionListener="#{handleCarAction.saveOrUpdate}" oncomplete="PF('carDialog').hide()" styleClass="ui-priority-primary" rendered="#{not handleCarAction.disableFields}"/>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

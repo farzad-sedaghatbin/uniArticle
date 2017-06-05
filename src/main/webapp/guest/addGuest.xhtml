@@ -1,0 +1,125 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.guest}" url="#"/>
+            <p:menuitem value="#{bundle.addGuest}" url="#"/>
+        </p:breadCrumb>
+        <h:form dir="RTL">
+            <p:fieldset legend="#{bundle.addGuest}" style="margin-bottom:20px">
+
+                <table dir="rtl">
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle.firstname}"/>
+                        </td>
+
+                        <td>
+                            <p:inputText value="#{addGuest.guest.firstname}" maxlength="20"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{bundle.lastname}"/>
+                        </td>
+                        <td>
+                            <p:inputText value="#{addGuest.guest.lastname}" maxlength="20"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle.nationalCode}"/>
+                        </td>
+                        <td>
+                            <p:inputText value="#{addGuest.guest.nationalCode}" maxlength="10"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{bundle.fatherName}"/>
+                        </td>
+                        <td>
+                            <p:inputText value="#{addGuest.guest.fatherName}" maxlength="20"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle.mobile}"/>
+                        </td>
+                        <td>
+                            <p:inputText value="#{addGuest.guest.mobile}" maxlength="11"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{bundle.tel}"/>
+                        </td>
+                        <td>
+                            <p:inputText value="#{addGuest.guest.phonNumber}" maxlength="10"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle.date}"/>
+                        </td>
+                        <td>
+                            <p:inputText id="settlementDate"
+                                         value="#{addGuest.guest.date}" styleClass="datepicker"
+                                         converter="dateConverter"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{bundle.time}"/>
+                        </td>
+                        <td>
+
+                            <p:spinner value="#{addGuest.minute}"
+                                       stepFactor="1" max="59" size="5" min="0"/>
+                            &#160;
+                            <p:spinner value="#{addGuest.hour}"
+                                       stepFactor="1" max="23" size="5" min="0"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <h:outputText value="#{bundle.nameVistited}"/>
+                        </td>
+                        <td>
+                            <p:inputText value="#{addGuest.guest.vName}" maxlength="20"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{bundle.familyVisited}"/>
+                        </td>
+                        <td>
+                            <p:inputText value="#{addGuest.guest.vFamily}" maxlength="20"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <h:outputText value="تعداد همراهان"/>
+                        </td>
+                        <td>
+                            <p:spinner
+                                    stepFactor="1" max="100" size="6" min="0" value="#{addGuest.guest.guestSize}"/>
+                        </td>
+
+                        <td>
+                            <h:outputText value="#{bundle.number}"/>
+                        </td>
+                        <td>
+                            <p:inputText value="#{addGuest.guest.pelak}" maxlength="20"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4" align="center">
+                            <p:commandButton value="#{bundle.save}"
+                                             actionListener="#{addGuest.saveGuest}"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+</ui:composition>

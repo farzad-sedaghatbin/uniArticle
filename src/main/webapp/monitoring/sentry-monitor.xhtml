@@ -1,0 +1,71 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="trafficLogList">
+
+            <p:socket channel="/notify">
+
+                <p:ajax update="test" event="message"/>
+            </p:socket>
+
+            <p:outputPanel id="test">
+                <table id="containertable">
+                    <tr>
+
+                        <ui:repeat value="#{handleMonitoringAction.trafficLogsbygate}" var="item">
+                            <td>
+                                <p:commandButton value="#{bundle.force_open}"
+                                                 action="#{handleMonitoringAction.forceOpen(item)}"/>
+                                &#160;&#160; <p:commandButton value="#{bundle.open}"
+                                                              action="#{handleMonitoringAction.forceOpen(item)}"/>
+                                &#160;&#160; <p:commandButton value="#{bundle.close}"
+                                                              action="#{handleMonitoringAction.forceOpen(item)}"/>
+
+
+                                <p:dataTable value="#{item}"
+                                             emptyMessage="#{bundle.empty_message}"
+                                             sortMode="single"
+                                             var="trafficLog"
+                                             style="BORDER-COLLAPSE: collapse;text-align: center; width:100%">
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.name}"/>
+                                        </f:facet>
+
+                                        <h:outputText id="editLink" value="#{trafficLog.name}"/>
+
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.virdi}"/>
+                                        </f:facet>
+                                        <h:outputText escape="true" value="#{trafficLog.pdpName}"/>
+
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.time}"/>
+                                        </f:facet>
+                                        <h:outputText escape="true" value="#{trafficLog.time}"
+                                                      converter="timeConverter"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </td>
+                        </ui:repeat>
+                    </tr>
+                </table>
+            </p:outputPanel>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

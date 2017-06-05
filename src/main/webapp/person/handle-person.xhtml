@@ -1,0 +1,503 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+<h:form id="handlePersonForm">
+
+<p:outputPanel id="handlePanel" >
+<table border="0" cellpadding="3" cellspacing="3" class="panelLikeTable">
+
+<tr valign="top">
+<td>
+<p:tabView id="tabPanel" dir="rtl">
+
+<p:tab title="#{bundle.info_person}">
+
+        <table border="0" cellpadding="3" cellspacing="3" width="360"
+               dir="#{me.direction}">
+
+
+            <tr valign="top">
+                <td>
+                    <table border="0" cellpadding="3" cellspacing="3"
+                           align="#{me.align}">
+
+
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.firstname}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="firstname"
+                                             value="#{handlePersonAction.personname}"
+                                             maxlength="25"
+                                             styleClass="inputRequiredField"/>
+                                <p:message for="firstname" showSummary="true" showDetail="false"/>
+                            </td>
+
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.lastname}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="lastname"
+                                             value="#{handlePersonAction.lastname}"
+                                             maxlength="25"
+                                             styleClass="inputRequiredField"/>
+                                <p:message for="lastname" showSummary="true" showDetail="false"/>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.email}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="email"
+                                             value="#{handlePersonAction.email}"
+                                             maxlength="25"/>
+                                <p:message for="email" showSummary="true"
+                                              showDetail="false"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.mobile}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="mobile"
+                                             value="#{handlePersonAction.mobile}"
+                                             maxlength="25"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.personnel_code}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="_personnelCode"
+
+                                             value="#{handlePersonAction.personnelNo}"
+                                             maxlength="25"
+                                             styleClass="inputRequiredField"/>
+                                <p:message for="_personnelCode" showSummary="true"
+                                              showDetail="false"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.national_code}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="_nationalCode"
+                                             value="#{handlePersonAction.nationalCode}"
+                                             maxlength="25"
+                                             styleClass="inputRequiredField"/>
+                                <p:message for="_nationalCode" showSummary="true"
+                                              showDetail="false"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        rendered="#{not handlePersonAction.editable}"
+                                        value="#{bundle.password}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:password dir="#{me.direction}"
+                                               rendered="#{not handlePersonAction.editable}"
+                                               id="_personnelPassword"
+                                               value="#{handlePersonAction.password}"
+                                               maxlength="25"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        rendered="#{not handlePersonAction.editable}"
+                                        value="#{bundle.confirm_password}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:password dir="#{me.direction}"
+                                               rendered="#{not handlePersonAction.editable}"
+                                               id="_personnelConfirm-password"
+                                               value="#{handlePersonAction.rePassword}"
+                                               maxlength="25"/>
+                            </td>
+
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.address}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputTextarea dir="#{me.direction}"
+                                                 id="address"
+                                                 value="#{handlePersonAction.address}"
+                                                 maxlength="25"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.workstation}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="_workStation"
+                                             value="#{handlePersonAction.workStation}"
+                                             maxlength="25"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+</p:tab>
+
+<p:tab title="#{bundle.info_job}">
+
+        <table border="0" cellpadding="3" cellspacing="3" width="360" dir="#{me.direction}">
+
+            <tr>
+                <td nowrap="nowrap">
+                    <table border="0" cellpadding="3" cellspacing="3"
+                           align="#{me.align}">
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.employee_number}" styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="employeeNo"
+                                             value="#{handlePersonAction.employNo}"
+                                             maxlength="25"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.employee_type}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap" align="#{me.align}">
+                                <p:selectOneMenu value="#{handlePersonAction.employeeType.id}"
+                                                 valueChangeListener="#{handlePersonAction.selectEmployType}">
+                                    <f:selectItems itemLabel="#{employeeType.code}"
+                                                   itemValue="#{employeeType.id}" var="employeeType"
+                                                   value="#{handlePersonAction.employeeTypes}"/>
+                                </p:selectOneMenu>
+                            </td>
+
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true" value="#{bundle.folder_number}" styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="folderNo"
+                                             value="#{handlePersonAction.folderNo}"
+                                             maxlength="25"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.internal_tel}" styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputText dir="#{me.direction}"
+                                             id="intenalTel"
+                                             value="#{handlePersonAction.internalTel}"
+                                             maxlength="25"/>
+                            </td>
+
+
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.post}"
+                                        styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap" align="#{me.align}">
+                                <p:selectOneMenu value="#{handlePersonAction.postType.id}"
+                                                 valueChangeListener="#{handlePersonAction.selectPostType}">
+                                    <f:selectItems itemLabel="#{postType.code}"
+                                                   itemValue="#{postType.id}" var="postType"
+                                                   value="#{handlePersonAction.postTypes}"/>
+                                </p:selectOneMenu>
+                            </td>
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true" value="#{bundle.assist_type}"
+                                              styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap" align="#{me.align}">
+                                <p:selectOneMenu value="#{handlePersonAction.assistType.id}"
+                                                 valueChangeListener="#{handlePersonAction.selectAssistType}">
+                                    <f:selectItems itemLabel="#{assistType.code}"
+                                                   itemValue="#{assistType.id}" var="assistType"
+                                                   value="#{handlePersonAction.assistTypes}"/>
+                                </p:selectOneMenu>
+                            </td>
+
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                        value="#{bundle.description}" styleClass="textColor"/>
+                            </td>
+                            <td nowrap="nowrap">
+                                <p:inputTextarea dir="#{me.direction}"
+                                                 id="description"
+                                                 value="#{handlePersonAction.description}"
+                                                 maxlength="100"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+</p:tab>
+
+<p:tab title="#{bundle.organ}">
+        <table border="0" cellpadding="3" cellspacing="3" width="360" dir="#{me.direction}">
+            <tr valign="top">
+                <td nowrap="nowrap">
+                    <h:outputText escape="true" id="organName"
+                                  value="#{handlePersonAction.selectedOrganName}:"
+                                  styleClass="textColor"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div align="right">
+                        <p:dataTable var="organ" value="#{handleOrganAction.organs}" selectionMode="single" rowKey="#{organ.id}" selection="#{handlePersonAction.selectedOrgan}">
+                            <p:ajax event="rowSelect" listener="#{handlePersonAction.selectOrgan}" update="handlePersonForm:tabPanel:organName"/>
+                            <p:column headerText="#{bundle.name}">
+                                <h:outputText  value="#{organ.name} - #{organ.code} - #{organ.organType.code} - #{organ.title}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </td>
+            </tr>
+        </table>
+</p:tab>
+
+<p:tab header="#{bundle.picture}">
+
+        <table border="0" cellpadding="3" cellspacing="3" width="360" dir="#{me.direction}">
+            <tr>
+                <td dir="ltr">
+                    <p:fileUpload id="upload"
+                                     fileUploadListener="#{handlePersonAction.listener}"
+                                     maxFilesQuantity="1"
+                                     update="personPicture"
+                                     sizeExceededLabel="30"
+                                     acceptedTypes="png,jpg,bmp"
+                                     style="width:395px "
+                                     execute="@this"
+                                     limitRender="true"
+                                     immediateUpload="true"
+                                     listHeight="60px"
+                                     addLabel="#{empty handlePersonAction.currentPerson.picture ?'add' : 'edit'} "
+                                     doneLabel="done"
+                                     clearAllLabel="delete-picture"
+                                     clearLabel="delete-picture"
+                                     deleteLabel="delete-picture"
+                                     ontyperejected="alert('file_type_is_incorrect')"
+                                     onfileselect="removeLastUploadedFiles(this)"/>
+
+                </td>
+                <td>
+                    <p:graphicImage id="personPicture"
+                                     value="/loadImage?id=#{handlePersonAction.currentPerson.id}"
+                                     style="display:block;height: 150px">
+                        <f:param value="#{handlePersonAction.time}" name="time"/>
+                    </p:graphicImage>
+                    <br/>
+                    <p:commandLink value="#{bundle.remove_picture}"
+                                     rendered="#{handlePersonAction.havePicture and handlePersonAction.editable}"
+                                     action="#{handlePersonAction.deletePicture}"
+                                     update="personPicture"/>
+                </td>
+                <td>
+                    <p:commandButton value="#{bundle.remove}" rendered="false"
+                                       action="#{handlePersonAction.unsetPicture}"
+                                       update="handlePanel"/>
+                </td>
+            </tr>
+        </table>
+</p:tab>
+
+<p:tab header="#{bundle.extra_field}">
+
+        <table border="0" cellpadding="3" cellspacing="3" width="360" dir="#{me.direction}">
+            <tr valign="top">
+                <td nowrap="nowrap">
+                    <h:outputText escape="true" rendered="#{handlePersonAction.extraField1Enable}"
+                                  value="#{me.generalHelper.personExtraField1}:"
+                                  styleClass="textColor"/>
+                </td>
+                <td nowrap="nowrap">
+                    <p:inputText dir="#{me.direction}"
+                                 id="extrafiled1"
+                                 value="#{handlePersonAction.extraField1}"
+                                 maxlength="25"
+                                 rendered="#{handlePersonAction.extraField1Enable}"
+                                 disabled="#{handlePersonAction.editable}"/>
+                </td>
+                <td nowrap="nowrap">
+                    <h:outputText escape="true" rendered="#{handlePersonAction.extraField2Enable}"
+                                  value="#{me.generalHelper.personExtraField2}:"
+                                  styleClass="textColor"/>
+                </td>
+                <td nowrap="nowrap">
+                    <p:inputText dir="#{me.direction}"
+                                 id="extrafiled2"
+                                 value="#{handlePersonAction.extraField2}"
+                                 maxlength="25"
+                                 rendered="#{handlePersonAction.extraField2Enable}"
+                                 disabled="#{handlePersonAction.editable}"/>
+                </td>
+            </tr>
+            <tr valign="top">
+
+                <td nowrap="nowrap">
+                    <h:outputText escape="true" rendered="#{handlePersonAction.extraField3Enable}"
+                                  value="#{me.generalHelper.personExtraField3}:"
+                                  styleClass="textColor"/>
+                </td>
+                <td nowrap="nowrap">
+                    <p:inputText dir="#{me.direction}"
+                                 id="extrafiled3"
+                                 value="#{handlePersonAction.extraField3}"
+                                 maxlength="25"
+                                 rendered="#{handlePersonAction.extraField3Enable}"
+                                 disabled="#{handlePersonAction.editable}"/>
+                </td>
+                <td nowrap="nowrap">
+                    <h:outputText escape="true" rendered="#{handlePersonAction.extraField4Enable}"
+                                  value="#{me.generalHelper.personExtraField4}:"
+                                  styleClass="textColor"/>
+                </td>
+                <td nowrap="nowrap">
+                    <p:inputText dir="#{me.direction}"
+                                 id="extrafiled4"
+                                 rendered="#{handlePersonAction.extraField4Enable}"
+                                 value="#{handlePersonAction.extraField4}"
+                                 maxlength="25"
+                                 disabled="#{handlePersonAction.editable}"/>
+                </td>
+            </tr>
+        </table>
+</p:tab>
+
+<p:tab header="#{bundle.cards}" rendered="#{handlePersonAction.editable eq 'true'}">
+    <table border="0" cellpadding="3" cellspacing="3" align="#{me.align}">
+        <tr valign="top">
+            <td nowrap="nowrap">
+                <h:outputText escape="true" value="#{bundle.finger}" styleClass="textColor"/>
+            </td>
+            <td nowrap="nowrap">
+                <h:graphicImage
+                        value="#{handlePersonAction.finger eq 'true' ? '/images/s_true.png':'/images/s_false.png'}"/>
+            </td>
+        </tr>
+        <ui:repeat value="#{handlePersonAction.cards}" var="card">
+            <tr valign="top">
+                <td nowrap="nowrap" colspan="2">
+                        <table border="0" cellpadding="3" cellspacing="3"
+                               align="#{me.align}">
+
+
+                            <tr valign="top">
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{bundle.card}"
+                                                  styleClass="textColor"/>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" dir="#{me.direction}"
+                                                  id="card"
+                                                  value="#{card.code}"
+                                                  maxlength="25"
+                                                  styleClass="textColor"/>
+                                </td>
+
+                            </tr>
+                            <tr valign="top">
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{bundle.card_code}" styleClass="textColor"/>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{card.cardStatus.code}" styleClass="textColor"/>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{bundle.card_type}" styleClass="textColor"/>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{card.cardType.code}" styleClass="textColor"/>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{bundle.start_date}" styleClass="textColor"/>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{card.startDate}" converter="dateConverter"
+                                                  styleClass="textColor"/>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{bundle.expiration_date}" styleClass="textColor"/>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <h:outputText escape="true" value="#{card.expirationDate}"
+                                                  converter="dateConverter" styleClass="textColor"/>
+                                </td>
+                            </tr>
+                        </table>
+                </td>
+            </tr>
+        </ui:repeat>
+    </table>
+</p:tab>
+</p:tabView>
+</td>
+</tr>
+<tr valign="top">
+    <td nowrap="nowrap" colspan="4">
+        <p:commandButton id="saveId"
+                           value="#{bundle.save}"
+                           action="#{handlePersonAction.saveOrUpdate}"/>
+        <h:commandButton id="resetId"
+                         rendered="#{handlePersonAction.enabled eq 'true'}"
+                         action="#{handlePersonAction.begin}"
+                         value="#{bundle.revert}"/>
+
+
+    </td>
+</tr>
+</table>
+</p:outputPanel>
+</h:form>
+
+</ui:composition>
+
+
+

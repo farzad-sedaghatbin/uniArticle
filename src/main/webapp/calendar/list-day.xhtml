@@ -1,0 +1,47 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+
+        <p:dataTable id="dayTypeTable"
+                     keepSaved="true"
+                     value="#{handleDayTypeAction.dayTypeList}"
+                     var="dayType"
+                     rowKey="#{dayType.id}"
+                     selection="#{handleDayTypeAction.currentDayType}" selectionMode="single"
+                     paginator="true" rows="10"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15" lazy="true"
+                     draggableColumns="true" style="margin-bottom:20px">
+            <f:facet name="header">
+                RightClick to View Options
+                <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right" icon="ui-icon-calculator" />
+                <p:columnToggler datasource="dayTypeTable" trigger="toggler" />
+            </f:facet>
+
+            <p:column headerText="#{bundle.title}" sortBy="#{dayType.title}" filterBy="#{dayType.title}">
+                <h:outputText value="#{dayType.title}"/>
+            </p:column>
+
+            <p:column style="background-color: #{dayType.color};">
+                <f:facet name="header">
+                    <h:outputText escape="true" value="#{bundle.color}"/>
+                </f:facet>
+                <h:outputText escape="true"/>
+            </p:column>
+            <p:column headerText="#{bundle.description}" sortBy="#{dayType.description}" filterBy="#{dayType.description}">
+                <h:outputText escape="true" value="#{dayType.description}"/>
+            </p:column>
+            <f:facet name="footer">
+                <p:dataScroller limitRender="true" execute="@this" update="dayTypeTable"
+                                page="#{handleDayTypeAction.page}"/>
+            </f:facet>
+        </p:dataTable>
+
+    </ui:define>
+</ui:composition>

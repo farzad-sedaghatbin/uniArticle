@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    
+    <name>primefaces-modena</name>
+    
+    <component>
+        <component-type>org.primefaces.component.ModenaMenu</component-type>
+        <component-class>org.primefaces.modena.component.menu.ModenaMenu</component-class>
+    </component>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>/authorize</from-outcome>
+            <to-view-id>/authorization/authorization.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>/comment</from-outcome>
+            <to-view-id>/authorization/list-comment.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>/device</from-outcome>
+            <to-view-id>/monitoring/device-monitoring.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+<navigation-rule>
+    <navigation-case>
+        <from-outcome>home</from-outcome>
+        <to-view-id>/dashboard.xhtml</to-view-id>
+    </navigation-case>
+
+    <navigation-case>
+        <from-outcome>login</from-outcome>
+        <to-view-id>/login.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+    <navigation-case>
+        <from-outcome>list-camera</from-outcome>
+        <to-view-id>/zone/list-camera.xhtml</to-view-id>
+        <redirect/>
+    </navigation-case>
+</navigation-rule>
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.ModenaMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.modena.component.menu.ModenaMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+    <application>
+        <locale-config>
+            <default-locale>fa</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+
+        <message-bundle>messages.Messages</message-bundle>
+    </application>
+</faces-config>

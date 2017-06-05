@@ -1,0 +1,108 @@
+<ui:composition
+
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+
+    <!-- TOPBAR START -->
+    <h:form>
+        <div id="layout-topbar">
+            <a id="mobile-menu-button">
+                <span class="ButtonLine" id="ButtonLine1"></span>
+                <span class="ButtonLine" id="ButtonLine2"></span>
+                <span class="ButtonLine" id="ButtonLine3"></span>
+            </a>
+
+            <a href="/modena-1.0.1/dashboard.xhtml" id="logo">
+                <h:graphicImage name="images/arm-small.png" styleClass="Fleft" library="modena-layout"/>
+            </a>
+
+            <a id="show-top-menu" class="ShowOnMobile ripplelink"><i class="icon-more_vert" id="active"></i><i
+                    class="icon-close DispNone" id="passive"></i> </a>
+            <ul id="top-menu">
+                <li>
+                    <a class="ripplelink"><i class="icon-power"></i> <span class="ShowOnMobile">System</span></a>
+                    <ul>
+                        <li>
+                            <h:commandLink action="#{logoutAction.logout}">
+                                <span class="Red">
+                                    <i class="icon-vpn_key Fs30 DispBlock"></i>
+                                    <h:outputText value="#{bundle.logout}"/>
+                                </span>
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul id="color-menu">
+                <li>
+                    <a class="ripplelink" onclick="$('#theme-colors').addClass('show')"><i class="icon-color_lens"></i> <span
+                            class="ShowOnMobile">System</span></a>
+                    <ul id="theme-colors">
+                        <li>
+                            <h:commandLink actionListener="#{handleSkinAction.changeSkin}" title="Gray">
+                                <span class="color-rect-gray"> </span>
+                            </h:commandLink>
+                            <h:commandLink actionListener="#{handleSkinAction.changeSkin}" title="Blue">
+                                <span class="color-rect-blue"> </span>
+                            </h:commandLink>
+                            <h:commandLink actionListener="#{handleSkinAction.changeSkin}" title="Red">
+                                <span class="color-rect-red"> </span>
+                            </h:commandLink>
+                            <h:commandLink actionListener="#{handleSkinAction.changeSkin}" title="Indigo">
+                                <span class="color-rect-indigo"> </span>
+                            </h:commandLink>
+                            <h:commandLink actionListener="#{handleSkinAction.changeSkin}" title="Cyan">
+                                <span class="color-rect-cyan"> </span>
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- TOPBAR END -->
+        <p:dialog header="#{bundle.changePass}" widgetVar="changePassDialog" modal="true" showEffect="fade"
+                  hideEffect="fade"
+                  resizable="false">
+            <table>
+                <tr>
+                    <td>
+                        <h:outputText value="#{bundle.oldPass}"/>
+                    </td>
+                    <td>
+                        <p:password value="#{handleUserAction.oldPass}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputText value="#{bundle.newPass}"/>
+                    </td>
+                    <td>
+                        <p:password value="#{handleUserAction.newPass}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputText value="#{bundle.reNewPass}"/>
+                    </td>
+                    <td>
+                        <p:password value="#{handleUserAction.retypedNewPass}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p:commandButton value="#{bundle.submit}"
+                                         actionListener="#{handleUserAction.changePassword}"
+                                         oncomplete="PF('changePassDialog').hide()"
+                                         styleClass="ui-priority-primary"/>
+                    </td>
+                </tr>
+            </table>
+
+        </p:dialog>
+
+    </h:form>
+</ui:composition>

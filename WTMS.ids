@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="Derby - kernel@localhost" uuid="4adf8753-6235-4618-89e8-fe8c88ae0b8e">
+    <database-info product="Apache Derby" version="10.11.1.1 - (1616546)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.11.1.1 - (1616546)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <schema name="APP" catalog=""/>
+    <schema name="KERNEL" catalog=""/>
+    <table name="CARD_VIEW" schema="KERNEL" catalog="" type="VIEW">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="CODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STARTDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CARDTYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="CARDSTATUS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="EXPIRATIONDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PERSONNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="HIBERNATE_SEQUENCE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="NEXT_VAL" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+    </table>
+    <table name="PERSON_VIEW" schema="KERNEL" catalog="" type="VIEW">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="CODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PERSONNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="MOBILE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ADDRESS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NATIONALCODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="TB_BLOOKUP" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LOOKUP_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101351890" columns="ID"/>
+      <foreign-key name="FK_24NERQXVDYKF98ORIS2B1JXC7" columns="LOOKUP_ID" ref-table="TB_LOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_O4YF8X0LVF41H50JG8SNXMVTQ" table="TB_CARD" schema="KERNEL" catalog="" columns="CARDTYPE_ID"/>
+      <exported-key name="FK_6R57R3494GXMNN56GRM4WAF54" table="TB_CARD" schema="KERNEL" catalog="" columns="CARDSTATUS_ID"/>
+      <exported-key name="FK_67HARGIUOCM7M68LAQ57PM07J" table="TB_JOB" schema="KERNEL" catalog="" columns="POSTTYPE_ID"/>
+      <exported-key name="FK_96MOH6DT3WPE4XNH6NCV2H7B9" table="TB_JOB" schema="KERNEL" catalog="" columns="EMPLOYTYPE_ID"/>
+      <exported-key name="FK_I79UOAAE920FBWRN5X5CU2837" table="TB_JOB" schema="KERNEL" catalog="" columns="ASSISTTYPE_ID"/>
+      <exported-key name="FK_RDGO3CGEOHN8CQJEKK6AHNOVB" table="TB_ORGAN" schema="KERNEL" catalog="" columns="ORGANTYPE_ID"/>
+      <exported-key name="FK_5XORF23GGDG4QXHX6UR3B8KTV" table="TB_PC" schema="KERNEL" catalog="" columns="LOCATION_ID"/>
+      <exported-key name="FK_1XSQGTPHGU6MN3IG020W8CN8W" table="TB_PERSON" schema="KERNEL" catalog="" columns="PERSONSTATUS_ID"/>
+    </table>
+    <table name="TB_CALENDAR" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CONTENT" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101352010" columns="ID"/>
+      <exported-key name="FK_OC072Q7YDO9P84S6J16D15N3J" table="TB_CALENDARDATE" schema="KERNEL" catalog="" columns="CALENDAR_ID"/>
+      <exported-key name="FK_I0MJSQSJKHYC8NWJHJ20TNYKF" table="TB_RULEPACKAGE" schema="KERNEL" catalog="" columns="CALENDAR_ID"/>
+    </table>
+    <table name="TB_CALENDARDATE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENDDATE" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="STARTDATE" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="CALENDAR_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="DAYTYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101352150" columns="ID"/>
+      <foreign-key name="FK_OC072Q7YDO9P84S6J16D15N3J" columns="CALENDAR_ID" ref-table="TB_CALENDAR" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_47GFT84UIU30AY2NCJD2XADKU" columns="DAYTYPE_ID" ref-table="TB_DAYTYPE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_CAMERA" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="FRAME" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="IP" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101355250" columns="ID"/>
+      <exported-key name="FK_5P3OA26KEK6G37IWRT49GQSKV" table="TB_GATEWAY_CAMERA" schema="KERNEL" catalog="" columns="CAMERA_ID"/>
+      <exported-key name="FK_AJKV7PU8JUW6YJTBAD0XYDORG" table="TB_PDP" schema="KERNEL" catalog="" columns="CAMERA_ID"/>
+      <exported-key name="FK_79S7RRMLB69PBOYHDVEVSMWWE" table="TB_VIRDI" schema="KERNEL" catalog="" columns="CAMERA_ID"/>
+    </table>
+    <table name="TB_CARD" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXPIRATIONDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STARTDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="VISIBLE" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="CARDSTATUS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="CARDTYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PERSON_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101357110" columns="ID"/>
+      <foreign-key name="FK_O4YF8X0LVF41H50JG8SNXMVTQ" columns="CARDTYPE_ID" ref-table="TB_BLOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_6R57R3494GXMNN56GRM4WAF54" columns="CARDSTATUS_ID" ref-table="TB_BLOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_T486Q246L3FA5U5HP98669U8L" columns="PERSON_ID" ref-table="TB_PERSON" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_IL8A4X3WNNV6EJGGIMN91CBG8" table="TB_TRAFFICLOG" schema="KERNEL" catalog="" columns="CARD_ID"/>
+    </table>
+    <table name="TB_COMMENT" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="AUTHORIZE" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="EFFECTORUSER" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="MESSAGE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="REJECT" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="TRAFFICLOG_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101352270" columns="ID"/>
+      <foreign-key name="FK_NUGH7JOWEISY9TUNPSKTACF6M" columns="TRAFFICLOG_ID" ref-table="TB_TRAFFICLOG" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_DAYTYPE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="COLOR" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101353140" columns="ID"/>
+      <exported-key name="FK_47GFT84UIU30AY2NCJD2XADKU" table="TB_CALENDARDATE" schema="KERNEL" catalog="" columns="DAYTYPE_ID"/>
+      <exported-key name="FK_A13J990DS9HVN5U0M0BAOV0V5" table="TB_RULE" schema="KERNEL" catalog="" columns="DAYTYPE_ID"/>
+    </table>
+    <table name="TB_EVENTLOG" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EVENT_DATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="OBJECTID" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="OPERATION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TABLENAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EVENT_TIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USERNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101355390" columns="ID"/>
+    </table>
+    <table name="TB_GATEWAY" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSBACK" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="RULEPACKAGE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="ZONE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101355540" columns="ID"/>
+      <foreign-key name="FK_HW0D7VWJ4UQFI62U9WN5DGIWT" columns="RULEPACKAGE_ID" ref-table="TB_RULEPACKAGE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_OYU2HGIQLV34BOFN2T2383RSY" columns="ZONE_ID" ref-table="TB_ZONE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_ATWXAM8JJJDJWILPC8N01VEVG" table="TB_GATEWAY_CAMERA" schema="KERNEL" catalog="" columns="GATEWAY_ID"/>
+      <exported-key name="FK_1X4QPC0TBCC2XVMHEN1F0YRGQ" table="TB_GATEWAY_PERSON" schema="KERNEL" catalog="" columns="GATEWAY_ID"/>
+      <exported-key name="FK_LOFHENCMRUXS6WNKSG5H6A3N6" table="TB_GATEWAY_SPECIAL_STATE" schema="KERNEL" catalog="" columns="GATEWAY_ID"/>
+      <exported-key name="FK_C3RU7J6WO89Y0NPAYW7DPQX6K" table="TB_PDP" schema="KERNEL" catalog="" columns="GATEWAY_ID"/>
+      <exported-key name="FK_JCDC7YROY58TVCLFCPEWBYSPF" table="TB_PREREQ_GATEWAY" schema="KERNEL" catalog="" columns="PREGATEWAY_ID"/>
+      <exported-key name="FK_O040G1LITBSE3WXMT9SR23AFI" table="TB_PREREQ_GATEWAY" schema="KERNEL" catalog="" columns="GATEWAY_ID"/>
+      <exported-key name="FK_8XXPR4IH6Y2YK98XXY3K3RT98" table="TB_TRAFFICLOG" schema="KERNEL" catalog="" columns="GATEWAY_ID"/>
+      <exported-key name="FK_1JJU2OPRQVCFXOSPQJJTF50PL" table="TB_VIRDI" schema="KERNEL" catalog="" columns="GATEWAY_ID"/>
+    </table>
+    <table name="TB_GATEWAY_CAMERA" schema="KERNEL" catalog="" type="TABLE">
+      <column name="GATEWAY_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="CAMERA_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_5P3OA26KEK6G37IWRT49GQSKV" columns="CAMERA_ID" ref-table="TB_CAMERA" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_ATWXAM8JJJDJWILPC8N01VEVG" columns="GATEWAY_ID" ref-table="TB_GATEWAY" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_GATEWAY_PERSON" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="GATEWAY_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PERSON_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101353300" columns="ID"/>
+      <foreign-key name="FK_1X4QPC0TBCC2XVMHEN1F0YRGQ" columns="GATEWAY_ID" ref-table="TB_GATEWAY" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_8IFOW8PAL42RIV5PYN68WFDY4" columns="PERSON_ID" ref-table="TB_PERSON" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_GATEWAY_SPECIAL_STATE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATEDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="GATEWAYSTATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="UNTIL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="GATEWAY_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101353420" columns="ID"/>
+      <foreign-key name="FK_LOFHENCMRUXS6WNKSG5H6A3N6" columns="GATEWAY_ID" ref-table="TB_GATEWAY" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_JOB" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMPLOYNO" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FOLDERNO" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="INTERNALTEL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ASSISTTYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="EMPLOYTYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PERSON_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="POSTTYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101357290" columns="ID"/>
+      <foreign-key name="FK_67HARGIUOCM7M68LAQ57PM07J" columns="POSTTYPE_ID" ref-table="TB_BLOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_96MOH6DT3WPE4XNH6NCV2H7B9" columns="EMPLOYTYPE_ID" ref-table="TB_BLOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_I79UOAAE920FBWRN5X5CU2837" columns="ASSISTTYPE_ID" ref-table="TB_BLOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_2GF5LCHPX982BV4XDIL36RMJN" columns="PERSON_ID" ref-table="TB_PERSON" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_LANGUAGEKEYMANAGEMENT" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION_KEY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101353560" columns="ID"/>
+      <exported-key name="FK_AI6CFUP2WWXPH3Q5YFGXXGSSC" table="TB_LNGKEYVALUE" schema="KERNEL" catalog="" columns="TB_LANGUAGEKEYMANAGEMENT_ID"/>
+    </table>
+    <table name="TB_LANGUAGEMANAGEMENT" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101353680" columns="ID"/>
+      <foreign-key name="FK_P13HI9SKCUII10DXES75VCOFA" columns="TYPE_ID" ref-table="TB_LANGUAGES" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_OBFFJUE61Y8VNW978M4FTXTVO" table="TB_LNGKEYVALUE" schema="KERNEL" catalog="" columns="LANGUAGEMANAGEMENTS_ID"/>
+    </table>
+    <table name="TB_LANGUAGES" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DEFAULTED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="RTL" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <primary-key name="SQL140813101353810" columns="ID"/>
+      <exported-key name="FK_P13HI9SKCUII10DXES75VCOFA" table="TB_LANGUAGEMANAGEMENT" schema="KERNEL" catalog="" columns="TYPE_ID"/>
+    </table>
+    <table name="TB_LNGKEYVALUE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="TB_LANGUAGEKEYMANAGEMENT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="LANGUAGEMANAGEMENTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL140813101355730" columns="TB_LANGUAGEKEYMANAGEMENT_ID,LANGUAGEMANAGEMENTS_ID"/>
+      <foreign-key name="FK_AI6CFUP2WWXPH3Q5YFGXXGSSC" columns="TB_LANGUAGEKEYMANAGEMENT_ID" ref-table="TB_LANGUAGEKEYMANAGEMENT" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_OBFFJUE61Y8VNW978M4FTXTVO" columns="LANGUAGEMANAGEMENTS_ID" ref-table="TB_LANGUAGEMANAGEMENT" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_LOOKUP" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DEFINABLE" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101354000" columns="ID"/>
+      <exported-key name="FK_24NERQXVDYKF98ORIS2B1JXC7" table="TB_BLOOKUP" schema="KERNEL" catalog="" columns="LOOKUP_ID"/>
+    </table>
+    <table name="TB_MAP" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CONTENT" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL140813101354150" columns="ID"/>
+    </table>
+    <table name="TB_OPERATION" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PARENT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101357390" columns="ID"/>
+      <foreign-key name="FK_9NEYY2CU476QQQQ9VKSY71TEW" columns="PARENT_ID" ref-table="TB_OPERATION" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_9NEYY2CU476QQQQ9VKSY71TEW" table="TB_OPERATION" schema="KERNEL" catalog="" columns="PARENT_ID"/>
+      <exported-key name="FK_9NP42RAY89JBCWNOJGJMCEQ3F" table="TB_OPERATION_ROLE" schema="KERNEL" catalog="" columns="OPERATION_ID"/>
+    </table>
+    <table name="TB_OPERATION_ROLE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ROLE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="OPERATION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL140813101357540" columns="ROLE_ID,OPERATION_ID"/>
+      <foreign-key name="FK_9NP42RAY89JBCWNOJGJMCEQ3F" columns="OPERATION_ID" ref-table="TB_OPERATION" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_D34FWP7NHUHXQQI32VGNLIEL8" columns="ROLE_ID" ref-table="TB_ROLE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_ORGAN" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="INHERITANCE" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ORGANTYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PARENTORGAN_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="RULEPACKAGE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101357660" columns="ID"/>
+      <foreign-key name="FK_RDGO3CGEOHN8CQJEKK6AHNOVB" columns="ORGANTYPE_ID" ref-table="TB_BLOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_40C23RAN9500IWC4X07RFHCH0" columns="PARENTORGAN_ID" ref-table="TB_ORGAN" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_M7FEKLSAIVL7F2YQ8LXTBEYPN" columns="RULEPACKAGE_ID" ref-table="TB_RULEPACKAGE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_40C23RAN9500IWC4X07RFHCH0" table="TB_ORGAN" schema="KERNEL" catalog="" columns="PARENTORGAN_ID"/>
+      <exported-key name="FK_PU5IJCGFNJ2DWIE9HTAQHGGBP" table="TB_PERSON" schema="KERNEL" catalog="" columns="ORGANREF_ID"/>
+      <exported-key name="FK_EB54Y9VVGDS5FV03PX7Y0I9OH" table="TB_TRAFFICLOG" schema="KERNEL" catalog="" columns="ORGAN_ID"/>
+    </table>
+    <table name="TB_PACKAGE_EXCEPTION" schema="KERNEL" catalog="" type="TABLE">
+      <column name="EXCEPTION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PACKAG_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_L5SODJ5ONWXMQ8XLBS1JGY5EI" columns="EXCEPTION_ID" ref-table="TB_RULEEXCEPTION" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_60XVVMDQQY5PUCCMULLW2SW0C" columns="PACKAG_ID" ref-table="TB_RULEPACKAGE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_PC" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="IP" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LOCATION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101354280" columns="ID"/>
+      <foreign-key name="FK_5XORF23GGDG4QXHX6UR3B8KTV" columns="LOCATION_ID" ref-table="TB_BLOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_FUHGE4LSTLKPSN62M8O2OJE87" table="TB_USER_PC" schema="KERNEL" catalog="" columns="PC_ID"/>
+    </table>
+    <table name="TB_PDP" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCTEXT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="ENTRANCE" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="IP" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAMETEXT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ONLINEPDP" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="SELECTED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="SUCCESS" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="UPDATEDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CAMERA_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="GATEWAY_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101355850" columns="ID"/>
+      <foreign-key name="FK_AJKV7PU8JUW6YJTBAD0XYDORG" columns="CAMERA_ID" ref-table="TB_CAMERA" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_C3RU7J6WO89Y0NPAYW7DPQX6K" columns="GATEWAY_ID" ref-table="TB_GATEWAY" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_2297HX2V74BEMVL0V5AKP1Q0K" table="TB_TRAFFICLOG" schema="KERNEL" catalog="" columns="PDP_ID"/>
+    </table>
+    <table name="TB_PERMISSION" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="OBJECTID" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="OBJECTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TYPE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101357790" columns="ID"/>
+      <exported-key name="FK_IMVP1FQ9DKVXJV5HSG5X5A0YQ" table="TB_PERMISSION_ROLE" schema="KERNEL" catalog="" columns="PERMISSION_ID"/>
+    </table>
+    <table name="TB_PERMISSION_ROLE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ROLE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PERMISSION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL140813101357930" columns="ROLE_ID,PERMISSION_ID"/>
+      <foreign-key name="FK_IMVP1FQ9DKVXJV5HSG5X5A0YQ" columns="PERMISSION_ID" ref-table="TB_PERMISSION" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_BXIEWCS0049SJ4IB0YQWMMVQ2" columns="ROLE_ID" ref-table="TB_ROLE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_PERSON" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ADDRESS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CREATEBY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CREATEDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CREATETIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXTRAFIELD1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXTRAFIELD2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXTRAFIELD3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXTRAFIELD4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FINGER" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <column name="HASCARD" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="MOBILE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NATIONALCODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PERSONNELNO" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PICTURE" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <column name="PIN" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="WORKSTATION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ORGANREF_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PERSONSTATUS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="RULEPACKAGE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PERSONOTHERID" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101358060" columns="ID"/>
+      <foreign-key name="FK_1XSQGTPHGU6MN3IG020W8CN8W" columns="PERSONSTATUS_ID" ref-table="TB_BLOOKUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_PU5IJCGFNJ2DWIE9HTAQHGGBP" columns="ORGANREF_ID" ref-table="TB_ORGAN" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_PNAI9LOC2PCWBGH8SW35CFMB9" columns="RULEPACKAGE_ID" ref-table="TB_RULEPACKAGE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_T486Q246L3FA5U5HP98669U8L" table="TB_CARD" schema="KERNEL" catalog="" columns="PERSON_ID"/>
+      <exported-key name="FK_8IFOW8PAL42RIV5PYN68WFDY4" table="TB_GATEWAY_PERSON" schema="KERNEL" catalog="" columns="PERSON_ID"/>
+      <exported-key name="FK_2GF5LCHPX982BV4XDIL36RMJN" table="TB_JOB" schema="KERNEL" catalog="" columns="PERSON_ID"/>
+      <exported-key name="FK_B1WN9X932ONCI07AVVSPADJUO" table="TB_TRAFFICLOG" schema="KERNEL" catalog="" columns="PERSON_ID"/>
+      <exported-key name="FK_4PWP17HC46W4VS08NNFJ2GKKQ" table="TB_USER" schema="KERNEL" catalog="" columns="PERSON_ID"/>
+    </table>
+    <table name="TB_PREREQ_GATEWAY" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="GATEWAY_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PREGATEWAY_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101358200" columns="ID"/>
+      <foreign-key name="FK_JCDC7YROY58TVCLFCPEWBYSPF" columns="PREGATEWAY_ID" ref-table="TB_GATEWAY" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_O040G1LITBSE3WXMT9SR23AFI" columns="GATEWAY_ID" ref-table="TB_GATEWAY" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_ROLE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101358350" columns="ID"/>
+      <exported-key name="FK_D34FWP7NHUHXQQI32VGNLIEL8" table="TB_OPERATION_ROLE" schema="KERNEL" catalog="" columns="ROLE_ID"/>
+      <exported-key name="FK_BXIEWCS0049SJ4IB0YQWMMVQ2" table="TB_PERMISSION_ROLE" schema="KERNEL" catalog="" columns="ROLE_ID"/>
+      <exported-key name="FK_GST680MJPMLDRX393QNKAO1NT" table="TB_WORKGROUP_ROLE" schema="KERNEL" catalog="" columns="ROLE_ID"/>
+    </table>
+    <table name="TB_RULE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DENY" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="ENDTIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENTRANCECOUNT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXITCOUNT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STARTTIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DAYTYPE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="RULEPACKAGE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101356000" columns="ID"/>
+      <foreign-key name="FK_A13J990DS9HVN5U0M0BAOV0V5" columns="DAYTYPE_ID" ref-table="TB_DAYTYPE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_74ODEPXNF3EL4PU9FAXVYWBFI" columns="RULEPACKAGE_ID" ref-table="TB_RULEPACKAGE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_RULEEXCEPTION" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DENY" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="ENDTIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENTRANCECOUNT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXITCOUNT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FROMDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FROMINDEX" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STARTTIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TODATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TOINDEX" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL140813101356110" columns="ID"/>
+      <exported-key name="FK_L5SODJ5ONWXMQ8XLBS1JGY5EI" table="TB_PACKAGE_EXCEPTION" schema="KERNEL" catalog="" columns="EXCEPTION_ID"/>
+    </table>
+    <table name="TB_RULEPACKAGE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ALLOWEXIT" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="ALLOWEXITGADGET" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="ANIPASSBACK" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CALENDAR_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101356210" columns="ID"/>
+      <foreign-key name="FK_I0MJSQSJKHYC8NWJHJ20TNYKF" columns="CALENDAR_ID" ref-table="TB_CALENDAR" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_HW0D7VWJ4UQFI62U9WN5DGIWT" table="TB_GATEWAY" schema="KERNEL" catalog="" columns="RULEPACKAGE_ID"/>
+      <exported-key name="FK_M7FEKLSAIVL7F2YQ8LXTBEYPN" table="TB_ORGAN" schema="KERNEL" catalog="" columns="RULEPACKAGE_ID"/>
+      <exported-key name="FK_60XVVMDQQY5PUCCMULLW2SW0C" table="TB_PACKAGE_EXCEPTION" schema="KERNEL" catalog="" columns="PACKAG_ID"/>
+      <exported-key name="FK_PNAI9LOC2PCWBGH8SW35CFMB9" table="TB_PERSON" schema="KERNEL" catalog="" columns="RULEPACKAGE_ID"/>
+      <exported-key name="FK_74ODEPXNF3EL4PU9FAXVYWBFI" table="TB_RULE" schema="KERNEL" catalog="" columns="RULEPACKAGE_ID"/>
+      <exported-key name="FK_9X5IU83I5WGMBV14TC0JVIC3H" table="TB_ZONE" schema="KERNEL" catalog="" columns="RULEPACKAGE_ID"/>
+    </table>
+    <table name="TB_SAVEDQUERY" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="QUERY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TYPE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ISSCHEDULE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="COUNT" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="EXPORTTYPE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101354760" columns="ID"/>
+    </table>
+    <table name="TB_SYSTEMCONFIGURATION" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PARAMETER" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TYPE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="VALUE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101356340" columns="ID"/>
+    </table>
+    <table name="TB_TRAFFICLOG" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXIT" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="FINGER" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="ISLAST" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="OFFLINETRAFFIC" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="PICTURES" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TRAFFIC_DATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TRAFFIC_TIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="VALID" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="VIDEO" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CARD_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="GATEWAY_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="ORGAN_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PDP_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="PERSON_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="ZONE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="VIRDIPICTURE" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <column name="VIRDI_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101356850" columns="ID"/>
+      <foreign-key name="FK_IL8A4X3WNNV6EJGGIMN91CBG8" columns="CARD_ID" ref-table="TB_CARD" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_8XXPR4IH6Y2YK98XXY3K3RT98" columns="GATEWAY_ID" ref-table="TB_GATEWAY" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_EB54Y9VVGDS5FV03PX7Y0I9OH" columns="ORGAN_ID" ref-table="TB_ORGAN" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_2297HX2V74BEMVL0V5AKP1Q0K" columns="PDP_ID" ref-table="TB_PDP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_B1WN9X932ONCI07AVVSPADJUO" columns="PERSON_ID" ref-table="TB_PERSON" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_A8YKBUL40RRR9HMKAVTUV1SJJ" columns="VIRDI_ID" ref-table="TB_VIRDI" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_HNO6CF63Y6TFKT0JCHMCOC9YD" columns="ZONE_ID" ref-table="TB_ZONE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_NUGH7JOWEISY9TUNPSKTACF6M" table="TB_COMMENT" schema="KERNEL" catalog="" columns="TRAFFICLOG_ID"/>
+    </table>
+    <table name="TB_USER" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXTRAFIELD1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXTRAFIELD2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXTRAFIELD3" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXTRAFIELD4" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FAILEDLOGINCOUNT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FIRSTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTLOGINDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTLOGINIP" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ONLINEUSER" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="SKIN" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USERNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PERSON_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101358850" columns="ID"/>
+      <foreign-key name="FK_4PWP17HC46W4VS08NNFJ2GKKQ" columns="PERSON_ID" ref-table="TB_PERSON" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_CVN1I2N8F03SWJYESWFKCMVF9" table="TB_USER_PC" schema="KERNEL" catalog="" columns="USER_ID"/>
+      <exported-key name="FK_Q8GTV2J8YEMHNIJRQROCAUHML" table="TB_USER_WORKGROUP" schema="KERNEL" catalog="" columns="USER_ID"/>
+    </table>
+    <table name="TB_USER_PC" schema="KERNEL" catalog="" type="TABLE">
+      <column name="USER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PC_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL140813101359050" columns="USER_ID,PC_ID"/>
+      <foreign-key name="FK_FUHGE4LSTLKPSN62M8O2OJE87" columns="PC_ID" ref-table="TB_PC" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_CVN1I2N8F03SWJYESWFKCMVF9" columns="USER_ID" ref-table="TB_USER" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_USER_WORKGROUP" schema="KERNEL" catalog="" type="TABLE">
+      <column name="USER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="WORKGROUP_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL140813101359280" columns="USER_ID,WORKGROUP_ID"/>
+      <foreign-key name="FK_Q8GTV2J8YEMHNIJRQROCAUHML" columns="USER_ID" ref-table="TB_USER" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_ETU0M498B59RXA5L0LJ4OJXXV" columns="WORKGROUP_ID" ref-table="TB_WORKGROUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_VIRDI" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCTEXT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="ENTRANCE" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="IP" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAMETEXT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ONLINEVIRDI" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="SELECTED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="SUCCESS" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="UPDATEDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CAMERA_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="GATEWAY_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="HEALTHSTATUS" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="TERMINALID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL150927153604650" columns="ID"/>
+      <foreign-key name="FK_79S7RRMLB69PBOYHDVEVSMWWE" columns="CAMERA_ID" ref-table="TB_CAMERA" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_1JJU2OPRQVCFXOSPQJJTF50PL" columns="GATEWAY_ID" ref-table="TB_GATEWAY" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_A8YKBUL40RRR9HMKAVTUV1SJJ" table="TB_TRAFFICLOG" schema="KERNEL" catalog="" columns="VIRDI_ID"/>
+    </table>
+    <table name="TB_WORKGROUP" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140813101359620" columns="ID"/>
+      <exported-key name="FK_ETU0M498B59RXA5L0LJ4OJXXV" table="TB_USER_WORKGROUP" schema="KERNEL" catalog="" columns="WORKGROUP_ID"/>
+      <exported-key name="FK_73MFJQDQQE4226BCMKYJXN7NK" table="TB_WORKGROUP_ROLE" schema="KERNEL" catalog="" columns="WORKGROUP_ID"/>
+    </table>
+    <table name="TB_WORKGROUP_ROLE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="WORKGROUP_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="ROLE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL140813101359450" columns="WORKGROUP_ID,ROLE_ID"/>
+      <foreign-key name="FK_GST680MJPMLDRX393QNKAO1NT" columns="ROLE_ID" ref-table="TB_ROLE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_73MFJQDQQE4226BCMKYJXN7NK" columns="WORKGROUP_ID" ref-table="TB_WORKGROUP" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TB_ZONE" schema="KERNEL" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENABLED" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSBACK" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="TRUEPASSCONTROL" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="RULEPACKAGE_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL140813101356970" columns="ID"/>
+      <foreign-key name="FK_9X5IU83I5WGMBV14TC0JVIC3H" columns="RULEPACKAGE_ID" ref-table="TB_RULEPACKAGE" ref-schema="KERNEL" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_OYU2HGIQLV34BOFN2T2383RSY" table="TB_GATEWAY" schema="KERNEL" catalog="" columns="ZONE_ID"/>
+      <exported-key name="FK_HNO6CF63Y6TFKT0JCHMCOC9YD" table="TB_TRAFFICLOG" schema="KERNEL" catalog="" columns="ZONE_ID"/>
+    </table>
+    <table name="TRAFFICLOG_VIEW" schema="KERNEL" catalog="" type="VIEW">
+      <column name="TRAFFICLOGID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="TRAFFICDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TRAFFICTIME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="SUCCESS" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CARDCODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CARDSTARTDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ORGANNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PDPNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ZONENAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="GATENAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENTRYTYPE" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="USER_VIEW" schema="KERNEL" catalog="" type="VIEW">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="USERNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTLOGINIP" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PERSONNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DELETED" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+  </data-source>
+</component>

@@ -1,0 +1,743 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <p:breadCrumb>
+            <p:menuitem value="category" url="#"/>
+            <p:menuitem value="#{bundle.management}" url="#"/>
+            <p:menuitem value="#{bundle.person}" url="#"/>
+        </p:breadCrumb>
+
+        <p:dialog header="#{bundle.person}" widgetVar="PersonPanel" modal="true" showEffect="fade" hideEffect="fade"
+                  resizable="false">
+            <ui:include src="handle-person.xhtml"/>
+        </p:dialog>
+
+        <p:dialog header="#{bundle.reset_password}" widgetVar="resetPanel" modal="true" showEffect="fade"
+                  hideEffect="fade"
+                  resizable="false">
+            <ui:include src="reset-password.xhtml"/>
+        </p:dialog>
+
+        <p:dialog header="#{bundle.detail}" widgetVar="PersonDetailPanel" modal="true" showEffect="fade"
+                  hideEffect="fade"
+                  resizable="false">
+            <ui:include src="detail-person.xhtml"/>
+        </p:dialog>
+
+        <p:dialog header="#{bundle.assign_car}" widgetVar="assignCarDialog" modal="true" showEffect="fade"
+                  hideEffect="fade" resizable="true" maximizable="true" closeOnEscape="true" draggable="true"
+                  minimizable="true" height="500">
+            <p:outputPanel id="assignCarPersonPanel">
+                <h:form>
+                    <p:dataTable id="carTable"
+                                 value="#{handleCarAction.carList}"
+                                 var="car"
+                                 rowKey="#{car.id}"
+                                 selectionMode="single"
+                                 selection="#{handleCarAction.currentCar}"
+                                 paginator="true" rows="10"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            <h:outputText value="#{car.select_events}"/>
+                        </f:facet>
+                        <p:ajax event="rowSelect" listener="#{handlePersonAction.doAssignCar}"
+                                oncomplete="PF('assignCarDialog').hide()"/>
+                        <p:column headerText="#{bundle.number}" sortBy="#{car.number}"
+                                  filterBy="#{car.number}">
+                            <h:outputText value="#{car.number}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:outputPanel>
+
+        </p:dialog>
+
+        <p:dialog header="#{bundle.confirmation}" widgetVar="ConfirmationPanel" modal="true" showEffect="fade"
+                  hideEffect="fade"
+                  resizable="false">
+            <f:facet name="header">
+                &#160;
+            </f:facet>
+            <h:form>
+
+                <table border="0" cellpadding="3" cellspacing="3" class="panelLikeTable">
+                    <tr valign="top">
+                        <td nowrap="nowrap" align="center">
+                            <h:outputText escape="true" value="#{bundle.delete_message}"/>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <td nowrap="nowrap" align="center">
+                            <p:commandButton execute="@this" limitRender="true"
+                                             action="#{handlePersonAction.doDelete}"
+                                             value="#{bundle.yes}"/>
+                            &#160;
+                            <p:commandButton execute="@this" limitRender="true" value="#{bundle.no}"
+                                             oncomplete="PF('ConfirmationPanel').hide()"/>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </p:dialog>
+
+        <br/>
+
+        <h:form dir="#{me.direction}" id="frm">
+            <table border="0" cellpadding="3" cellspacing="3" class="panelLikeTable">
+
+                <tr valign="top">
+                    <td colspan="2" style="padding-bottom: 0; padding-bottom: 0">
+                        <p:outputPanel id="advanceSearchID" ajaxRendered="true">
+                            <table cellpadding="3" cellspacing="3" class="panelLikeTable">
+                                <tr>
+                                    <td align="#{me.align}" nowrap="nowrap" valign="top" width="90%">
+                                        <p:panel header="" toggleable="true" closable="true"
+                                                 toggleSpeed="500" closeSpeed="500" widgetVar="panel"
+                                                 style="margin-bottom:20px" dir="#{me.direction}"
+                                                 collapsed="#{view.viewId eq '/list-person.xhtml'}">
+                                            <table border="0" cellpadding="3" align="#{me.appositeAlign}"
+                                                   cellspacing="3"
+                                                   class="panelLikeTable">
+
+                                                <tr valign="top">
+                                                    <td align="#{me.align}" nowrap="nowrap">
+                                                        <p:selectOneMenu
+                                                                value="#{handlePersonAction.preCondition}">
+                                                            <f:selectItems
+                                                                    value="#{handlePersonAction.preConditions}"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                    &#160;&#160;
+                                                    <td align="#{me.align}" nowrap="nowrap">
+                                                        <p:selectOneMenu
+                                                                value="#{handlePersonAction.attributeName}">
+                                                            <f:selectItems
+                                                                    value="#{handlePersonAction.attributeNames}"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                    &#160;&#160;
+                                                    <td>
+                                                        <p:inputText
+                                                                value="#{handlePersonAction.attributeValue}"/>
+                                                    </td>
+                                                    &#160;&#160;
+                                                    <td align="#{me.align}" nowrap="nowrap">
+                                                        <p:selectOneMenu
+                                                                value="#{handlePersonAction.postCondition}">
+                                                            <f:selectItems
+                                                                    value="#{handlePersonAction.postConditions}"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+
+                                                    <td align="#{me.align}" nowrap="nowrap">
+                                                        <p:commandButton value="#{bundle.add_condition}"
+                                                                         action="#{handlePersonAction.addCondition}"
+                                                                         update="conditionTable"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table border="0" cellpadding="3" align="#{me.appositeAlign}"
+                                                   cellspacing="3"
+                                                   class="panelLikeTable">
+                                                <tr>
+                                                    <td>
+                                                        <p:dataTable id="conditionTable"
+                                                                     value="#{handlePersonAction.personSearches}"
+                                                                     keepSaved="true"
+                                                                     emptyMessage="#{bundle.empty_message}"
+                                                                     sortMode="single"
+                                                                     var="personSearch"
+                                                                     rows="10"
+                                                                     style="BORDER-COLLAPSE: collapse;text-align: center; width:100%;"
+                                                                     rowClasses="ROW1,ROW2">
+                                                            <p:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputText escape="true" value=""/>
+                                                                </f:facet>
+                                                                <h:outputText escape="true"
+                                                                              value="#{personSearch.preCondition}"/>
+                                                            </p:column>
+
+                                                            <p:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputText escape="true" value=""/>
+                                                                </f:facet>
+                                                                <h:outputText escape="true"
+                                                                              value="#{personSearch.attributeName}"/>
+                                                            </p:column>
+
+                                                            <p:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputText escape="true" value=""/>
+                                                                </f:facet>
+                                                                <h:outputText escape="true"
+                                                                              value="#{personSearch.attributeValue}"/>
+                                                            </p:column>
+
+                                                            <p:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputText escape="true" value=""/>
+                                                                </f:facet>
+                                                                <h:outputText escape="true"
+                                                                              value="#{personSearch.postCondition}"/>
+                                                            </p:column>
+                                                            <p:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputText escape="true" value=""/>
+                                                                </f:facet>
+                                                                <p:commandButton image="/images/delete.png"
+                                                                                 title="delete"
+                                                                                 execute="@this"
+                                                                                 update="conditionTable"
+                                                                                 limitRender="true"
+                                                                                 action="#{handlePersonAction.removeCondition}"
+                                                                />
+                                                            </p:column>
+                                                            <f:facet name="footer">
+                                                                <p:dataScroller limitRender="true"
+                                                                                execute="@this"
+                                                                                update="conditionTable"
+                                                                                page="#{handleRuleAction.page}"/>
+                                                            </f:facet>
+                                                        </p:dataTable>
+                                                    </td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td align="#{me.align}" nowrap="nowrap">
+                                                        <p:commandButton value="#{bundle.search}"
+                                                                         action="#{handlePersonAction.search}"/>
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+                                        </p:panel>
+                                    </td>
+                                    <td align="center" valign="bottom" nowrap="nowrap">
+                                        <p:outputPanel ajaxRendered="true" id="pic_top">
+                                            <p:graphicImage
+                                                    value="/loadImage?id=#{handlePersonAction.currentPerson.id}"
+                                                    styleClass="personPicture"
+                                                    style="height: 150px;"
+                                                    rendered="#{handlePersonAction.selectRow}"/>
+                                        </p:outputPanel>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </p:outputPanel>
+                    </td>
+                </tr>
+
+
+                <tr valign="top">
+                    <td align="#{me.align}" nowrap="nowrap" colspan="2">
+                        <p:inputText value="#{handlePersonAction.simpleValue}"/>
+                        &#160;&#160;
+                        <p:commandButton action="#{handlePersonAction.simpleSearch}" value="#{bundle.search}"/>
+
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td align="#{me.align}">
+                        <p:outputPanel id="gallery" ajaxRendered="true"
+                                       rendered="#{handlePersonAction.personAvailable}">
+                            <table border="0" cellspacing="3" cellpadding="3" width="100%" dir="rtl">
+                                <tr valign="top">
+                                    <td align="#{me.align}" nowrap="nowrap" colspan="2">
+                                        <p:commandButton value="#{bundle.add}"
+                                                         rendered="#{me.hasPermission('PERSONMANAGEMENT')}"
+                                                         action="#{handlePersonAction.add}"
+                                                         onclick="PF('PersonPanel').show()"/>
+                                        &#160;&#160;
+
+                                    </td>
+                                    <td>
+                                        <p:commandButton action="#{handlePersonAction.exportExcel}" value="#{bundle.export}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:ring id="custom" value="#{handlePersonAction.persons}" var="person"
+                                                styleClass="image-ring" easing="easeInOutBack">
+                                            #{person.name} #{person.lastName}
+                                            <br/>
+                                            <p:graphicImage value="/loadImage?id=#{person.id}"
+                                                            styleClass="personPicture"/>
+                                            <br/>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <p:commandLink action="#{handlePersonAction.edit(person.id)}"
+                                                                       title="#{bundle.edit}"
+                                                                       onclick="PF('PersonPanel').show()"
+                                                                       update="handlePersonForm:handlePanel, handlePersonForm:tabPanel:_personnelConfirm-password,detailPerson:tabPanel:renderdpicture">
+                                                            <p:graphicImage value="/images/edit.png"/>
+                                                        </p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink
+                                                                action="#{handlePersonAction.assignRule(person.id)}"
+                                                                title="assign rule"
+                                                                update=":frm:handleAssignRulePanel"
+                                                                oncomplete="PF('AssignRulePanel').show()">
+                                                            <p:graphicImage value="/images/assign-rule.png"/>
+                                                        </p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink title="synch"
+                                                                       action="#{handlePDPAction.synch}"
+                                                                       update=":frm:selectPdpList"
+                                                                       rendered="false"
+                                                                       oncomplete="PF('selectPDP').show()">
+                                                            <p:graphicImage value="/images/pdp.png"/>
+                                                        </p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink title="delete"
+                                                                       action="#{handlePersonAction.doDelete(person.id)}">
+                                                            <p:graphicImage value="/images/delete.png"/>
+                                                            <p:confirm header="#{bundle.confirmation}"
+                                                                       message="#{bundle.sureQuestion}"
+                                                                       icon="ui-icon-alert"/>
+                                                        </p:commandLink>
+                                                        <p:confirmDialog global="true" showEffect="fade"
+                                                                         hideEffect="fade">
+                                                            <p:commandButton value="#{bundle.yes}" type="button"
+                                                                             styleClass="ui-confirmdialog-yes"
+                                                                             icon="ui-icon-check"/>
+                                                            <p:commandButton value="#{bundle.no}" type="button"
+                                                                             styleClass="ui-confirmdialog-no"
+                                                                             icon="ui-icon-close"/>
+                                                        </p:confirmDialog>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink
+                                                                action="#{handlePersonAction.editRule(person.id)}"
+                                                                title="edit rule"
+                                                                update=":frm:handleRulePanel"
+                                                                oncomplete="PF('rulePanel').show()">
+                                                            <p:graphicImage value="/images/rule.png" width="20px"
+                                                                            height="20px"/>
+                                                        </p:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <p:commandLink update="assignCarPersonPanel"
+                                                                       action="#{handleCarAction.assignPerson(person)}"
+                                                                       oncomplete="PF('assignCarDialog').show()">
+                                                            <p:graphicImage value="/images/car.jpg" width="20px"
+                                                                            height="20px"/>
+                                                        </p:commandLink>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </p:ring>
+                                    </td>
+                                </tr>
+
+                                <tr valign="middle">
+                                    <td nowrap="nowrap" align="center" colspan="6">
+                                        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                                        <table cellpadding="2" cellspacing="2" width="200px">
+                                            <tr valign="middle">
+                                                <td align="right" nowrap="nowrap">
+                                                    <h:outputLabel value="#{loop.index}"/>
+                                                    <p:commandButton
+                                                            action="#{handlePersonAction.pageCordinator(handlePersonAction.pageCount.get(loop.index),false,false,true)}"
+                                                            disabled="#{handlePersonAction.firstPage}" title="first"
+                                                            update="frm:gallery" value="&lt;&lt;&lt;"/>
+
+                                                </td>
+                                                <td align="left" nowrap="nowrap">
+
+                                                    <p:commandButton
+                                                            action="#{handlePersonAction.pageCordinator(handlePersonAction.pageCount.get(loop.index),true,false,false)}"
+                                                            disabled="#{handlePersonAction.firstPage}"
+                                                            title="previous"
+                                                            update="frm:gallery" value="&lt;&lt;"/>
+                                                </td>
+                                                <td align="left" nowrap="nowrap">
+                                                    <p:commandButton action="#{handlePersonAction.previous}"
+                                                                     disabled="#{handlePersonAction.firstPage}"
+                                                                     title="previous"
+                                                                     update="frm:gallery" value="&lt;"/>
+                                                </td>
+                                                <td align="center" nowrap="nowrap">
+                                                    <ui:repeat value="#{handlePersonAction.pageCount}" var="page"
+                                                               varStatus="loop"
+                                                               step="1">
+                                                        <p:commandLink
+                                                                disabled="#{handlePersonAction.pageCount.get(loop.index)eq handlePersonAction.lastPageIndex}"
+                                                                update="frm:gallery"
+                                                                styleClass="textColor"
+                                                                action="#{handlePersonAction.pageCordinator(handlePersonAction.pageCount.get(loop.index),false,false,false)}"
+                                                                value="#{handlePersonAction.pageCount.get(loop.index)}"/> &#160;&#160;
+                                                    </ui:repeat>
+                                                </td>
+                                                <td align="right" nowrap="nowrap">
+                                                    <p:commandButton action="#{handlePersonAction.next}"
+                                                                     disabled="#{handlePersonAction.lastPage}"
+                                                                     title="next"
+                                                                     update="frm:gallery" value="&gt;"/>
+
+                                                </td>
+                                                <td align="right" nowrap="nowrap">
+                                                    <p:commandButton
+                                                            action="#{handlePersonAction.pageCordinator(handlePersonAction.pageCount.get(loop.index),true,true,false)}"
+                                                            disabled="#{handlePersonAction.lastPage}" title="next"
+                                                            update="frm:gallery" value="&gt;&gt;"/>
+
+                                                </td>
+                                                <td align="right" nowrap="nowrap">
+                                                    <p:commandButton
+                                                            action="#{handlePersonAction.pageCordinator(handlePersonAction.pageCount.get(loop.index),false,true,true)}"
+                                                            disabled="#{handlePersonAction.lastPage}" title="last"
+                                                            update="frm:gallery" value="&gt;&gt;&gt;"/>
+
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </p:outputPanel>
+                    </td>
+                </tr>
+            </table>
+
+            <p:dialog header="#{bundle.assign_rule}" widgetVar="AssignRulePanel" modal="true" showEffect="fade"
+                      hideEffect="fade"
+                      resizable="false">
+                <p:outputPanel id="handleAssignRulePanel">
+                    <p:dataTable id="personTableInPopup" value="#{handlePersonAction.rulePackageList}"
+                                 var="rulePackage"
+                                 rowKey="#{rulePackage.id}" selection="#{handlePersonAction.selectedRulePackage}"
+                                 selectionMode="single">
+                        <p:ajax event="rowSelect" listener="#{handlePersonAction.doAssignRule}"
+                                oncomplete="PF('AssignRulePanel').hide()"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText escape="true" value="#{bundle.packageName}"/>
+                            </f:facet>
+                            <h:outputText escape="true" value="#{rulePackage.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText escape="true" value="#{'تقویم'}"/>
+                            </f:facet>
+                            <h:outputText escape="true" value="#{rulePackage.calendar.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText escape="true" value="#{'بازگشت'}"/>
+                            </f:facet>
+                            <h:graphicImage
+                                    value="#{rulePackage.aniPassBack eq 'true' ? '/images/s_true.png':'/images/s_false.png'}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText escape="true" value="#{'خروج اجناس'}"/>
+                            </f:facet>
+                            <h:graphicImage
+                                    value="#{rulePackage.allowExitGadget eq 'true' ? '/images/s_true.png':'/images/s_false.png'}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+            </p:dialog>
+
+            <p:dialog header="#{bundle.sync}" widgetVar="selectPDP" modal="true" showEffect="fade" hideEffect="fade"
+                      resizable="false">
+                <p:outputPanel id="selectPdpList">
+                    <table border="0" cellpadding="3" cellspacing="3" class="panelLikeTable">
+                        <tr valign="top">
+                            <td nowrap="nowrap" align="#{me.align}">
+                                <h:outputText escape="true" value="#{bundle.finger}"/>
+                                <p:selectBooleanCheckbox
+                                        value="#{handlePDPAction.fingers}">
+                                </p:selectBooleanCheckbox>
+                                &#160;&#160;
+                                <h:outputText escape="true" value="#{bundle.picture}"/>
+                                <p:selectBooleanCheckbox
+                                        value="#{handlePDPAction.pictures}">
+                                </p:selectBooleanCheckbox>
+
+
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap" align="#{me.align}">
+                                <p:dataTable id="pdpTable"
+                                             value="#{handlePDPAction.pdpList}"
+                                             selection="#{handlePDPAction.selectedPdps}"
+                                             rowKey="#{pdp.id}"
+                                             var="pdp"
+                                             paginator="true" rows="10"
+                                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                             rowsPerPageTemplate="5,10,15" style="margin-bottom:20px">
+
+                                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                                    <p:column headerText="#{bundle.name}" sortBy="#{pdp.name}">
+                                        <h:outputLabel value="#{pdp.name}"/>
+                                    </p:column>
+
+                                    <p:column headerText="#{bundle.description}" sortBy="#{pdp.description}">
+                                        <h:outputText value="#{pdp.description}"/>
+                                    </p:column>
+                                    <p:column headerText="ip" sortBy="#{pdp.ip}">
+                                        <h:outputText value="#{pdp.ip}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td align="center" nowrap="nowrap">
+                                <p:commandButton value="#{bundle.sync}"
+                                                 update="pdpTable"
+                                                 action="#{handlePDPAction.synchronize}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </p:outputPanel>
+            </p:dialog>
+
+            <p:dialog header="#{bundle.edit_rule}" widgetVar="rulePanel" modal="true" showEffect="fade"
+                      hideEffect="fade"
+                      resizable="true" maximizable="true" closeOnEscape="true" draggable="true" minimizable="true"
+                      height="500">
+                <p:outputPanel id="handleRulePanel">
+                    <table dir="#{me.direction}">
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                              value="#{bundle.name}"/>
+                                &#160;&#160;&#160;&#160;&#160;
+                                <p:inputText id="ruleName"
+                                             value="#{handlePersonAction.name}"
+                                             dir="#{me.direction}"/>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                              value="#{bundle.date}"/>
+                                &#160;&#160;&#160;&#160;&#160;
+                                <p:selectOneMenu value="#{handlePersonAction.selectedCalendarIdTemp}" tabindex="2">
+                                    <f:selectItems value="#{handlePersonAction.calendarItems}" var="calendar"
+                                                   itemValue="#{calendar.id}" itemLabel="#{calendar.name}"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                              value="#{bundle.antipassback}" styleClass="textColor"/>
+                                &#160;&#160;&#160;
+                                <p:selectBooleanCheckbox value="#{handlePersonAction.ruleAniPassBack}" tabindex="3"/>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <h:outputText escape="true"
+                                              value="#{bundle.allow_exit_gadget}" styleClass="textColor"/>
+                                &#160;&#160;&#160;
+                                <p:selectBooleanCheckbox value="#{handlePersonAction.ruleAllowExitGadget}"
+                                                         tabindex="5"/>
+                            </td>
+                        </tr>
+
+                        <tr valign="top">
+                            <td nowrap="nowrap" colspan="2">
+                                <p:dataTable id="ruleTempTable"
+                                             value="#{handlePersonAction.ruleListTemp}"
+                                             keepSaved="true"
+                                             emptyMessage="#{bundle.empty_message}"
+                                             sortMode="single"
+                                             var="ruleTemp"
+                                             rows="10"
+                                             style="BORDER-COLLAPSE: collapse;text-align: center; width:100%;"
+                                             rowClasses="ROW1,ROW2">
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.daytype}"/>
+                                        </f:facet>
+                                        <h:outputText escape="true" value="#{ruleTemp.dayType.title}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.start_time}"/>
+                                        </f:facet>
+                                        <h:outputText escape="true" value="#{ruleTemp.startTime}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.end_time}"/>
+                                        </f:facet>
+                                        <h:outputText escape="true" value="#{ruleTemp.endTime}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.allow_exit_gadget}"/>
+                                        </f:facet>
+                                        <h:outputText escape="true" value="#{ruleTemp.entranceCount}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.exit_count}"/>
+                                        </f:facet>
+                                        <h:outputText escape="true" value="#{ruleTemp.exitCount}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{'انکار'}"/>
+                                        </f:facet>
+                                        <h:graphicImage
+                                                value="#{ruleTemp.deny eq 'true' ? '/images/s_true.png':'/images/s_false.png'}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText escape="true" value="#{bundle.delete}"/>
+                                        </f:facet>
+                                        <p:commandButton image="icon-delete"
+                                                         title="delete"
+                                                         update="ruleTempTable"
+                                                         action="#{handlePersonAction.remove}"
+                                        />
+                                    </p:column>
+                                </p:dataTable>
+                            </td>
+                        </tr>
+
+
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <p:commandButton image="/images/add.png"
+                                                 action="#{handlePersonAction.addNewRule}"
+                                                 title="rule_add"
+                                                 execute="@this"
+                                                 update="newRuleDetailPanel"/>
+                            </td>
+                        </tr>
+
+                        <tr valign="top">
+                            <td nowrap="nowrap">
+                                <p:outputPanel id="newRuleDetailPanel">
+                                    <f:subview id="newRuleDetail" rendered="#{handlePersonAction.addNewRuleFlag}">
+                                        <table border="0" cellpadding="3" cellspacing="3" width="50%">
+                                            <tr valign="middle">
+                                                <td nowrap="nowrap">
+                                                    <h:outputText escape="true" value="#{bundle.daytype}"/>
+                                                </td>
+                                                <td nowrap="nowrap">
+                                                    <p:selectOneMenu value="#{handlePersonAction.dayTypeIdTemp}">
+                                                        <f:selectItems value="#{handlePersonAction.dayTypeItems}"/>
+                                                    </p:selectOneMenu>
+                                                </td>
+                                            </tr>
+                                            <tr valign="bottom">
+                                                <td nowrap="nowrap">
+                                                    <h:outputText escape="true" value="#{bundle.start_time}"/>
+                                                </td>
+                                                <td nowrap="nowrap">
+                                                    <p:spinner value="#{handlePersonAction.startSecond}"
+                                                               stepFactor="1" max="59" size="6" min="0"/>
+                                                    &#160;
+                                                    <p:spinner value="#{handlePersonAction.startMinute}"
+                                                               stepFactor="1" max="59" size="6" min="0"/>
+
+                                                    &#160;
+                                                    <p:spinner value="#{handlePersonAction.startHour}"
+                                                               stepFactor="1" max="23" size="6" min="0"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr valign="bottom">
+                                                <td nowrap="nowrap">
+                                                    <h:outputText escape="true" value="#{bundle.end_time}"/>
+                                                </td>
+                                                <td nowrap="nowrap">
+                                                    <p:spinner value="#{handlePersonAction.endSecond}"
+                                                               stepFactor="1" max="59" size="6" min="0"/>
+                                                    &#160;
+                                                    <p:spinner value="#{handlePersonAction.endMinute}"
+                                                               stepFactor="1" max="59" size="6" min="0"/>
+                                                    &#160;
+                                                    <p:spinner value="#{handlePersonAction.endHour}"
+                                                               stepFactor="1" max="59" size="6" min="0"/>
+                                                </td>
+                                            </tr>
+                                            <tr valign="bottom">
+                                                <td nowrap="nowrap">
+                                                    <h:outputText escape="true" value="#{bundle.entrance_count}"/>
+                                                </td>
+                                                <td nowrap="nowrap">
+                                                    <p:spinner dir="#{me.direction}"
+                                                               value="#{handlePersonAction.ruleEntranceCount}"
+                                                               stepFactor="1" max="99" size="6" min="0"/>
+
+                                                </td>
+                                            </tr>
+                                            <tr valign="bottom">
+                                                <td nowrap="nowrap">
+                                                    <h:outputText escape="true" value="#{bundle.exit_count}"/>
+                                                </td>
+                                                <td nowrap="nowrap">
+                                                    <p:spinner dir="#{me.direction}"
+                                                               value="#{handlePersonAction.ruleExitCount}"
+                                                               stepFactor="1" max="99" size="6" min="0"/>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td nowrap="nowrap">
+                                                    <h:outputText escape="true" value="#{bundle.deny}:"
+                                                                  styleClass="textColor"/>
+                                                </td>
+                                                <td nowrap="nowrap">
+                                                    <p:selectBooleanCheckbox value="#{handlePersonAction.ruleDeny}"/>
+                                                </td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td nowrap="nowrap">
+                                                    <p:commandButton action="#{handlePersonAction.doAddNewRule}"
+                                                                     value="#{bundle.add}"
+                                                                     title="افزودن قانون"
+                                                                     tabindex="6"
+                                                                     update=":frm:handleRulePanel"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </f:subview>
+                                </p:outputPanel>
+                            </td>
+                        </tr>
+
+
+                        <tr valign="top">
+                            <td nowrap="nowrap" align="#{me.align}" colspan="2">
+                                <p:commandButton id="saveRuleId"
+                                                 value="#{bundle.save}"
+                                                 action="#{handlePersonAction.doEditPersonRule}"/>
+
+                            </td>
+                        </tr>
+                    </table>
+                </p:outputPanel>
+
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
