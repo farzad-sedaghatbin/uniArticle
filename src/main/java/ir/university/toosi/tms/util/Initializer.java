@@ -23,30 +23,13 @@ public class Initializer {
 //    private GeneralHelper generalHelper;
 
 
-    public static Hashtable<Long, Socket> connections = new Hashtable<>();
-    public static Hashtable<String, Object[]> persons = new Hashtable<>();
-    public static Hashtable<Long, List<byte[]>> pics = new Hashtable<>();
-
-
 
 
     @PostConstruct
     public void initial() {
 
-//        System.out.println(generalHelper.getWebServiceInfo().getServerUrl());
-//        new Thread(new ConsoleServerSocket(crossingService, trafficLogService, personService)).start();
         SystemParameterManager.fillSystemConfiguration(systemConfigurationService);
-        fillPersons();
 
-        //TODO : ADD SystemConfiguration
-//        lang = languageService.loadLanguage("fa");
-//        new Thread(new CameraManager(photoService, cameraService)).start();
     }
 
-    private void fillPersons() {
-        List<Object[]> list = personService.getPersonByPersonnelNumber();
-        for (Object[] objects : list) {
-            persons.put(String.valueOf(objects[2]), objects);
-        }
-    }
 }

@@ -59,18 +59,9 @@ import java.util.List;
         @NamedQuery(
                 name = "Person.findByPersonOtherId",
                 query = "select p from Person p where p.personOtherId=:personOtherId and p.deleted = '0'"
-        ), @NamedQuery(
-        name = "Person.findByPersonnelNumber",
-        query = "select p.id, p.rulePackage.id ,p.personOtherId  from Person p where  p.deleted = '0'"
+
 ),
-        @NamedQuery(
-                name = "Person.findByOrganAndRulePackage",
-                query = "select p from Person p where p.organRef.id =:organId and p.rulePackage.id =:rulepackageId and p.deleted='0'"
-        ),
-        @NamedQuery(
-                name = "Person.findByRulePackage",
-                query = "select p from Person p where p.rulePackage.id =:rulepackageId and p.deleted='0'"
-        ),
+
         @NamedQuery(
                 name = "Person.findByOrgan",
                 query = "select p.id,p.name,p.lastName,p.personnelNo from Person p where p.organRef.id =:id and p.deleted='0'"
