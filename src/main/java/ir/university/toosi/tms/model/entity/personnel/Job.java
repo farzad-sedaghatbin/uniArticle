@@ -8,7 +8,7 @@ import ir.university.toosi.tms.model.entity.BaseEntity;
 import javax.persistence.*;
 
 /**
- * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  Farzad
  * @version : 0.8
  */
 

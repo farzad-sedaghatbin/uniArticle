@@ -8,7 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
- * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi, Mostafa Rastgar
+ * @author :  Farzad, Mostafa Rastgar
  * @version : 0.8
  */
 

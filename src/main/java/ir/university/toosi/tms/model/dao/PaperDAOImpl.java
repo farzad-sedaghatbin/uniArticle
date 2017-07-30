@@ -1,7 +1,7 @@
 package ir.university.toosi.tms.model.dao;
 
 
-import ir.university.toosi.tms.model.entity.PC;
+import ir.university.toosi.tms.model.entity.Paper;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -15,11 +15,11 @@ import java.util.List;
 @Stateless
 @LocalBean
 
-public class PCDAOImpl extends BaseDAOImpl<PC> {
+public class PaperDAOImpl extends BaseDAOImpl<Paper> {
 
-    public PC findById(long id) {
+    public Paper findById(long id) {
         try {
-            return (PC) em.createNamedQuery("PC.findById")
+            return (Paper) em.createNamedQuery("Paper.findById")
                     .setParameter("id",id)
                     .getSingleResult();
         } catch (Exception e) {
@@ -27,9 +27,9 @@ public class PCDAOImpl extends BaseDAOImpl<PC> {
         }
     }
 
-    public List<PC> findByName(String name) {
+    public List<Paper> findByName(String name) {
         try {
-            return (List<PC>) em.createNamedQuery("PC.findByName")
+            return (List<Paper>) em.createNamedQuery("Paper.findByName")
                     .setParameter("name", name + "%")
                     .getResultList();
         } catch (Exception e) {
@@ -37,9 +37,9 @@ public class PCDAOImpl extends BaseDAOImpl<PC> {
         }
     }
 
-    public PC findByIp(String ip) {
+    public Paper findByIp(String ip) {
         try {
-            return (PC) em.createNamedQuery("PC.findByIp")
+            return (Paper) em.createNamedQuery("Paper.findByIp")
                     .setParameter("ip", ip + "%")
                     .getSingleResult();
         } catch (Exception e) {
@@ -49,11 +49,11 @@ public class PCDAOImpl extends BaseDAOImpl<PC> {
 
     public boolean exist(String ip,long id) {
         try {
-            List<PC> pc = (List<PC>) em.createNamedQuery("PC.exist")
+            List<Paper> paper = (List<Paper>) em.createNamedQuery("Paper.exist")
                     .setParameter("ip", ip)
                     .setParameter("id", id)
                     .getResultList();
-            if (pc.size() != 0)
+            if (paper.size() != 0)
                 return true;
             else {
                 return false;
@@ -63,10 +63,10 @@ public class PCDAOImpl extends BaseDAOImpl<PC> {
         }
     }    public boolean existNotId(String ip) {
         try {
-            List<PC> pc = (List<PC>) em.createNamedQuery("PC.existNotId")
+            List<Paper> paper = (List<Paper>) em.createNamedQuery("Paper.existNotId")
                     .setParameter("ip", ip)
                     .getResultList();
-            if (pc.size() != 0)
+            if (paper.size() != 0)
                 return true;
             else {
                 return false;

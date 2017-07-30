@@ -11,7 +11,7 @@ import java.util.zip.GZIPOutputStream;
 
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 public class CompressorUtil {

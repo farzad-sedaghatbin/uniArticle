@@ -11,7 +11,7 @@ import java.io.StringWriter;
 
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 public class JaxbUtil {

@@ -7,7 +7,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 

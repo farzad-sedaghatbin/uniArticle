@@ -8,7 +8,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 /**
- * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  Farzad
  * @version : 0.8
  */
 

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 
 /**
- * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  Farzad
  * @version : 0.8
  */
 

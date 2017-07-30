@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * @author : Mostafa Rastgar
+ * @author :  FarzadMostafa Rastgar
  * @version : 0.8
  */
 @WebServlet(urlPatterns = "/jnlp/testAction")

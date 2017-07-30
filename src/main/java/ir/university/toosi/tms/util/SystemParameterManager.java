@@ -8,7 +8,7 @@ import ir.university.toosi.tms.model.service.SystemConfigurationServiceImpl;
 import java.util.Hashtable;
 
 /**
- * @author : Hamed Hatami , Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  FarzadHamed Hatami , Farzad Sedaghatbin, Atefeh Ahmadi
  * @version : 0.8
  */
 public class SystemParameterManager {

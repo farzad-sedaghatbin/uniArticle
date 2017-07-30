@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
 import java.util.List;
 
 /**
- * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  Farzad
  * @version : 0.8
  */
 

@@ -8,7 +8,7 @@ import javax.naming.InitialContext;
 import java.util.Set;
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 public class ManagedBeanManager {

@@ -3,7 +3,7 @@ package ir.university.toosi.tms.model.entity;
 import ir.university.toosi.tms.util.Configuration;
 
 /**
- * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi, Mostafa Rastgar
+ * @author :  Farzad, Mostafa Rastgar
  * @version : 0.8
  */
 public class WebServiceInfo {

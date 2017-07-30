@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 1.0
  */
 @WebServlet(value = "/personImageLoader")

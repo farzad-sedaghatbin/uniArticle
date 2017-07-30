@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 

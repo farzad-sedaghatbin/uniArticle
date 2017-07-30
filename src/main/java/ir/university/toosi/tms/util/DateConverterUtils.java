@@ -3,7 +3,7 @@ package ir.university.toosi.tms.util;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 

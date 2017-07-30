@@ -29,7 +29,7 @@ import java.util.*;
 //import org.richfaces.component.Positioning;
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  Farzad
  * @version : 0.8
  */
 @Entity
@@ -109,8 +109,6 @@ public class User extends BaseEntity {
     @JsonProperty
     @OneToOne
     private Person person;
-    @Lob
-    private byte[] userSign;
 
     @JsonProperty
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -119,6 +117,14 @@ public class User extends BaseEntity {
             @JoinColumn(name = "pc_id", referencedColumnName = "id", nullable = false)})
     private Set<PC> pcs;
 
+
+    @Column(name = "download")
+    @JsonProperty
+    private long download;
+
+    @Column(name = "upload")
+    @JsonProperty
+    private long upload;
     public User() {
     }
 
@@ -293,11 +299,19 @@ public class User extends BaseEntity {
         this.lastname = lastname;
     }
 
-    public byte[] getUserSign() {
-        return userSign;
+    public long getDownload() {
+        return download;
     }
 
-    public void setUserSign(byte[] userSign) {
-        this.userSign = userSign;
+    public void setDownload(long download) {
+        this.download = download;
+    }
+
+    public long getUpload() {
+        return upload;
+    }
+
+    public void setUpload(long upload) {
+        this.upload = upload;
     }
 }

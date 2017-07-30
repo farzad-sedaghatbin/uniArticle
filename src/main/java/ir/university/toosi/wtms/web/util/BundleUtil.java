@@ -4,7 +4,7 @@ package ir.university.toosi.wtms.web.util;
 import ir.university.toosi.wtms.web.action.UserManagementAction;
 
 /**
- * @author : Hamed Hatami Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  FarzadHamed Hatami Farzad Sedaghatbin, Atefeh Ahmadi
  * @version : 0.8
  */
 public class BundleUtil {

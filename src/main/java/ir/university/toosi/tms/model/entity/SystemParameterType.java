@@ -2,7 +2,7 @@ package ir.university.toosi.tms.model.entity;
 
 
 /**
- * @author : Hamed Hatami , Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  FarzadHamed Hatami , Farzad Sedaghatbin, Atefeh Ahmadi
  * @version : 0.8
  */
 

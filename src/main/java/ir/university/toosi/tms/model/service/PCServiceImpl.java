@@ -1,6 +1,5 @@
 package ir.university.toosi.tms.model.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.university.toosi.tms.model.dao.PCDAOImpl;
 import ir.university.toosi.tms.model.entity.BLookup;
 import ir.university.toosi.tms.model.entity.EventLogType;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi
+ * @author :  Farzad
  * @version : 0.8
  */
 

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 

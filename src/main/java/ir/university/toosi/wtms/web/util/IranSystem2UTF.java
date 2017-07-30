@@ -2,7 +2,7 @@ package ir.university.toosi.wtms.web.util;
 
 
 /**
- * @author : Farzad Sedaghatbin
+ * @author :  FarzadFarzad Sedaghatbin
  * @version : 0.8
  */
 public class IranSystem2UTF {

@@ -4,7 +4,7 @@ import javax.net.ssl.*;
 import javax.xml.ws.Service;
 import java.net.URL;
 
-/* @author : Hamed Hatami ,  Farzad Sedaghatbin, Atefeh Ahmadi, Mostafa Rastgar
+/* @author :  Farzad, Mostafa Rastgar
  * @version : 0.8
  */
 
