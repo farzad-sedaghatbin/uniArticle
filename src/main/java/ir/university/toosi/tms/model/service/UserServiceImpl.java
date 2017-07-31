@@ -74,13 +74,6 @@ public class UserServiceImpl<T extends User> {
         }
     }
 
-    public List<T> findByPerson(Long personId) {
-        try {
-            return (List<T>) userDAO.findByPerson(personId);
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public List<T> findByWorkGroup(Long workGroupId) {
         try {

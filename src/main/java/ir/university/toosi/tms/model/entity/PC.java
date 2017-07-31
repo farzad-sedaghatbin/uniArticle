@@ -48,9 +48,7 @@ public class PC extends BaseEntity {
     @Column(name = "ip")
     @JsonProperty
     private String ip;
-    @JsonProperty
-    @ManyToOne
-    private BLookup location;
+
     @Transient
     @JsonProperty
     private boolean selected;
@@ -63,11 +61,7 @@ public class PC extends BaseEntity {
         this.id = id;
     }
 
-    public PC(String name, String ip, BLookup location) {
-        this.name = name;
-        this.ip = ip;
-        this.location = location;
-    }
+
 
     public long getId() {
         return id;
@@ -93,13 +87,7 @@ public class PC extends BaseEntity {
         this.ip = ip;
     }
 
-    public BLookup getLocation() {
-        return location;
-    }
 
-    public void setLocation(BLookup location) {
-        this.location = location;
-    }
 
     public boolean isSelected() {
         return selected;

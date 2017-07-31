@@ -22,9 +22,7 @@
                 <p:menuitem value="#{bundle.assign_pc}" update="assignPCDetail" icon="ui-icon-calculator"
                             oncomplete="PF('assignPCDialog').show()"
                             actionListener="#{handleUserAction.assignPC}"/>
-                <p:menuitem value="#{bundle.assign_person}" update="assignPersonDetail" icon="ui-icon-person"
-                            oncomplete="PF('assignPersonDialog').show()"
-                            actionListener="#{handleUserAction.assignPerson}"/>
+
                 <p:menuitem value="#{bundle.delete}" update="users" icon="ui-icon-trash"
                             actionListener="#{handleUserAction.doDelete}">
                     <p:confirm header="#{bundle.confirmation}" message="#{bundle.areYouSure}" icon="ui-icon-alert" />
@@ -223,29 +221,6 @@
                 </p:outputPanel>
             </p:dialog>
 
-            <p:dialog header="#{bundle.assign_person}" widgetVar="assignPersonDialog" modal="true"  showEffect="fade" hideEffect="fade"
-                      resizable="false">
-                <p:outputPanel id="assignPersonDetail" style="text-align:center;">
-                <p:dataTable id="assignPerson" var="person" value="#{handleUserAction.personList}"
-                             selectionMode="single" selection="#{handleUserAction.selectedPerson}"
-                             rowKey="#{person.id}"
-                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                             rowsPerPageTemplate="5,10,15" style="margin-bottom:20px;width: 100%;height: 500px">
-                    <f:facet name="header">
-                        <h:outputText value="#{person.select_events}"/>
-                    </f:facet>
-                    <p:ajax event="rowSelect" listener="#{handleUserAction.associatePerson}"
-                            oncomplete="PF('assignPersonDialog').hide()"
-                            update=":form:users"/>
-                    <p:column headerText="#{bundle.name}" sortBy="#{person.name}" filterBy="#{person.name}">
-                        <h:outputText value="#{person.name}"/>
-                    </p:column>
-                    <p:column headerText="#{bundle.lastname}" sortBy="#{person.lastName}" filterBy="#{person.lastName}">
-                        <h:outputText value="#{person.lastName}"/>
-                    </p:column>
-                </p:dataTable>
-                </p:outputPanel>
-            </p:dialog>
 
         </h:form>
     </ui:define>

@@ -1,12 +1,16 @@
 package ir.university.toosi.wtms.web.action.paper;
 
 
-import ir.university.toosi.tms.model.entity.BLookup;
 import ir.university.toosi.tms.model.entity.Paper;
 import ir.university.toosi.tms.model.service.PaperServiceImpl;
+import ir.university.toosi.tms.model.service.UserServiceImpl;
 import ir.university.toosi.wtms.web.action.UserManagementAction;
 import ir.university.toosi.wtms.web.action.role.HandleRoleAction;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.ByteArrayContent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.SortOrder;
+import org.primefaces.model.StreamedContent;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -31,6 +35,8 @@ public class HandlePaperAction implements Serializable {
     @Inject
     private UserManagementAction me;
     @Inject
+    private UserServiceImpl userService;
+    @Inject
     private HandleRoleAction handleRoleAction;
     @EJB
     private PaperServiceImpl paperService;
@@ -44,15 +50,17 @@ public class HandlePaperAction implements Serializable {
     private Paper currentPaper = null;
     private String currentPage;
     private int page = 1;
+    private byte[] contenet;
+
     private String paperIPFilter;
     private boolean selected;
     private Set<Paper> selectedPapers = new HashSet<>();
-    private List<BLookup> locations;
     private boolean selectRow = false;
     private String paperNameFilter;
     private String paperDescriptionFilter;
     private SortOrder paperNameOrder = SortOrder.UNSORTED;
     private SortOrder paperDescriptionOrder = SortOrder.UNSORTED;
+    private List<Paper> papers;
 
 
     public void begin() {
@@ -98,7 +106,7 @@ public class HandlePaperAction implements Serializable {
 ////                todo:the commented line is correct
 ////                paper.getLocation().setTitleText(me.getValue(paper.getLocation().getCode()));
 //            }
-            paperList = new ArrayList<>(papers);
+        paperList = new ArrayList<>(papers);
     }
 
     public void add() {
@@ -140,7 +148,7 @@ public class HandlePaperAction implements Serializable {
         paperDescription = currentPaper.getDescription();
     }
 
-    public void view(){
+    public void view() {
         paperName = currentPaper.getName();
         paperAuthor = currentPaper.getAuthor();
         paperDescription = currentPaper.getDescription();
@@ -164,14 +172,14 @@ public class HandlePaperAction implements Serializable {
 
 //        currentPaper.setEffectorUser(me.getUsername());
         boolean condition = paperService.editPaper(currentPaper);
-            if (condition) {
-                refresh();
-                me.addInfoMessage("operation.occurred");
-                me.redirect("/paper/paper.xhtml");
-            } else {
-                me.addInfoMessage("operation.not.occurred");
-                return;
-            }
+        if (condition) {
+            refresh();
+            me.addInfoMessage("operation.occurred");
+            me.redirect("/paper/paper.xhtml");
+        } else {
+            me.addInfoMessage("operation.not.occurred");
+            return;
+        }
 
     }
 
@@ -180,15 +188,19 @@ public class HandlePaperAction implements Serializable {
         Paper newPaper = new Paper();
         newPaper.setName(paperName);
         newPaper.setAuthor(paperAuthor);
+        newPaper.setContent(contenet);
         newPaper.setDeleted("0");
         newPaper.setStatus("c");
+        newPaper.setUser(me.getUser());
+        me.getUser().setUpload(me.getUser().getUpload() + 1);
+        userService.editUser(me.getUser());
 //        newPaper.setEffectorUser(me.getUsername());
         newPaper.setDescription(paperDescription);
-        boolean condition = paperService.existNotId(String.valueOf(paperAuthor));
-            if (condition) {
-                me.addInfoMessage("paper.exist");
-                return;
-            }
+//        boolean condition = paperService.existNotId(String.valueOf(paperAuthor));
+//            if (condition) {
+//                me.addInfoMessage("paper.exist");
+//                return;
+//            }
 
         Paper insertedPaper = null;
         insertedPaper = paperService.createPaper(newPaper);
@@ -405,7 +417,6 @@ public class HandlePaperAction implements Serializable {
     }
 
 
-
     public String getPaperDescriptionFilter() {
         return paperDescriptionFilter;
     }
@@ -418,7 +429,46 @@ public class HandlePaperAction implements Serializable {
         this.paperDescription = paperDescription;
     }
 
+    public boolean isEditable() {
+        return editable;
+    }
 
+    public String getPaperAuthor() {
+        return paperAuthor;
+    }
+
+    public void setPaperAuthor(String paperAuthor) {
+        this.paperAuthor = paperAuthor;
+    }
+
+    public String getPaperDescription() {
+        return paperDescription;
+    }
+
+    public String getPaperIPFilter() {
+        return paperIPFilter;
+    }
+
+    public void setPaperIPFilter(String paperIPFilter) {
+        this.paperIPFilter = paperIPFilter;
+    }
+
+
+    public String getPaperNameFilter() {
+        return paperNameFilter;
+    }
+
+    public void setPaperNameFilter(String paperNameFilter) {
+        this.paperNameFilter = paperNameFilter;
+    }
+
+    public SortOrder getPaperNameOrder() {
+        return paperNameOrder;
+    }
+
+    public void setPaperNameOrder(SortOrder paperNameOrder) {
+        this.paperNameOrder = paperNameOrder;
+    }
 
     public UserManagementAction getMe() {
         return me;
@@ -455,4 +505,27 @@ public class HandlePaperAction implements Serializable {
     public Paper findForConverter(long value) {
         return paperService.findById(value);
     }
+
+    public List<Paper> getPapers() {
+        return papers;
+    }
+
+    public void accept() {
+
+
+    }
+
+    public void refuse() {
+
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        contenet = event.getFile().getContents();
+    }
+
+    public StreamedContent getFile() {
+        return new ByteArrayContent(currentPaper.getContent(), "application/pdf", "downloaded.pdf");
+
+    }
+
 }

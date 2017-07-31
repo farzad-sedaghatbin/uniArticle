@@ -1,14 +1,10 @@
 package ir.university.toosi.wtms.web.servlet;
 
-import ir.university.toosi.wtms.web.action.HandleCommentAction;
 import ir.university.toosi.wtms.web.action.HandleSettingAction;
 import ir.university.toosi.wtms.web.action.UserManagementAction;
 import ir.university.toosi.wtms.web.action.event.HandleEventAction;
-import ir.university.toosi.wtms.web.action.lookup.HandleLookupAction;
 import ir.university.toosi.wtms.web.action.operation.HandleOperationAction;
-import ir.university.toosi.wtms.web.action.organ.HandleOrganAction;
 import ir.university.toosi.wtms.web.action.pc.HandlePCAction;
-import ir.university.toosi.wtms.web.action.person.HandlePersonAction;
 import ir.university.toosi.wtms.web.action.role.HandleRoleAction;
 import ir.university.toosi.wtms.web.action.user.HandleUserAction;
 import ir.university.toosi.wtms.web.action.workgroup.HandleWorkGroupAction;
@@ -25,13 +21,7 @@ import java.io.IOException;
 public class MenuHandlerServlet extends HttpServlet {
 
 
-    @Inject
-    private HandlePersonAction handlePersonAction;
 
-    @Inject
-    private HandleCommentAction handleCommentAction;
-    @Inject
-    private HandleOrganAction handleOrganAction;
     @Inject
     private HandleEventAction handleEventAction;
 
@@ -43,8 +33,8 @@ public class MenuHandlerServlet extends HttpServlet {
     private HandleRoleAction handleRoleAction;
     @Inject
     private HandlePCAction handlePCAction;
-    @Inject
-    private HandleLookupAction handleLookupAction;
+
+
     @Inject
     private HandleSettingAction handleSettingAction;
     @Inject
@@ -58,19 +48,7 @@ public class MenuHandlerServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-      if (request.getParameter("id").equalsIgnoreCase("person")) {
-            handlePersonAction.begin();
-            request.getRequestDispatcher("/person/list-person.htm").forward(request, response);
-        } else if (request.getParameter("id").equalsIgnoreCase("authorization")) {
-            handleCommentAction.beginAuthorize();
-            request.getRequestDispatcher("/authorization/authorization.htm").forward(request, response);
-        } else if (request.getParameter("id").equalsIgnoreCase("comment")) {
-            handleCommentAction.begin();
-            request.getRequestDispatcher("/comment/list-comment.htm").forward(request, response);
-        } else if (request.getParameter("id").equalsIgnoreCase("organ")) {
-            handleOrganAction.begin();
-            request.getRequestDispatcher("/organ/list-organ.htm").forward(request, response);
-        } else if (request.getParameter("id").equalsIgnoreCase("event")) {
+  if (request.getParameter("id").equalsIgnoreCase("event")) {
             handleEventAction.begin();
             request.getRequestDispatcher("/event/list-event.htm").forward(request, response);
         } else if (request.getParameter("id").equalsIgnoreCase("user")) {
@@ -85,9 +63,6 @@ public class MenuHandlerServlet extends HttpServlet {
         } else if (request.getParameter("id").equalsIgnoreCase("pc")) {
             handlePCAction.begin();
             request.getRequestDispatcher("/pc/list-pc.htm").forward(request, response);
-        } else if (request.getParameter("id").equalsIgnoreCase("lookup")) {
-            handleLookupAction.begin();
-            request.getRequestDispatcher("/lookup/list-lookup.htm").forward(request, response);
         } else if (request.getParameter("id").equalsIgnoreCase("setting")) {
             handleSettingAction.begin();
             request.getRequestDispatcher("/setting/system-setting.htm").forward(request, response);

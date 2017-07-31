@@ -2,7 +2,6 @@ package ir.university.toosi.tms.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ir.university.toosi.tms.model.entity.personnel.Person;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -22,10 +21,6 @@ import java.util.Set;
         @NamedQuery(
                 name = "User.findById",
                 query = "select u from User u where u.id=:id"
-        ),
-        @NamedQuery(
-                name = "User.findByPersonId",
-                query = "select u from User u where u.person.id=:id and u.deleted = '0'"
         ),
         @NamedQuery(
                 name = "User.findByWorkGroupId",
@@ -106,9 +101,6 @@ public class User extends BaseEntity {
     @JsonProperty
     @Column(name = "extraField4")
     private String extraField4;
-    @JsonProperty
-    @OneToOne
-    private Person person;
 
     @JsonProperty
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -120,23 +112,14 @@ public class User extends BaseEntity {
 
     @Column(name = "download")
     @JsonProperty
-    private long download;
+    private long download=0;
 
     @Column(name = "upload")
     @JsonProperty
-    private long upload;
+    private long upload=0;
     public User() {
     }
 
-    public User(Set<PC> pcs, String username, String password, String enable, boolean online, Set<WorkGroup> workGroups, Person person) {
-        this.pcs = pcs;
-        this.username = username;
-        this.password = password;
-        this.enable = enable;
-        this.online = online;
-        this.workGroups = workGroups;
-        this.person = person;
-    }
 
     public User(long id) {
         this.id = id;
@@ -265,13 +248,6 @@ public class User extends BaseEntity {
         this.extraField4 = extraField4;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
 
     public Set<PC> getPcs() {
         if (pcs == null)

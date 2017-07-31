@@ -5,7 +5,6 @@ import ir.university.toosi.tms.model.entity.*;
 import ir.university.toosi.tms.model.service.OperationServiceImpl;
 import ir.university.toosi.tms.model.service.SystemConfigurationServiceImpl;
 import ir.university.toosi.tms.model.service.UserServiceImpl;
-import ir.university.toosi.tms.model.service.personnel.PersonServiceImpl;
 import ir.university.toosi.tms.util.LangUtil;
 import ir.university.toosi.wtms.web.action.user.HandleUserAction;
 import ir.university.toosi.wtms.web.helper.GeneralHelper;
@@ -51,8 +50,6 @@ public class UserManagementAction implements Serializable {
     private SystemConfigurationServiceImpl configurationService;
     @EJB
     private OperationServiceImpl operationService;
-    @EJB
-    PersonServiceImpl personService;
 
     public static String SENTRY_COUNT = "10";
     public static final String INVALID_TRY = "invalid_try";

@@ -1,7 +1,7 @@
 package ir.university.toosi.tms.model.service;
 
 import ir.university.toosi.tms.model.dao.PCDAOImpl;
-import ir.university.toosi.tms.model.entity.BLookup;
+import ir.university.toosi.tms.model.entity.PC;
 import ir.university.toosi.tms.model.entity.EventLogType;
 import ir.university.toosi.tms.model.entity.PC;
 import ir.university.toosi.tms.model.entity.User;
@@ -55,7 +55,7 @@ public class PCServiceImpl<T extends PC> {
 
     public List<T> findByName(PC pc) {
         try {
-            EventLogManager.eventLog(eventLogService, null, BLookup.class.getSimpleName(), EventLogType.SEARCH, pc.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, null, PC.class.getSimpleName(), EventLogType.SEARCH, pc.getEffectorUser());
             return (List<T>) pcdao.findByName(pc.getName());
         } catch (Exception e) {
             return null;
@@ -64,7 +64,7 @@ public class PCServiceImpl<T extends PC> {
 
     public T findByIp(PC pc) {
         try {
-            EventLogManager.eventLog(eventLogService, null, BLookup.class.getSimpleName(), EventLogType.SEARCH, pc.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, null, PC.class.getSimpleName(), EventLogType.SEARCH, pc.getEffectorUser());
             return (T) pcdao.findByIp(pc.getIp());
         } catch (Exception e) {
             return null;
@@ -103,7 +103,7 @@ public class PCServiceImpl<T extends PC> {
                 userService.editUser(user);
             }
 
-            EventLogManager.eventLog(eventLogService, null, BLookup.class.getSimpleName(), EventLogType.DELETE, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, null, PC.class.getSimpleName(), EventLogType.DELETE, entity.getEffectorUser());
             pcdao.delete(findById(entity.getId()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,7 +114,7 @@ public class PCServiceImpl<T extends PC> {
     public T createPC(T entity) {
         try {
             T t = (T) pcdao.create(entity);
-            EventLogManager.eventLog(eventLogService, String.valueOf(t.getId()), BLookup.class.getSimpleName(), EventLogType.ADD, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, String.valueOf(t.getId()), PC.class.getSimpleName(), EventLogType.ADD, entity.getEffectorUser());
             return t;
         } catch (Exception e) {
             return null;
@@ -128,12 +128,11 @@ public class PCServiceImpl<T extends PC> {
             PC newPC = new PC();
             newPC.setName(old.getName());
             newPC.setIp(old.getIp());
-            newPC.setLocation(old.getLocation());
             newPC.setStatus("o," + entity.getEffectorUser());
             pcdao.createOld(newPC);
 
 
-            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), BLookup.class.getSimpleName(), EventLogType.EDIT, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), PC.class.getSimpleName(), EventLogType.EDIT, entity.getEffectorUser());
             pcdao.update(entity);
             return true;
         } catch (Exception e) {

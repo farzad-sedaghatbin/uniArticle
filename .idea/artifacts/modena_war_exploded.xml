@@ -4,7 +4,7 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="modena" />
+          <element id="module-output" name="uni" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: net.sf.jipcam:jipcam:0.9.1" />
@@ -86,7 +86,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/modena-1.0.1/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="modena/web/Web" />
+      <element id="javaee-facet-resources" facet="uni/web/Web" />
     </root>
   </artifact>
 </component>

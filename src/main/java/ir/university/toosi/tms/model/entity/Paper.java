@@ -21,17 +21,7 @@ import javax.persistence.*;
         @NamedQuery(
                 name = "Paper.findByName",
                 query = "select p from Paper p where p.name like :name and p.deleted='0'"
-        ),
-        @NamedQuery(
-                name = "Paper.findByIp",
-                query = "select p from Paper p where p.ip like :ip and p.deleted='0' "
-        ),
-        @NamedQuery(
-                name = "Paper.exist",
-                query = "select p from Paper p where p.ip=:ip and p.deleted='0'and p.id <> :id "
-        ),@NamedQuery(
-        name = "Paper.existNotId",
-        query = "select p from Paper p where p.ip=:ip and p.deleted='0' "
+
 ), @NamedQuery(
         name = "Paper.maximum",
         query = "select max(p.id) from Paper p"
@@ -59,10 +49,21 @@ public class Paper extends BaseEntity{
     @JsonProperty
     private String description;
 
+    @Column(name = "contnet")
+    @JsonProperty
+    @Lob
+    private byte[] content;
+
 
     @Column(name = "download")
+
     @JsonProperty
-    private long download;
+    private long download=0;
+
+
+    @Column(name = "approved")
+    @JsonProperty
+    private boolean approved=false;
 
     public long getId() {
         return id;
@@ -110,5 +111,21 @@ public class Paper extends BaseEntity{
 
     public void setDownload(long download) {
         this.download = download;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 }

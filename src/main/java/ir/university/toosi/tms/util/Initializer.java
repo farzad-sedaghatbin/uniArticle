@@ -1,7 +1,6 @@
 package ir.university.toosi.tms.util;
 
 import ir.university.toosi.tms.model.service.SystemConfigurationServiceImpl;
-import ir.university.toosi.tms.model.service.personnel.PersonServiceImpl;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -17,8 +16,6 @@ public class Initializer {
 
     @EJB
     private SystemConfigurationServiceImpl systemConfigurationService;
-    @EJB
-    private PersonServiceImpl personService;
 //    @Inject
 //    private GeneralHelper generalHelper;
 

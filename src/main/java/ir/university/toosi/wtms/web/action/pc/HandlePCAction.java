@@ -47,7 +47,6 @@ public class HandlePCAction implements Serializable {
     private String pcName;
     private boolean pcEnabled;
     private String pcIP;
-    private BLookup pcLocation;
     private PC currentPC = null;
     private String currentPage;
     private int page = 1;
@@ -55,7 +54,6 @@ public class HandlePCAction implements Serializable {
     private String pcIPFilter;
     private boolean selected;
     private Set<PC> selectedPCs = new HashSet<>();
-    private List<BLookup> locations;
     private boolean selectRow = false;
     private String pcNameFilter;
     private String pcLocationFilter;
@@ -147,13 +145,11 @@ public class HandlePCAction implements Serializable {
         setDisableFields(false);
         pcName = currentPC.getName();
         pcIP = currentPC.getIp();
-        pcLocation = currentPC.getLocation();
     }
 
     public void view(){
         pcName = currentPC.getName();
         pcIP = currentPC.getIp();
-        pcLocation = currentPC.getLocation();
     }
 
     public void saveOrUpdate() {
@@ -198,7 +194,6 @@ public class HandlePCAction implements Serializable {
         newPC.setDeleted("0");
         newPC.setStatus("c");
 //        newPC.setEffectorUser(me.getUsername());
-        newPC.setLocation(pcLocation);
         boolean condition = pcService.existNotId(String.valueOf(pcIP));
             if (condition) {
                 me.addInfoMessage("pc.exist");
@@ -454,9 +449,6 @@ public class HandlePCAction implements Serializable {
         this.pcLocationFilter = pcLocationFilter;
     }
 
-    public void setPcLocation(BLookup pcLocation) {
-        this.pcLocation = pcLocation;
-    }
 
     public SortOrder getPcIpOrder() {
         return pcIpOrder;

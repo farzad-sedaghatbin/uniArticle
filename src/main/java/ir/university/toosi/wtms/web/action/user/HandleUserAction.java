@@ -1,15 +1,12 @@
 package ir.university.toosi.wtms.web.action.user;
 
 import ir.university.toosi.tms.model.entity.*;
-import ir.university.toosi.tms.model.entity.personnel.Person;
 import ir.university.toosi.tms.model.service.PCServiceImpl;
 import ir.university.toosi.tms.model.service.UserServiceImpl;
 import ir.university.toosi.tms.model.service.WorkGroupServiceImpl;
-import ir.university.toosi.tms.model.service.personnel.PersonServiceImpl;
 import ir.university.toosi.tms.util.LangUtil;
 import ir.university.toosi.wtms.web.action.AccessControlAction;
 import ir.university.toosi.wtms.web.action.UserManagementAction;
-import ir.university.toosi.wtms.web.action.person.HandlePersonAction;
 import ir.university.toosi.wtms.web.action.role.HandleRoleAction;
 import ir.university.toosi.wtms.web.action.workgroup.HandleWorkGroupAction;
 import ir.university.toosi.wtms.web.helper.GeneralHelper;
@@ -56,13 +53,9 @@ public class HandleUserAction implements Serializable {
     private GeneralHelper generalHelper;
     @Inject
     private AccessControlAction accessControlAction;
-    @Inject
-    private HandlePersonAction handlePersonAction;
-
     @EJB
     private UserServiceImpl userService;
-    @EJB
-    private PersonServiceImpl personService;
+
     @EJB
     private PCServiceImpl pcService;
     @EJB
@@ -90,9 +83,7 @@ public class HandleUserAction implements Serializable {
     private String rePassword;
     private String chatFirstName = "";
     private String chatLastName = "";
-    private List<Person> personList;
     private PC currentPC;
-    private Person currentPerson;
     private String searchOrganizationName;
     private String editable = "false";
     private boolean view = false;
@@ -108,7 +99,6 @@ public class HandleUserAction implements Serializable {
     private int personPage = 1;
     private SelectItem[] personItem;
     private Set<WorkGroup> selectedWorkGroup;
-    private Person selectedPerson;
     private boolean selectRow = false;
     private String oldPassword;
 
@@ -234,32 +224,9 @@ public class HandleUserAction implements Serializable {
     }
 
 
-    public void assignPerson() {
-        handlePersonAction.setPersonnameOrder(SortOrder.UNSORTED);
-        handlePersonAction.setPersonFamilyOrder(SortOrder.ASCENDING);
-        handlePersonAction.setPersonnameFilter("");
-        handlePersonAction.setPersonFamilyFilter("");
-        personPage = 1;
-
-        personList = personService.getAllPersonModel();
-    }
-
-    public void associatePerson() {
-        currentUser.setPerson(selectedPerson);
-        currentUser.setFirstname(selectedPerson.getName());
-        currentUser.setLastname(selectedPerson.getLastName());
-
-        boolean condition = userService.editUser(currentUser);
-        if (condition) {
-            refresh();
-            me.addInfoMessage("operation.occurred");
-        } else {
-            me.addInfoMessage("operation.not.occurred");
-            return;
-        }
 
 
-    }
+
 
     public void doAdd() {
         newUser = new User();
@@ -268,7 +235,6 @@ public class HandleUserAction implements Serializable {
         newUser.setFirstname(firstname);
         newUser.setLastname(lastname);
         newUser.setDeleted("0");
-        newUser.setUserSign(picture);
         newUser.setEnable(enabled == true ? "true" : "false");
         newUser.setStatus("c");
         newUser.setEffectorUser(me.getUsername());
@@ -325,7 +291,6 @@ public class HandleUserAction implements Serializable {
         lastname = currentUser.getLastname();
         username = currentUser.getUsername();
         enabled = currentUser.getEnable().equalsIgnoreCase("true") ? true : false;
-        picture = currentUser.getUserSign();
         List<WorkGroup> sourceWorkgroups = new ArrayList<>();
         List<WorkGroup> targetWorkgroups = new ArrayList<>();
 
@@ -405,11 +370,9 @@ public class HandleUserAction implements Serializable {
         currentUser.setPassword(password);
         currentUser.setEnable(enabled == true ? "true" : "false");
         currentUser.setLastname(lastname);
-        currentUser.setUserSign(picture);
         currentUser.setWorkGroups(handleWorkGroupAction.getSelectWorkGroups());
         currentUser.setEffectorUser(me.getUsername());
-        if (firstname.trim().length() > 0 || lastname.trim().length() > 0)
-            currentUser.setPerson(null);
+
         boolean condition = userService.editUser(currentUser);
         if (condition) {
             handleWorkGroupAction.setSelectWorkGroups(new HashSet<WorkGroup>());
@@ -777,13 +740,7 @@ public class HandleUserAction implements Serializable {
         this.personItem = personItem;
     }
 
-    public Person getSelectedPerson() {
-        return selectedPerson;
-    }
 
-    public void setSelectedPerson(Person selectedPerson) {
-        this.selectedPerson = selectedPerson;
-    }
 
 
     public String getEmail() {
@@ -851,13 +808,6 @@ public class HandleUserAction implements Serializable {
         this.currentPC = currentPC;
     }
 
-    public Person getCurrentPerson() {
-        return currentPerson;
-    }
-
-    public void setCurrentPerson(Person currentPerson) {
-        this.currentPerson = currentPerson;
-    }
 
     public Set<WorkGroup> getSelectedWorkGroup() {
         return selectedWorkGroup;
@@ -1029,13 +979,7 @@ public class HandleUserAction implements Serializable {
         this.userList = userList;
     }
 
-    public List<Person> getPersonList() {
-        return personList;
-    }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
-    }
 
     public boolean isView() {
         return view;

@@ -75,17 +75,6 @@ public class UserDAOImpl extends BaseDAOImpl<User> {
         }
     }
 
-    public List<User> findByPerson(Long personId) {
-        try {
-            return (List<User>) em.createNamedQuery("User.findByPersonId")
-                    .setParameter("id", personId)
-                    .getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public List<User> findByWorkGroup(Long workGroupId) {
         try {
             return (List<User>) em.createNamedQuery("User.findByWorkGroupId")

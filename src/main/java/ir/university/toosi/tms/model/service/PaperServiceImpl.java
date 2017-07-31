@@ -1,7 +1,7 @@
 package ir.university.toosi.tms.model.service;
 
 import ir.university.toosi.tms.model.dao.PaperDAOImpl;
-import ir.university.toosi.tms.model.entity.BLookup;
+import ir.university.toosi.tms.model.entity.Paper;
 import ir.university.toosi.tms.model.entity.EventLogType;
 import ir.university.toosi.tms.model.entity.Paper;
 import ir.university.toosi.tms.util.EventLogManager;
@@ -53,7 +53,7 @@ public class PaperServiceImpl<T extends Paper> {
 
     public List<T> findByName(Paper paper) {
         try {
-            EventLogManager.eventLog(eventLogService, null, BLookup.class.getSimpleName(), EventLogType.SEARCH, paper.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, null, Paper.class.getSimpleName(), EventLogType.SEARCH, paper.getEffectorUser());
             return (List<T>) paperdao.findByName(paper.getName());
         } catch (Exception e) {
             return null;
@@ -82,7 +82,7 @@ public class PaperServiceImpl<T extends Paper> {
     public void deletePaper(T entity) {
         try {
 
-            EventLogManager.eventLog(eventLogService, null, BLookup.class.getSimpleName(), EventLogType.DELETE, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, null, Paper.class.getSimpleName(), EventLogType.DELETE, entity.getEffectorUser());
             paperdao.delete(findById(entity.getId()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +93,7 @@ public class PaperServiceImpl<T extends Paper> {
     public T createPaper(T entity) {
         try {
             T t = (T) paperdao.create(entity);
-            EventLogManager.eventLog(eventLogService, String.valueOf(t.getId()), BLookup.class.getSimpleName(), EventLogType.ADD, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, String.valueOf(t.getId()), Paper.class.getSimpleName(), EventLogType.ADD, entity.getEffectorUser());
             return t;
         } catch (Exception e) {
             return null;
@@ -110,7 +110,7 @@ public class PaperServiceImpl<T extends Paper> {
             paperdao.createOld(newPaper);
 
 
-            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), BLookup.class.getSimpleName(), EventLogType.EDIT, entity.getEffectorUser());
+            EventLogManager.eventLog(eventLogService, String.valueOf(entity.getId()), Paper.class.getSimpleName(), EventLogType.EDIT, entity.getEffectorUser());
             paperdao.update(entity);
             return true;
         } catch (Exception e) {

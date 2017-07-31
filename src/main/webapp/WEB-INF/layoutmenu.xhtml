@@ -10,15 +10,13 @@
             <pm:menu>
                 <p:submenu id="usermanagemen"  label="#{bundle.user_management}"
                            icon="icon-menu">
-                    <p:menuitem id="rm_dashboard" value="Dashboard" icon="icon-dvr"/>
+                    <p:menuitem id="rm_dashboard" value="داشبورد" icon="icon-dvr"/>
 
                     <p:menuitem id="rm_user" value="#{bundle.user}" icon="icon-verified_user"
                                 action="#{handleUserAction.begin}"/>
-                    <p:menuitem id="rm_person" value="#{bundle.person}" icon="icon-person"
-                                action="#{handlePersonAction.begin}"/>
 
-                    <p:menuitem id="rm_car" value="#{bundle.car}" icon="icon-car"
-                                action="#{handleCarAction.begin}"/>
+                    <p:menuitem id="rm_paper" value="#{bundle.paper}" icon="icon-paper"
+                                action="#{handlePaperAction.begin}"/>
                     <p:menuitem id="rm_workgroup" value="#{bundle.workgroup}" icon="icon-group"
                                 action="#{handleWorkGroupAction.begin}"/>
                     <p:menuitem id="rm_role" value="#{bundle.role}" icon="icon-party_mode"
@@ -26,27 +24,16 @@
                     <p:menuitem id="rm_pc" value="#{bundle.pc}" icon="icon-computer"
                                 actionListener="#{handlePCAction.begin}"/>
                 </p:submenu>
-                <p:submenu id="setting" label="setting" icon="icon-menu" >
-                    <p:menuitem id="rm_setting" value="powerSetting" icon="icon-power_settings_new"
+                <p:submenu id="setting" label="تنظیمات" icon="icon-menu" >
+                    <p:menuitem id="rm_setting" value="تنظیمات" icon="icon-power_settings_new"
                                 actionListener="#{handleSettingAction.begin}"/>
-                </p:submenu>
-                <p:submenu id="report" label="#{bundle.report}"
-                           icon="icon-menu">
-                    <p:menuitem id="rm_traffic" value="#{bundle.trafficlog}" icon="icon-traffic"
-                                actionListener="#{handleTrafficAction.begin}"/>
-                    <p:menuitem id="rm_parking" value="#{bundle.parking_log}" icon="icon-traffic"
-                                actionListener="#{handleParkingAction.begin}"/>
-                    <p:menuitem id="rm_traffic_chart" value="#{bundle.chart}" icon="icon-report"
-                                actionListener="#{handleTrafficLogChartAction.begin}"/>
-
 
                 </p:submenu>
                 <p:submenu id="others" label="#{bundle.system_information}"
                          icon="icon-menu">
                     <p:menuitem id="rm_event" value="#{bundle.event}" icon="icon-event"
                                 actionListener="#{handleEventAction.begin}"/>
-                    <p:menuitem id="rm_exception" value="#{bundle.exception}" icon="icon-error"
-                                actionListener="#{handleRuleExceptionAction.begin}"/>
+
                     <p:menuitem id="rm_lookup" value="#{bundle.lookup}" icon="icon-looks_3"
                                 actionListener="#{handleLookupAction.begin}"/>
                     <p:menuitem id="rm_backup" value="#{bundle.backup}" icon="icon-looks_3"

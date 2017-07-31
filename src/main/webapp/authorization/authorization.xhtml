@@ -8,15 +8,15 @@
                 template="/WEB-INF/template.xhtml">
     <ui:define name="content">
         <h:form>
-            <p:contextMenu for="commentTable">
-                <p:menuitem value="#{bundle.accept}" icon="icon-done" actionListener="#{handleCommentAction.accept}"/>
-                <p:menuitem value="#{bundle.refuse}" icon="icon-delete2" actionListener="#{handleCommentAction.refuse}"/>
+            <p:contextMenu for="paperTable">
+                <p:menuitem value="#{bundle.accept}" icon="icon-done" actionListener="#{handlePaperAction.accept}"/>
+                <p:menuitem value="#{bundle.refuse}" icon="icon-delete2" actionListener="#{handlePaperAction.refuse}"/>
             </p:contextMenu>
-            <p:dataTable id="commentTable"
-                         value="#{handleCommentAction.comments}"
-                         var="comment"
-                         rowKey="#{comment.id}"
-                         selection="#{handleCommentAction.currentComment}" selectionMode="single"
+            <p:dataTable id="paperTable"
+                         value="#{handlePaperAction.papers}"
+                         var="paper"
+                         rowKey="#{paper.id}"
+                         selection="#{handlePaperAction.currentPaper}" selectionMode="single"
                          paginator="true" rows="10"
                          paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                          rowsPerPageTemplate="5,10,15" lazy="true"
@@ -24,39 +24,28 @@
                 <f:facet name="header">
                     لیست <p:commandButton id="toggler" type="button" value="#{bundle.columns}" style="float:right"
                                           icon="ui-icon-calculator"/>
-                    <p:columnToggler datasource="commentTable" trigger="toggler"/>
+                    <p:columnToggler datasource="paperTable" trigger="toggler"/>
                 </f:facet>
 
-                <p:column headerText="#{bundle.effector_user}" sortBy="#{comment.effectorUser}"
-                          filterBy="#{comment.effectorUser}">
-                    <h:outputText value="#{comment.effectorUser}"/>
+                <p:column headerText="#{bundle.effector_user}" sortBy="#{paper.effectorUser}"
+                          filterBy="#{paper.effectorUser}">
+                    <h:outputText value="#{paper.effectorUser}"/>
                 </p:column>
-                <p:column headerText="#{bundle.message}" sortBy="#{comment.message}" filterBy="#{comment.message}">
-                    <h:outputText value="#{comment.message}"/>
+                <p:column headerText="#{bundle.name}" sortBy="#{paper.name}" filterBy="#{paper.name}">
+                    <h:outputText value="#{paper.name}"/>
 
-                </p:column>
-                <p:column headerText="#{bundle.name}">
-                    <h:outputText value="#{comment.trafficLog.person.name}"/>
-                    &#160;&#160;
-                    <h:outputText value="#{comment.trafficLog.person.lastName}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.time}"/>
-                    </f:facet>
-                    <h:outputText value="#{comment.trafficLog.time}"/>
-                </p:column>
+
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.operation}"/>
                     </f:facet>
-                    <h:commandButton value="#{bundle.approved}" action="#{handleCommentAction.accept}"/>
-                    <h:commandButton value="#{bundle.decline}" action="#{handleCommentAction.refuse}"/>
+                    <h:commandButton value="#{bundle.approved}" action="#{handlePaperAction.accept}"/>
+                    <h:commandButton value="#{bundle.decline}" action="#{handlePaperAction.refuse}"/>
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:dataScroller limitRender="true" execute="@this" update="commentTable"
-                                    page="#{handleCommentAction.page}"/>
+                    <p:dataScroller limitRender="true" execute="@this" update="paperTable"
+                                    page="#{handlePaperAction.page}"/>
                 </f:facet>
 
             </p:dataTable>
